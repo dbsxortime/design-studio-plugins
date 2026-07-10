@@ -1,0 +1,4 @@
+.btn { background: #ff0000; border-radius: 3px; }
+.card { background: #0046FF; border-radius: 10px; font-family: 'Comic Sans MS'; }
+.shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.overlay { background: rgba(0, 70, 255, 1); }

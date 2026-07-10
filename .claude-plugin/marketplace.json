@@ -1,0 +1,17 @@
+{
+  "name": "design-studio-plugins",
+  "owner": { "name": "Park Yun Taek" },
+  "allowCrossMarketplaceDependenciesOn": ["claude-plugins-official"],
+  "plugins": [
+    {
+      "name": "design-studio",
+      "source": "./design-studio",
+      "description": "Design System Studio — 토큰 조합기·모션 랩 142카드. 로컬 스튜디오(:28572)와 모션 CLI 제공"
+    },
+    {
+      "name": "design-check",
+      "source": "./design-check",
+      "description": "tokens.json 기준으로 사이트·코드를 점검하고 위반을 일괄 수정"
+    }
+  ]
+}
