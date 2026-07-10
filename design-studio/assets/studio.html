@@ -76,7 +76,7 @@
   .tag-user{background:#e8f1ff;color:#0058b8}
 
   /* mockup preview inside card */
-  .mock{padding:16px;border-top:1px dashed var(--line);background:var(--bg)}
+  .mock{padding:16px;border-top:1px dashed var(--line);background:var(--bg);margin-top:auto}
   .mock-btns{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
   .mk-btn{font-family:var(--sans);cursor:default;font-weight:600}
   .mk-btn.ghost{background:transparent}
@@ -84,14 +84,14 @@
   .mk-card{background:#fff;padding:14px;margin-top:12px}
   .mk-card h5{margin:0 0 4px;font-size:13px}
   .mk-card p{margin:0;font-size:11.5px;color:var(--muted)}
-  .card-actions{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line);margin-top:auto}
+  .card-actions{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line)}
 
   /* builder layout */
-  .builder{display:grid;grid-template-columns:300px 1fr 340px;gap:0;min-height:calc(100vh - 120px)}
+  .builder{display:grid;grid-template-columns:300px 1fr 340px;gap:0;min-height:calc(100vh - 58px)}
   .panel-l,.panel-r{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;
-    max-height:calc(100vh - 120px);position:sticky;top:120px}
+    max-height:calc(100vh - 58px);position:sticky;top:58px}
   .panel-r{border-right:none;border-left:1px solid var(--line)}
-  .panel-c{overflow-y:auto;max-height:calc(100vh - 120px);padding:24px}
+  .panel-c{overflow-y:auto;max-height:calc(100vh - 58px);padding:24px}
   .sec{padding:16px;border-bottom:1px solid var(--line)}
   .sec h4{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:12px}
   .src-row{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;font-size:12.5px}
@@ -435,19 +435,6 @@
 </div>
 
 <div id="view-builder" class="hidden">
-  <div class="wrap">
-    <div class="motion-hero" style="padding-bottom:16px">
-      <div>
-        <h2 class="mh-title">Token <span>Builder</span></h2>
-        <p class="mh-sub">항목별로 다른 시스템의 토큰을 골라 나만의 시스템으로 — 우측에서 CSS·JS·Tailwind로 내보내기</p>
-      </div>
-      <div class="mh-stack">
-        <span class="stackpill s-gsap">항목별 출처 믹스</span>
-        <span class="stackpill s-motion">라이브 미리보기</span>
-        <span class="stackpill s-lenis">3형식 내보내기</span>
-      </div>
-    </div>
-  </div>
   <div class="builder">
     <!-- LEFT: sources -->
     <div class="panel-l">
@@ -1886,7 +1873,7 @@ function render(){
     if(variant==='primary')return S({...common,background:c.primary,color:c.onPrimary,'border-width':b.borderWidth+'px','border-color':c.primary});
     if(variant==='secondary')return S({...common,background:c.surface,color:c.onSurface,'border-width':(b.borderWidth||1)+'px','border-color':c.border});
     if(variant==='ghost')return S({...common,background:'transparent',color:c.primary,'border-width':'0px'});
-    if(variant==='danger')return S({...common,background:c.danger,color:'#fff','border-width':'0px'});
+    if(variant==='danger')return S({...common,background:c.danger,color:readableOn(c.danger),'border-width':'0px'});
   };
   const inputStyle=(focused)=>{const i=cm.input;const bs={padding:`${i.padV}px ${i.padH}px`,'border-radius':i.radius+'px','font-size':i.fontSize+'px','font-family':FONT,background:c.surface,color:c.onSurface,width:'100%',outline:'none','border-style':'solid'};
     if(!focused) return S({...bs,'border-width':i.borderWidth+'px','border-color':c.border});
@@ -1932,17 +1919,17 @@ function render(){
     const v=bd.variant;
     if(v==='outline') return S({padding:`${bd.padV}px ${bd.padH}px`,'border-radius':bd.radius+'px',background:'transparent',color:accent,border:`1px solid ${accent}`,'font-size':bd.fontSize+'px','font-weight':bd.fontWeight,'font-family':FONT,display:'inline-block'});
     if(v==='subtle')  return S({padding:`${bd.padV}px ${bd.padH}px`,'border-radius':bd.radius+'px',background:subtleBg(accent),color:subtleFg(accent),'font-size':bd.fontSize+'px','font-weight':bd.fontWeight,'font-family':FONT,display:'inline-block'});
-    return S({padding:`${bd.padV}px ${bd.padH}px`,'border-radius':bd.radius+'px',background:accent,color:fg||'#fff','font-size':bd.fontSize+'px','font-weight':bd.fontWeight,'font-family':FONT,display:'inline-block'});
+    return S({padding:`${bd.padV}px ${bd.padH}px`,'border-radius':bd.radius+'px',background:accent,color:fg||readableOn(accent),'font-size':bd.fontSize+'px','font-weight':bd.fontWeight,'font-family':FONT,display:'inline-block'});
   };
   const badgeS=(bg,fg)=>badgeVar(bg,fg); // back-compat alias used elsewhere (badge solid used in table)
   const ch=cm.chip;
-  const chipS=S({padding:`${ch.padV}px ${ch.padH}px`,'border-radius':ch.radius+'px',background:ch.variant==='subtle'?tint(c.primary,.10):c.bg,color:c.onSurface,border:`${ch.variant==='outline'?1:(ch.variant==='subtle'?0:ch.borderWidth)}px solid ${c.border}`,'font-size':ch.fontSize+'px','font-family':FONT,'display':'inline-flex','align-items':'center','gap':'6px'});
+  const chipS=S({padding:`${ch.padV}px ${ch.padH}px`,'border-radius':ch.radius+'px',background:ch.variant==='subtle'?subtleBg(c.primary):c.bg,color:ch.variant==='subtle'?subtleFg(c.primary):c.onSurface,border:`${ch.variant==='outline'?1:(ch.variant==='subtle'?0:ch.borderWidth)}px solid ${c.border}`,'font-size':ch.fontSize+'px','font-family':FONT,'display':'inline-flex','align-items':'center','gap':'6px'});
   html+=`<div style="font-size:12px;color:${c.muted};font-family:${FONT};margin:-4px 0 8px">variant: <b style="color:var(--pv-primary)">${bd.variant}</b> — ${bd.variant==='solid'?'채운 배경':bd.variant==='subtle'?'연한 틴트 배경':'테두리만'}</div>
   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
     <span style="${badgeVar(c.primary,c.onPrimary)}">Primary</span>
-    <span style="${badgeVar(c.success,'#fff')}">Success</span>
-    <span style="${badgeVar(c.danger,'#fff')}">Danger</span>
-    <span style="${badgeVar(c.muted,'#fff')}">Neutral</span>
+    <span style="${badgeVar(c.success)}">Success</span>
+    <span style="${badgeVar(c.danger)}">Danger</span>
+    <span style="${badgeVar(c.muted)}">Neutral</span>
     <span style="${chipS}">Chip <span style="color:${c.muted}">✕</span></span>
     <span style="${chipS}">Tag</span>
   </div>`;
@@ -2017,7 +2004,7 @@ function render(){
   const to=cm.toast;
   let toastBox, toActionColor;
   if(to.style==='solid'){
-    toastBox=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:tint(c.onSurface,.05),color:c.surface,'box-shadow':to.shadow}); toActionColor=tint(c.primary,.4);
+    toastBox=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:tint(c.onSurface,.05),color:readableOn(tint(c.onSurface,.05)),'box-shadow':to.shadow}); toActionColor=ensureContrast(tint(c.primary,.4),tint(c.onSurface,.05),4.5);
   } else if(to.style==='accent'){
     toastBox=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:c.surface,color:c.onSurface,'border-left':`4px solid ${c.primary}`,border:`1px solid ${c.border}`,'border-left':`4px solid ${c.primary}`,'box-shadow':to.shadow}); toActionColor=c.primaryText;
   } else { // surface
@@ -2071,7 +2058,7 @@ function render(){
     <table style="width:100%;border-collapse:collapse">
       <thead><tr><th style="${th}">이름</th><th style="${th}">상태</th><th style="${th}">가입일</th></tr></thead>
       <tbody>
-        <tr><td style="${td}">박윤택</td><td style="${td}"><span style="${badgeS(c.success,'#fff')}">활성</span></td><td style="${td}">2026-01-12</td></tr>
+        <tr><td style="${td}">박윤택</td><td style="${td}"><span style="${badgeS(c.success)}">활성</span></td><td style="${td}">2026-01-12</td></tr>
         <tr><td style="${td}">이든</td><td style="${td}"><span style="${badgeS(c.bg,c.muted)}">대기</span></td><td style="${td}">2026-02-03</td></tr>
       </tbody>
     </table>
@@ -2219,6 +2206,8 @@ function buildMockup(cfg){
   const t={fontSize:cfg.fontSize,fontWeight:cfg.fontWeight};
   const S=o=>mkStyle(o);
   const sp=cfg.spacing, rad=cfg.radius;
+  // spacing 토큰 → 목업 레이아웃 리듬 (spacing 출처 변경이 미리보기에 보이도록)
+  const gapM=sp.md||16, gapS=Math.max(8,Math.round(gapM*0.75));
 
   // shared component style builders (mirror catalog styles)
   const btn=(variant,sz)=>{
@@ -2227,14 +2216,14 @@ function buildMockup(cfg){
     if(variant==='primary')return S({...base,background:c.primary,color:c.onPrimary,'border-width':b.borderWidth+'px','border-color':c.primary});
     if(variant==='secondary')return S({...base,background:c.surface,color:c.onSurface,'border-width':(b.borderWidth||1)+'px','border-color':c.border});
     if(variant==='ghost')return S({...base,background:'transparent',color:c.primary,'border-width':'0px'});
-    return S({...base,background:c.danger,color:'#fff','border-width':'0px'});
+    return S({...base,background:c.danger,color:readableOn(c.danger),'border-width':'0px'});
   };
   const badge=(accent,fg)=>{
     const bd=cm.badge, v=bd.variant;
     const common={padding:`${bd.padV}px ${bd.padH}px`,'border-radius':bd.radius+'px','font-size':bd.fontSize+'px','font-weight':bd.fontWeight,'font-family':FONT,display:'inline-block'};
-    if(v==='outline')return S({...common,background:'transparent',color:accent,border:`1px solid ${accent}`});
+    if(v==='outline')return S({...common,background:'transparent',color:ensureContrast(accent,c.surface,3.0),border:`1px solid ${accent}`});
     if(v==='subtle')return S({...common,background:subtleBg(accent),color:subtleFg(accent)});
-    return S({...common,background:accent,color:fg||'#fff'});
+    return S({...common,background:accent,color:fg||readableOn(accent)});
   };
   const inp=(w)=>{const i=cm.input;return S({padding:`${i.padV}px ${i.padH}px`,'border-radius':i.radius+'px',border:`${i.borderWidth}px solid ${c.border}`,'font-size':i.fontSize+'px','font-family':FONT,background:c.surface,color:c.onSurface,width:w||'100%',outline:'none'});};
   const av=(txt,size)=>{const a=cm.avatar,s=size||a.size;return `<span style="${S({width:s+'px',height:s+'px','border-radius':a.radius+'px',background:c.primary,color:c.onPrimary,display:'inline-flex','align-items':'center','justify-content':'center','font-family':FONT,'font-weight':600,'font-size':(s*0.4)+'px',flex:'0 0 auto'})}">${txt}</span>`;};
@@ -2251,6 +2240,16 @@ function buildMockup(cfg){
   const cb=cm.checkbox;
   const checkOn=`<span style="${S({width:cb.size+'px',height:cb.size+'px','border-radius':cb.radius+'px',border:`${cb.borderWidth}px solid ${c.primary}`,background:c.primary,display:'inline-flex','align-items':'center','justify-content':'center',color:c.onPrimary,'font-size':'12px',flex:'0 0 auto'})}">✓</span>`;
   const checkOff=`<span style="${S({width:cb.size+'px',height:cb.size+'px','border-radius':cb.radius+'px',border:`${cb.borderWidth}px solid ${c.border}`,background:c.surface,display:'inline-block',flex:'0 0 auto'})}"></span>`;
+  // radio (catalog와 동일 스타일)
+  const rd=cm.radio;
+  const radioOn=`<span style="${S({width:rd.size+'px',height:rd.size+'px','border-radius':'999px',border:`${Math.max(4,rd.size/3)}px solid ${c.primary}`,background:c.surface,display:'inline-block','box-sizing':'border-box',flex:'0 0 auto'})}"></span>`;
+  const radioOff=`<span style="${S({width:rd.size+'px',height:rd.size+'px','border-radius':'999px',border:`${rd.borderWidth}px solid ${c.border}`,background:c.surface,display:'inline-block','box-sizing':'border-box',flex:'0 0 auto'})}"></span>`;
+  // slider
+  const sl=cm.slider;
+  const slider=(pct)=>`<div style="height:${sl.trackH}px;background:${c.border};border-radius:${sl.radius}px;position:relative;margin:${Math.ceil((sl.thumb-sl.trackH)/2)}px 0"><div style="position:absolute;left:0;top:0;height:${sl.trackH}px;width:${pct}%;background:${c.primary};border-radius:${sl.radius}px"></div><div style="position:absolute;left:calc(${pct}% - ${sl.thumb/2}px);top:${(sl.trackH-sl.thumb)/2}px;width:${sl.thumb}px;height:${sl.thumb}px;border-radius:999px;background:#fff;border:2px solid ${c.primary};box-shadow:0 1px 3px rgba(0,0,0,.2);box-sizing:border-box"></div></div>`;
+  // spinner
+  const spn=cm.spinner;
+  const spinner=`<span style="display:inline-block;width:${spn.size}px;height:${spn.size}px;border:${spn.stroke}px solid ${c.border};border-top-color:${c.primary};border-radius:999px;animation:spin 0.7s linear infinite;flex:0 0 auto;box-sizing:border-box"></span>`;
 
   // alert (honors style)
   const al=cm.alert; const alIcons={info:'ⓘ',success:'✓',danger:'✕'};
@@ -2273,7 +2272,7 @@ function buildMockup(cfg){
     return items.map((x,i)=>{
       const on=i===activeIdx;
       if(tabc.style==='pill'){
-        return `<span style="${S({padding:`${tabc.padV}px ${tabc.padH}px`,'font-size':tabc.fontSize+'px','font-weight':tabc.fontWeight,'font-family':FONT,'border-radius':'999px',cursor:'pointer',color:on?tint(c.primary,-.2):c.muted,background:on?tint(c.primary,.85):'transparent'})}">${x}</span>`;
+        return `<span style="${S({padding:`${tabc.padV}px ${tabc.padH}px`,'font-size':tabc.fontSize+'px','font-weight':tabc.fontWeight,'font-family':FONT,'border-radius':'999px',cursor:'pointer',color:on?ensureContrast(c.primary,tint(c.primary,.85),4.5):c.muted,background:on?tint(c.primary,.85):'transparent'})}">${x}</span>`;
       } else if(tabc.style==='enclosed'){
         return `<span style="${S({padding:`${tabc.padV}px ${tabc.padH}px`,'font-size':tabc.fontSize+'px','font-weight':tabc.fontWeight,'font-family':FONT,cursor:'pointer',color:on?c.onSurface:c.muted,background:on?c.surface:c.bg,border:on?`1px solid ${c.border}`:'1px solid transparent','border-bottom':on?`1px solid ${c.surface}`:'none','border-radius':`${tabc.radius}px ${tabc.radius}px 0 0`,position:'relative',top:on?'1px':'0'})}">${x}</span>`;
       }
@@ -2305,7 +2304,7 @@ function buildMockup(cfg){
 
   // ---- assemble the dashboard ----
   host.innerHTML=`
-  <div class="mk-shell" style="--pv-bg:${c.bg};--pv-surface:${c.surface};--pv-border:${c.border}">
+  <div class="mk-shell" style="--pv-bg:${c.bg};--pv-surface:${c.surface};--pv-border:${c.border};border-radius:${rad.lg!=null?rad.lg:16}px">
     <div class="mk-app">
       <!-- SIDEBAR -->
       <aside class="mk-side">
@@ -2336,9 +2335,9 @@ function buildMockup(cfg){
         </div>
 
         <!-- content scroll -->
-        <div style="padding:${cfg.containerPadding}px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;flex:1;background:${c.bg}">
+        <div style="padding:${cfg.containerPadding}px;overflow-y:auto;display:flex;flex-direction:column;gap:${gapM}px;flex:1;background:${c.bg}">
           <!-- header row -->
-          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:${gapS}px;flex-wrap:wrap">
             <div>
               <h2 style="margin:0;font-family:${FONTD};font-size:${t.fontSize.xl}px;font-weight:${t.fontWeight.bold};color:${c.onSurface}">대시보드</h2>
               <p style="margin:2px 0 0;font-family:${FONT};font-size:${t.fontSize.sm}px;color:${c.muted}">이번 달 팀 활동 요약</p>
@@ -2353,7 +2352,7 @@ function buildMockup(cfg){
           ${alert(c.primary,'info','새 기능이 추가되었습니다.','실시간 협업이 이제 모든 플랜에서 지원됩니다.')}
 
           <!-- stat cards -->
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:${gapS}px">
             ${statCard('활성 사용자','2,847','12%',true)}
             ${statCard('전환율','3.6%','0.4%',true)}
             ${statCard('이탈률','1.2%','0.3%',false)}
@@ -2380,23 +2379,30 @@ function buildMockup(cfg){
           `)}
 
           <!-- two-column: form card + activity/dropdown -->
-          <div style="display:grid;grid-template-columns:1fr 260px;gap:16px" class="mk-lower">
+          <div style="display:grid;grid-template-columns:1fr 260px;gap:${gapM}px" class="mk-lower">
             ${card(`
               <h4 style="margin:0 0 12px;font-family:${FONTD};font-size:15px;font-weight:${t.fontWeight.bold};color:${c.onSurface}">빠른 설정</h4>
-              <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;flex-direction:column;gap:${gapS}px">
                 <div><label style="display:block;font-family:${FONT};font-size:12px;font-weight:600;color:${c.onSurface};margin-bottom:6px">프로젝트 이름</label><input style="${inp()}" value="JOURE v2" readonly></div>
                 <div><label style="display:block;font-family:${FONT};font-size:12px;font-weight:600;color:${c.onSurface};margin-bottom:6px">공개 범위</label><div style="position:relative"><select style="${S({padding:`${cm.select.padV}px ${cm.select.padH}px`,'border-radius':cm.select.radius+'px',border:`${cm.select.borderWidth}px solid ${c.border}`,'font-size':cm.select.fontSize+'px','font-family':FONT,background:c.surface,color:c.onSurface,width:'100%',outline:'none',appearance:'none'})}"><option>팀 전체</option><option>비공개</option></select></div></div>
                 <label style="display:flex;align-items:center;gap:10px;font-family:${FONT};font-size:14px;color:${c.onSurface};cursor:pointer">${switchOn} 실시간 알림 받기</label>
                 <label style="display:flex;align-items:center;gap:10px;font-family:${FONT};font-size:14px;color:${c.onSurface};cursor:pointer">${switchOff} 주간 리포트 이메일</label>
                 <label style="display:flex;align-items:center;gap:10px;font-family:${FONT};font-size:14px;color:${c.onSurface};cursor:pointer">${checkOn} 이용약관에 동의합니다</label>
+                <div><label style="display:block;font-family:${FONT};font-size:12px;font-weight:600;color:${c.onSurface};margin-bottom:6px">배포 채널</label>
+                  <div style="display:flex;gap:16px;flex-wrap:wrap">
+                    <label style="display:flex;align-items:center;gap:8px;font-family:${FONT};font-size:14px;color:${c.onSurface};cursor:pointer">${radioOn} 안정 버전</label>
+                    <label style="display:flex;align-items:center;gap:8px;font-family:${FONT};font-size:14px;color:${c.onSurface};cursor:pointer">${radioOff} 베타</label>
+                  </div></div>
+                <div><label style="display:flex;justify-content:space-between;font-family:${FONT};font-size:12px;font-weight:600;color:${c.onSurface};margin-bottom:6px">알림 볼륨 <span style="font-weight:400;color:${c.muted}">60%</span></label>${slider(60)}</div>
                 <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
                   <button style="${btn('ghost','sm')}">취소</button>
                   <button style="${btn('primary','sm')}">저장</button>
                 </div>
               </div>
             `)}
-            <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:${gapS}px">
               ${card(`<div style="font-family:${FONT}"><div style="font-size:12px;font-weight:700;color:${c.muted};margin-bottom:10px">계정 메뉴</div>${dropdown.replace('min-width:160px','min-width:100%')}</div>`)}
+              ${card(`<div style="display:flex;align-items:center;gap:10px;font-family:${FONT};font-size:13px;color:${c.muted}">${spinner} 백업 동기화 중…</div>`)}
               ${alert(c.danger,'danger','저장공간 부족','설정에서 플랜을 업그레이드하세요.')}
             </div>
           </div>
@@ -2404,7 +2410,7 @@ function buildMockup(cfg){
 
         <!-- toast (floating bottom-right) -->
         <div style="position:relative">
-          <div style="position:absolute;right:16px;bottom:16px">${(function(){const to=cm.toast;let box,ac;if(to.style==='solid'){box=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:tint(c.onSurface,.05),color:c.surface,'box-shadow':to.shadow});ac=tint(c.primary,.4);}else if(to.style==='accent'){box=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:c.surface,color:c.onSurface,'border-left':`4px solid ${c.primary}`,border:`1px solid ${c.border}`,'border-left':`4px solid ${c.primary}`,'box-shadow':to.shadow});ac=c.primaryText;}else{box=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:c.surface,color:c.onSurface,border:`1px solid ${c.border}`,'box-shadow':to.shadow});ac=c.primaryText;}return `<div style="${box};font-family:${FONT};font-size:${t.fontSize.sm}px;display:inline-flex;align-items:center;gap:16px"><span>프로젝트가 저장되었습니다.</span><span style="color:${ac};font-weight:700;cursor:pointer">실행취소</span></div>`;})()}</div>
+          <div style="position:absolute;right:16px;bottom:16px">${(function(){const to=cm.toast;let box,ac;if(to.style==='solid'){box=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:tint(c.onSurface,.05),color:readableOn(tint(c.onSurface,.05)),'box-shadow':to.shadow});ac=ensureContrast(tint(c.primary,.4),tint(c.onSurface,.05),4.5);}else if(to.style==='accent'){box=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:c.surface,color:c.onSurface,'border-left':`4px solid ${c.primary}`,border:`1px solid ${c.border}`,'border-left':`4px solid ${c.primary}`,'box-shadow':to.shadow});ac=c.primaryText;}else{box=S({padding:`${to.padV}px ${to.padH}px`,'border-radius':to.radius+'px',background:c.surface,color:c.onSurface,border:`1px solid ${c.border}`,'box-shadow':to.shadow});ac=c.primaryText;}return `<div style="${box};font-family:${FONT};font-size:${t.fontSize.sm}px;display:inline-flex;align-items:center;gap:16px"><span>프로젝트가 저장되었습니다.</span><span style="color:${ac};font-weight:700;cursor:pointer">실행취소</span></div>`;})()}</div>
         </div>
       </div>
     </div>
