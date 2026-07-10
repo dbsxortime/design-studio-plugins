@@ -1055,7 +1055,7 @@ const SYSTEMS = {
       containerPadding: 24,
       gridCols: 12,
       gridGutter: 16,
-      font: { body: "'Regola','Pretendard','Noto Sans KR',system-ui,sans-serif", display: "'Society',Georgia,'Noto Serif KR',serif" },
+      font: { body: "'Regola','Roboto','Pretendard','Noto Sans KR',system-ui,sans-serif", display: "'Society',Georgia,'Noto Serif KR',serif" },
       fontSize: { xs: 12, sm: 15, base: 16, lg: 20, xl: 28, "2xl": 34, "3xl": 42 },
       fontWeight: { normal: 400, medium: 500, bold: 700 },
       lineHeight: 1.45,
@@ -1570,8 +1570,14 @@ const keys = Object.keys(SYSTEMS);
 
 /* fonts that can't load from CDN -> preview uses a close substitute */
 const FONT_SUBSTITUTE = {
-  fluent2:['Segoe UI','Inter'], spectrum:['Adobe Clean','Inter'], base:['Uber Move','Inter'],
-  apple:['SF Pro','Inter (비Apple 기기)'], toss:['Toss Product Sans','Pretendard'], woowa:['BM Dohyeon','Do Hyeon'], tinder:['Regola·Society(사유)','Pretendard/Georgia']
+  /* [원본 폰트, 미리보기 대체, 사유(있으면 ⓘ 툴팁으로 표시)] */
+  fluent2:['Segoe UI','Inter','Segoe UI는 Windows 번들 폰트로 라이선스상 웹 임베드 불가 — 미리보기는 Inter로 대체'],
+  spectrum:['Adobe Clean','Inter','Adobe Clean은 Adobe 제품 전용 라이선스로 재배포 불가 — 미리보기는 Inter로 대체'],
+  base:['Uber Move','Inter','Uber Move는 사유 폰트로 라이선스상 사용 불가 — 미리보기는 Inter로 대체'],
+  apple:['SF Pro','Inter','SF Pro는 Apple 플랫폼 전용 라이선스로 웹 임베드 불가 — 비Apple 기기는 Inter로 대체'],
+  toss:['Toss Product Sans','Pretendard','Toss Product Sans는 사유 폰트로 라이선스상 사용 불가 — 미리보기는 Pretendard로 대체'],
+  woowa:['BM Dohyeon','Do Hyeon'],
+  tinder:['Regola·Society','Roboto/Georgia','Regola·Society는 Tinder 사유 폰트로 라이선스상 임베드·재배포 불가 — 미리보기는 Roboto(본문)/Georgia(디스플레이)로 대체']
 };
 
 /* precompute full component sets per system */
@@ -1683,7 +1689,7 @@ function renderGallery(){
         <span class="pill">radius ${t.radius.md}px</span>
         <span class="pill">max ${t.maxWidth}px</span>
         <span class="pill">${fname(t.font.body)}</span>
-        ${FONT_SUBSTITUTE[k]?`<span class="pill" style="background:#fff7ed;border-color:#fed7aa;color:#c2410c" title="원본 폰트는 웹 배포가 없어 미리보기는 ${FONT_SUBSTITUTE[k][1]}(으)로 대체됩니다">≈ ${FONT_SUBSTITUTE[k][1].split(' ')[0]} 대체</span>`:''}
+        ${FONT_SUBSTITUTE[k]?`<span class="pill" style="background:#fff7ed;border-color:#fed7aa;color:#c2410c" title="${FONT_SUBSTITUTE[k][2]||`원본 폰트는 웹 배포가 없어 미리보기는 ${FONT_SUBSTITUTE[k][1]}(으)로 대체됩니다`}">≈ ${FONT_SUBSTITUTE[k][1].split('/')[0].split(' ')[0]} 대체${FONT_SUBSTITUTE[k][2]?`<span class="pv-info sm" style="margin-left:4px">ⓘ<span class="pv-info-tip">${FONT_SUBSTITUTE[k][2]}</span></span>`:''}</span>`:''}
       </div>
       <div class="mock" style="--f:${t.font.body}">
         <div class="mock-btns">
