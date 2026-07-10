@@ -1,6 +1,12 @@
 {
   "name": "design-check",
-  "version": "1.0.0",
-  "description": "디자인 토큰 기준 점검·적용. /design-tokens init(기준 확보 3경로), /design-check(정적+실측 감사), /design-apply(승인 게이트 일괄 수정).",
-  "dependencies": ["design-studio", { "name": "playwright", "marketplace": "claude-plugins-official" }]
+  "version": "1.1.0",
+  "description": "디자인 토큰 기준 점검·적용. /design-tokens(기준 확보 5경로), /design-inject(기준을 코드로 생성·심기), /design-check(정적+실측 감사), /design-apply(승인 게이트 일괄 수정).",
+  "dependencies": [
+    "design-studio",
+    {
+      "name": "playwright",
+      "marketplace": "claude-plugins-official"
+    }
+  ]
 }

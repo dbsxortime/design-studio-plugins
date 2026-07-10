@@ -3,23 +3,33 @@
 프로젝트 디자인 기준(`.design/tokens.json`)을 잡고, 로컬 스튜디오로 다듬고,
 사이트/코드가 그 기준을 지키는지 점검·수정하는 Claude Code 플러그인 묶음.
 
+**설치 없이 둘러보기**: 스튜디오 웹 버전 → https://design.jobslab.dev
+
 ## 설치
 
 ```
-claude plugin marketplace add <owner>/design-studio-plugins
+claude plugin marketplace add dbsxortime/design-studio-plugins
 claude plugin install design-check@design-studio-plugins
 ```
 
 `design-check`는 `design-studio`(같은 마켓플레이스)와 `playwright`(공식 마켓플레이스)에
 의존한다 — 위 두 줄만 실행하면 두 의존성이 자동 설치된다.
 
-## 스킬 5종
+## 어디서부터?
+
+- **신규 프로젝트**: `/design-tokens`(온보딩 3~4질문) → `/studio`(시각 다듬기) →
+  `/design-inject`(코드로 심기)
+- **기존 프로젝트**: `/design-tokens`(코드에서 기준 추출) → `/design-check`(점검) →
+  `/design-apply`(승인 후 일괄 수정)
+
+## 스킬 6종
 
 | 스킬 | 플러그인 | 역할 |
 |---|---|---|
 | `/studio` | design-studio | 로컬 스튜디오(`:28572`)를 열어 토큰 조합기·모션 랩 142카드를 시각 편집 |
 | `/motion` | design-studio | 모션 갤러리 조회·검색·코드 추출, 적용 시 사용 이력 기록 |
 | `/design-tokens` | design-check | 기준 토큰(`.design/tokens.json`) 확보 — 기존 시스템 변환 / 페이지 실측 / 외부 사이트 카피 / 스크린샷 추정 / 채팅 온보딩 |
+| `/design-inject` | design-check | 확정 기준을 CSS 변수/Tailwind `@theme`로 **생성해** 프로젝트에 심기 — 값 손타이핑 금지(`tokens-to-code.mjs`가 결정적 생성, 에이전트는 배선만) |
 | `/design-check` | design-check | 기준 대비 정적 점검(코드) + 실측 점검(playwright, URL 있을 때) |
 | `/design-apply` | design-check | 점검 리포트의 위반을 승인 게이트 거쳐 일괄 수정 (`/design-check` 이후에만) |
 

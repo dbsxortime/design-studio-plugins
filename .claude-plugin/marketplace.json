@@ -1,7 +1,11 @@
 {
   "name": "design-studio-plugins",
-  "owner": { "name": "Park Yun Taek" },
-  "allowCrossMarketplaceDependenciesOn": ["claude-plugins-official"],
+  "owner": {
+    "name": "Park Yun Taek"
+  },
+  "allowCrossMarketplaceDependenciesOn": [
+    "claude-plugins-official"
+  ],
   "plugins": [
     {
       "name": "design-studio",
@@ -11,7 +15,7 @@
     {
       "name": "design-check",
       "source": "./design-check",
-      "description": "tokens.json 기준으로 사이트·코드를 점검하고 위반을 일괄 수정"
+      "description": "tokens.json 기준으로 사이트·코드를 점검·일괄 수정하고, 확정 기준을 코드로 생성해 심기(/design-inject)"
     }
   ]
 }
