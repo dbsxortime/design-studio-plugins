@@ -45,6 +45,21 @@ test('toMono — url() 참조도 단색화', () => {
   assert.ok(out.includes('fill="#222222"'));
 });
 
+test('toMono — <style> 블록 내부 fill/stroke도 단색화', () => {
+  const svg = '<svg><style>.a{fill:#ff0000;stroke:blue}</style><rect class="a"/></svg>';
+  const out = toMono(svg, '#111111');
+  assert.ok(!out.includes('#ff0000') && !out.includes('blue'));
+  assert.ok(out.includes('#111111'));
+});
+
+test('toMono — 작은따옴표 속성도 단색화, none 유지', () => {
+  const svg = "<svg><rect fill='#ff0000' stroke='none'/></svg>";
+  const out = toMono(svg, '#111111');
+  assert.ok(!out.includes('#ff0000'));
+  assert.ok(out.includes("fill='#111111'"));
+  assert.ok(out.includes("stroke='none'"));
+});
+
 test('maskableWrap — 중앙 80% 배치(x=y=10%)', () => {
   const out = maskableWrap('<svg viewBox="0 0 100 100"><circle r="50"/></svg>', 512, '#ffffff');
   assert.ok(out.includes('width="512"'));

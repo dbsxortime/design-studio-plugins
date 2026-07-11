@@ -19,14 +19,17 @@ export function nextPhase(cur) {
   return PHASES[i + 1];
 }
 
-/* fill/stroke 색 값 전부를 단색화. none·transparent는 유지, url() 참조는 제거하고 단색 대입 */
+/* fill/stroke 색 값 전부를 단색화. none·transparent는 유지, url() 참조는 제거하고 단색 대입.
+   속성(큰따옴표/작은따옴표) + 인라인 style + <style> 블록 CSS 선언까지 커버(로고 SVG는 AI 생성이라 형식 통제 불가) */
 export function toMono(svgText, color) {
   const KEEP = new Set(['none', 'transparent']);
   const monoVal = (val) => KEEP.has(val.trim().toLowerCase()) ? val : color;
+  const monoCssProps = (css) =>
+    css.replace(/(fill|stroke)(\s*:\s*)([^;}"']+)/gi, (m, prop, eq, val) => `${prop}${eq}${monoVal(val)}`);
   return svgText
-    .replace(/(fill|stroke)(\s*=\s*)"([^"]*)"/gi, (m, attr, eq, val) => `${attr}${eq}"${monoVal(val)}"`)
-    .replace(/style="([^"]*)"/gi, (m, style) =>
-      `style="${style.replace(/(fill|stroke)(\s*:\s*)([^;"]+)/gi, (mm, prop, eq, val) => `${prop}${eq}${monoVal(val)}`)}"`);
+    .replace(/(fill|stroke)(\s*=\s*)(["'])([^"']*)\3/gi, (m, attr, eq, q, val) => `${attr}${eq}${q}${monoVal(val)}${q}`)
+    .replace(/style=(["'])([^"']*)\1/gi, (m, q, style) => `style=${q}${monoCssProps(style)}${q}`)
+    .replace(/(<style[^>]*>)([\s\S]*?)(<\/style>)/gi, (m, open, css, close) => `${open}${monoCssProps(css)}${close}`);
 }
 
 /* 배경 사각(bg) 위 중앙 80% 안전영역에 원본을 축소 배치한 새 SVG (maskable icon) */
