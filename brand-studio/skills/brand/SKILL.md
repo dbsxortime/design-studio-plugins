@@ -110,11 +110,13 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 
 **먼저 Read**: `<brand-studio-root>/references/detail-pack.md` (9항목 = 마커 CSS 7종 + reduced-motion 폴백 + 로고 모션 프리셋 4종; **CSS 정본**).
 
-**진행 — "빼기만"**: 디테일 9항목은 **기본 전부 포함**으로 제시하고, 사용자가 **뺄 것만** 고르게 한다(AskUserQuestion 다중). 뺀 항목은 `assets.details[].enabled = false`로 기록.
-1. 로고 모션 프리셋 4종 중 하나 선택 → `motion.logoAnim`.
-2. `details.css`는 **손으로 새로 짓지 않는다** — 정본 함수 `deriveDetailsCss(tokens, brand)` 출력을 그대로 파일로 저장한다:
+**진행 — "빼기만"**: "빼기" 대상은 **enabled 토글되는 마커 CSS 7종뿐**(`selection`·`focus-ring`·`scrollbar`·`spinner`·`skeleton`·`fade-in`·`press`). 7종을 **기본 전부 포함**으로 제시하고 사용자가 **뺄 것만** 고르게 한다(AskUserQuestion 다중). 뺀 항목은 `assets.details[].enabled = false`로 기록.
+- **`reduced-motion` 폴백은 접근성 필수 — 항상 포함**(제거 옵션으로 제시 금지). deriveDetailsCss가 활성 모션 항목에 맞춰 자동으로 넣는다.
+- **로고 모션은 "빼기"가 아니라 단일 선택** — 4프리셋 중 하나를 고르거나 `none`(모션 없음). 마커 7종의 토글과 별개다.
+1. 로고 모션 프리셋 4종 중 하나(또는 `none`) 선택 → `motion.logoAnim`.
+2. `details.css`는 **손으로 새로 짓지 않는다** — 정본 함수 `deriveDetailsCss(tokens, brand)` 출력을 그대로 파일로 저장한다. 아래 `<brand-studio-root>`는 **실제 절대경로(또는 `file://` URL)로 치환**해 실행한다(상대경로는 ESM import에서 해석 실패):
    ```
-   node --input-type=module -e "import { deriveDetailsCss } from '<brand-studio-root>/scripts/lib/brand.mjs'; import { readFileSync, writeFileSync } from 'node:fs'; const t = JSON.parse(readFileSync('.design/tokens.json','utf8')); const b = JSON.parse(readFileSync('.design/brand.json','utf8')); writeFileSync('.design/brand/details.css', deriveDetailsCss(t, b));"
+   node --input-type=module -e "import { deriveDetailsCss } from 'file:///절대경로/brand-studio/scripts/lib/brand.mjs'; import { readFileSync, writeFileSync } from 'node:fs'; const t = JSON.parse(readFileSync('.design/tokens.json','utf8')); const b = JSON.parse(readFileSync('.design/brand.json','utf8')); writeFileSync('.design/brand/details.css', deriveDetailsCss(t, b));"
    ```
    (`assets.details[].enabled`가 활성 항목을 결정하므로, 먼저 brand.json에 뺀 항목을 기록한 뒤 실행한다.)
 3. 선택한 로고 모션 프리셋 CSS는 `detail-pack.md`의 **정본을 그대로 복사**해 `details.css` 끝에 덧붙인다(손으로 새로 짓지 않는다).
@@ -134,6 +136,7 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 **배선 체크리스트** (전역 CSS/HTML `<head>`의 실제 위치 기준 **상대경로**로):
 - [ ] `<link rel="icon" type="image/svg+xml" href=".../icons/favicon.svg">` + `<link rel="icon" href=".../icons/favicon.ico" sizes="any">`
 - [ ] `<link rel="apple-touch-icon" href=".../icons/apple-touch-icon.png">`
+- [ ] `<link rel="mask-icon" href=".../icons/safari-pinned-tab.svg" color="{tokens.color.primary}">`
 - [ ] `<link rel="manifest" href=".../icons/manifest.webmanifest">` (아이콘 상대참조가 유효한 `icons/` 경로)
 - [ ] `<meta property="og:title" ...>` · `og:description` · `<meta property="og:image" content=".../social/og.png">`
 - [ ] `<meta name="twitter:card" content="summary_large_image">`
