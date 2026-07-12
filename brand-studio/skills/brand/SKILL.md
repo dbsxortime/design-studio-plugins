@@ -19,7 +19,7 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 ## 철칙 (전 미팅 공통 — 하나라도 어기면 파이프라인이 깨진다)
 
 ① **`references/fonts.md` 목록 밖 폰트는 이름조차 꺼내지 않는다.**
-② **생성 파일은 손으로 고치지 않는다** — `_capture.html`·`favicon.*`·`manifest.webmanifest`·`safari-pinned-tab.svg`·`_board.html`·`brandbook.html`·`_og-capture.html`·`details.css`·캡처 PNG는 전부 재생성으로만 바꾼다.
+② **생성 파일은 손으로 고치지 않는다** — `_capture.html`·`favicon.*`·`manifest.webmanifest`·`safari-pinned-tab.svg`·`_board.html`·`brandbook.html`·`concept.html`·`_og-capture.html`·`details.css`·캡처 PNG는 전부 재생성으로만 바꾼다.
 ③ **배선은 `<head>` 링크·메타·전역 CSS `@import`만.** 원본 SVG/아이콘/토큰은 배선 과정에서 건드리지 않는다.
 ④ **커밋 금지.** 끝에 변경 파일 목록만 제시하고 커밋은 사용자에게 위임한다.
 ⑤ **시안·자산 색은 `tokens.json` 팔레트에서만.** 하드코딩 색 금지.
@@ -148,9 +148,12 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 ## 미팅 6 — 브랜드북 · 내보내기 (phase: `final` → `exported`)
 
 **진행**:
-1. 브랜드북 조립:
-   `node <brand-studio-root>/scripts/brand-board.mjs <프로젝트> --brandbook`
-   → `.design/brand/brandbook.html`(로고 시스템·색·타이포·그래픽 언어·적용 자산·모션/디테일 6축). **로컬 캡처 서버 절차로 열어**(위 공통 절차 참고) 최종 검토를 받는다. `progress.phase = "final"`.
+1. **두 산출물을 함께 생성**한다 — 브랜드북(규정집)과 컨셉 페이지(적용 증명):
+   - 브랜드북: `node <brand-studio-root>/scripts/brand-board.mjs <프로젝트> --brandbook`
+     → `.design/brand/brandbook.html`(로고 시스템·색·타이포·그래픽 언어·적용 자산·모션/디테일 6축).
+   - 컨셉 페이지: `node <brand-studio-root>/scripts/brand-board.mjs <프로젝트> --concept`
+     → `.design/brand/concept.html`(확정 토큰·자산을 실제 서비스 랜딩처럼 조립한 쇼케이스 한 장 — 히어로·키워드 카드·스토리 밴드·팔레트 스트립·푸터).
+   **로컬 캡처 서버 절차로 둘 다 열어**(위 공통 절차 참고) 나란히 프레젠테이션한다: "브랜드북 = 규정집(무엇을 어떻게 쓰나), 컨셉 페이지 = 이 브랜드로 만든 화면 예시(결과물이 어떻게 보이나)". 최종 검토를 받는다. `progress.phase = "final"`.
 2. **최종 승인 게이트** 통과 후에만 **배선(내보내기)**. 배선은 `<head>` 링크·메타·전역 CSS `@import`만(철칙 ③).
 
 **배선 체크리스트** (전역 CSS/HTML `<head>`의 실제 위치 기준 **상대경로**로):
