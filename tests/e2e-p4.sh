@@ -88,6 +88,13 @@ node brand-studio/scripts/brand-board.mjs "$TMP" --brandbook > /dev/null
 grep -q '<h2>로고 시스템</h2>' "$BRAND_DIR/brandbook.html" || die "'로고 시스템' 헤딩 없음"
 echo "PASS brandbook"
 
+step 6b "brand-board --concept — 컨셉 페이지 생성"
+node brand-studio/scripts/brand-board.mjs "$TMP" --concept > /dev/null
+[ -s "$BRAND_DIR/concept.html" ] || die "concept.html 미생성"
+grep -q 'class="hero-title"' "$BRAND_DIR/concept.html" || die "컨셉 히어로 없음"
+grep -q 'name="viewport"' "$BRAND_DIR/concept.html" || die "컨셉 viewport meta 없음"
+echo "PASS concept"
+
 step 7 "og-render — 조판 픽스처 치환"
 cat > "$BRAND_DIR/og-template.html" <<'EOF'
 <div class="og-card" style="width:1200px;height:630px;background:#0046FF;color:#ffffff">
@@ -107,11 +114,13 @@ DET_FILES=(
   "$BRAND_DIR/icons/safari-pinned-tab.svg"
   "$BRAND_DIR/icons/manifest.webmanifest"
   "$BRAND_DIR/brandbook.html"
+  "$BRAND_DIR/concept.html"
   "$BRAND_DIR/_og-capture.html"
 )
 snapshot "${DET_FILES[@]}"
 node brand-studio/scripts/asset-expand.mjs "$TMP" > /dev/null
 node brand-studio/scripts/brand-board.mjs "$TMP" --brandbook > /dev/null
+node brand-studio/scripts/brand-board.mjs "$TMP" --concept > /dev/null
 node brand-studio/scripts/og-render.mjs "$TMP" --title "테스트 글" > /dev/null
 for f in "${DET_FILES[@]}"; do
   diff -q "$f.snap" "$f" >/dev/null || die "결정성 위반: $f 재실행 시 변경됨"

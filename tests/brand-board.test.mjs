@@ -149,3 +149,69 @@ test('brand.json 없는 프로젝트 → exit 1', () => {
   assert.throws(() => execFileSync('node', [SCRIPT, dir, '--brandbook'], { stdio: 'pipe' }));
   assert.throws(() => execFileSync('node', [SCRIPT, dir, '--board', 'a.svg', 'b.svg', 'c.svg'], { stdio: 'pipe' }));
 });
+
+// ── --concept (쇼케이스 랜딩) ──
+test('--concept — 결정성(2회 실행 바이트 동일)', () => {
+  const dir = makeProject();
+  execFileSync('node', [SCRIPT, dir, '--concept']);
+  const first = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+  execFileSync('node', [SCRIPT, dir, '--concept']);
+  const second = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+  assert.strictEqual(first, second);
+});
+
+test('--concept — 히어로에 프로젝트명·슬로건 존재 + 반응형(viewport meta + 미디어쿼리)', () => {
+  const dir = makeProject();
+  // 슬로건 소스: brief.philosophy 우선
+  const brand = JSON.parse(readFileSync(join(dir, '.design', 'brand.json'), 'utf8'));
+  brand.brief.philosophy = '감정을 잇는 리듬';
+  writeFileSync(join(dir, '.design', 'brand.json'), JSON.stringify(brand));
+  execFileSync('node', [SCRIPT, dir, '--concept']);
+  const html = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+
+  assert.ok(html.includes('class="hero-title">Fixture Brand<'), '히어로에 프로젝트명 없음');
+  assert.ok(html.includes('감정을 잇는 리듬'), '히어로 슬로건(philosophy) 없음');
+  assert.ok(html.includes('name="viewport"'), 'viewport meta 없음');
+  assert.ok(html.includes('@media (max-width:720px)'), '반응형 미디어쿼리 없음');
+});
+
+test('--concept — 키워드 카드 정확히 3개', () => {
+  const dir = makeProject();
+  execFileSync('node', [SCRIPT, dir, '--concept']);
+  const html = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+  assert.strictEqual((html.match(/class="keyword-card"/g) || []).length, 3, '키워드 카드 3개 아님');
+});
+
+test('--concept — motion.logoAnim=fade면 logo-fade 클래스, none이면 부재', () => {
+  const dir = makeProject();
+  execFileSync('node', [SCRIPT, dir, '--concept']);
+  assert.ok(readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8').includes('logo-fade'),
+    'fade일 때 logo-fade 클래스 없음');
+
+  const brand = JSON.parse(readFileSync(join(dir, '.design', 'brand.json'), 'utf8'));
+  brand.motion.logoAnim = 'none';
+  writeFileSync(join(dir, '.design', 'brand.json'), JSON.stringify(brand));
+  execFileSync('node', [SCRIPT, dir, '--concept']);
+  assert.ok(!readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8').includes('logo-fade'),
+    'none일 때 logo-fade 클래스가 남음');
+});
+
+test('--concept — details 비활성 항목의 라이브 조각 미포함(spinner off)', () => {
+  const dir = makeProject();
+  // details.css 존재 + spinner 비활성 → ds-spinner 조각 없음, ds-skeleton은 존재
+  writeFileSync(join(dir, '.design', 'brand', 'details.css'), '/* live */');
+  const brand = JSON.parse(readFileSync(join(dir, '.design', 'brand.json'), 'utf8'));
+  brand.assets.details = [{ id: 'spinner', enabled: false }];
+  writeFileSync(join(dir, '.design', 'brand.json'), JSON.stringify(brand));
+  execFileSync('node', [SCRIPT, dir, '--concept']);
+  const html = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+
+  assert.ok(!html.includes('ds-spinner'), '비활성 spinner의 라이브 조각이 포함됨');
+  assert.ok(html.includes('ds-skeleton'), '활성 skeleton의 라이브 조각이 없음');
+  assert.ok(html.includes('href="details.css"'), 'details.css 링크 없음');
+});
+
+test('--concept — brand.json 없으면 exit 1', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'board-'));
+  assert.throws(() => execFileSync('node', [SCRIPT, dir, '--concept'], { stdio: 'pipe' }));
+});
