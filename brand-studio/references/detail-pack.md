@@ -100,6 +100,8 @@
 
 로고를 스플래시·헤더 등장·로딩에 쓸 때의 진입 모션. **CSS만 제공**하며, 아래 공통 규율을 전부 지킨다. 이 프리셋은 detail-pack의 정본으로, 지속시간은 **0.8~1.5s** 범위 안, 표준 이징(ease-in-out 계열)을 쓰고, **reduced-motion 폴백을 필수**로 붙인다.
 
+⚠️ **draw 제약**: `<img>`(data URI 포함)로 임베드된 로고에는 CSS가 SVG 내부 path에 닿지 않아 draw가 동작하지 않는다 — draw를 실사용하려면 로고를 **인라인 SVG**로 심고 각 path에 `pathLength="1"`을 붙여야 한다(없으면 점선으로 렌더). 컨셉 페이지·브랜드북 등 img 임베드 맥락에선 fade/spin/pulse를 권장. 미팅 5에서 draw 선택 시 이 제약을 사용자에게 안내하라.
+
 ```css
 /* draw — 획 그리기 (심볼·라인 로고용, stroke-dasharray로 선을 그어 나감) */
 .logo-draw path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: logo-draw 1.2s ease-in-out forwards; }
