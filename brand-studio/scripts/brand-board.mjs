@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-/* 시안 보드 + 브랜드북 조립.
-   2 CLI 모드:
+/* 시안 보드 + 브랜드북 + 컨셉 페이지 조립.
+   3 CLI 모드:
    node brand-board.mjs <프로젝트> --board <svg1> <svg2> <svg3> [--label 라운드1]
      → .design/brand/_board.html — 시안 3안을 라이트/다크/32px 3맥락으로 나란히 렌더
    node brand-board.mjs <프로젝트> --brandbook
      → .design/brand/brandbook.html — 6축 조립(로고 시스템·색·타이포·그래픽 언어·적용 자산·모션/디테일)
+   node brand-board.mjs <프로젝트> --concept
+     → .design/brand/concept.html — 확정 토큰·자산을 실제 서비스 랜딩처럼 조립한 쇼케이스 한 장
    외부 요청 0, 산출 결정적(타임스탬프 금지) — 스타일은 인라인 CSS 단일 HTML. */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, isAbsolute } from 'node:path';
@@ -244,13 +246,170 @@ ${sections}
 `;
 }
 
+// ── --concept (쇼케이스 랜딩 한 장) ──
+// 슬로건 우선순위: brief.philosophy → applications.og.slogan → brief.oneLiner
+function conceptSlogan(brand) {
+  return brand.brief?.philosophy || brand.applications?.og?.slogan || brand.brief?.oneLiner || '';
+}
+
+// 키워드 카드 아이콘: graphics.shapes[i] 실존 시 그 셰이프, 없으면 로고 심볼로 대체
+function keywordIcon(brand, brandDir, logoSvg, i) {
+  const name = (brand.graphics?.shapes ?? [])[i];
+  if (name) {
+    const abs = join(brandDir, 'graphics', name);
+    if (existsSync(abs)) return `<img class="kw-icon" src="${dataUri(readFileSync(abs, 'utf8'))}" alt=""/>`;
+  }
+  return `<img class="kw-icon" src="${dataUri(logoSvg)}" alt=""/>`;
+}
+
+// 푸터 심볼: symbol+mono 변형 파일(logo/logo-<variant>.svg) 실존 시 사용, 아니면 로고 원본
+function footerSymbol(brand, brandDir, logoSvg) {
+  const v = (brand.logo?.variants ?? []).find(x => /symbol/i.test(x) && /mono/i.test(x)) || 'symbol-mono';
+  const abs = join(brandDir, 'logo', `logo-${v}.svg`);
+  const svg = existsSync(abs) ? readFileSync(abs, 'utf8') : logoSvg;
+  return `<img class="footer-symbol" src="${dataUri(svg)}" alt=""/>`;
+}
+
+function conceptCss(tokens) {
+  const c = tokens.color, f = tokens.font, r = tokens.radius, s = tokens.spacing;
+  const onPrimary = c.onPrimary || contrastOn(c.primary);
+  const heading = f.headingWeight ?? 700;
+  // 패턴 위 텍스트 스크림(hero-scrim)으로 대비 ≥4.5:1 확보 — 저대비 패턴이 본문색을 침범하지 않게
+  return `
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:${c.bg};color:${c.text};font-family:'${f.family}',sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  img{max-width:100%}
+  section,header,footer{padding-left:24px;padding-right:24px}
+  .hero{position:relative;overflow:hidden;text-align:center;padding-top:112px;padding-bottom:112px}
+  .hero-pattern{position:absolute;inset:0;background-repeat:repeat;opacity:.06;pointer-events:none}
+  .hero-scrim{position:absolute;inset:0;background:${c.bg};opacity:.55;pointer-events:none}
+  .hero-inner{position:relative;max-width:720px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:24px}
+  .concept-logo{width:84px;height:84px;object-fit:contain}
+  .hero-title{margin:0;font-size:clamp(2.4rem,6vw,4rem);font-weight:${heading};letter-spacing:-.02em;line-height:1.08}
+  .hero-slogan{margin:0;max-width:36ch;font-size:clamp(1.05rem,2.4vw,1.4rem);color:${c.muted}}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .btn{display:inline-block;padding:14px 28px;border-radius:${r.base};font-weight:600;text-decoration:none;font-size:1rem;border:1px solid transparent}
+  .btn-primary{background:${c.primary};color:${onPrimary}}
+  .btn-secondary{background:${c.surface};color:${c.text};border-color:${c.muted}}
+  .keywords{max-width:1040px;margin:0 auto;padding-top:72px;padding-bottom:72px}
+  .keyword-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:${s.gutter ?? '16px'}}
+  .keyword-card{background:${c.surface};border-radius:${r.card};padding:40px 32px;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+  .kw-icon{width:44px;height:44px;object-fit:contain}
+  .keyword-card h3{margin:0;font-size:1.4rem;font-weight:${heading};text-transform:capitalize}
+  .story{max-width:760px;margin:0 auto;padding-top:64px;padding-bottom:64px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:36px}
+  .story-text{margin:0;font-size:clamp(1.2rem,2.6vw,1.6rem);color:${c.text};line-height:1.6}
+  .live-row{display:flex;gap:40px;flex-wrap:wrap;justify-content:center}
+  .live-item{display:flex;flex-direction:column;align-items:center;gap:12px;font-size:.85rem;color:${c.muted}}
+  .live-skel{width:140px;height:14px}
+  .palette{max-width:1040px;margin:0 auto;padding-top:24px;padding-bottom:80px}
+  .palette-strip{display:flex;border-radius:${r.card};overflow:hidden;border:1px solid ${c.surface}}
+  .palette-cell{flex:1;min-width:0}
+  .palette-color{height:96px}
+  .palette-label{display:flex;flex-direction:column;padding:12px 14px;background:${c.surface};font-size:.72rem;gap:2px}
+  .palette-name{font-weight:600;color:${c.text}}
+  .palette-hex{color:${c.muted};font-variant-numeric:tabular-nums}
+  .footer{text-align:center;padding-top:56px;padding-bottom:56px;border-top:1px solid ${c.surface};display:flex;flex-direction:column;align-items:center;gap:12px}
+  .footer-symbol{width:40px;height:40px;object-fit:contain}
+  .footer-name{font-weight:${heading};font-size:1.1rem}
+  .footer-slogan{color:${c.muted};font-size:.9rem}
+  @media (max-width:720px){
+    .hero{padding-top:72px;padding-bottom:72px}
+    .keyword-grid{grid-template-columns:1fr}
+    .palette-strip{flex-direction:column}
+    .palette-color{height:56px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .btn,.concept-logo{transition:none}
+  }
+  `;
+}
+
+function buildConceptPage(brand, tokens, logoSvg, brandDir) {
+  const slogan = conceptSlogan(brand);
+  const anim = brand.motion?.logoAnim;
+  const logoClass = anim && anim !== 'none' ? ` logo-${anim}` : '';
+
+  // ① 히어로 — 패턴 저대비 배경 + 스크림, 로고(모션 클래스), 프로젝트명, 슬로건, CTA
+  const patternName = (brand.graphics?.patterns ?? [])[0];
+  const hasPattern = patternName && existsSync(join(brandDir, 'graphics', patternName));
+  const heroPattern = hasPattern
+    ? `<div class="hero-pattern" style="background-image:url('graphics/${patternName}')"></div>`
+    : '';
+  const hero = `<header class="hero">
+  ${heroPattern}<div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <img class="concept-logo${logoClass}" src="${dataUri(logoSvg)}" alt="${escapeHtml(brand.meta.project)} 로고"/>
+    <h1 class="hero-title">${escapeHtml(brand.meta.project)}</h1>
+    ${slogan ? `<p class="hero-slogan">${escapeHtml(slogan)}</p>` : ''}
+    <div class="hero-cta">
+      <a class="btn btn-primary ds-press" href="#">시작하기</a>
+      <a class="btn btn-secondary" href="#">더 알아보기</a>
+    </div>
+  </div>
+</header>`;
+
+  // ② 키워드 카드 3개 — brief.keywords를 기능 카드로
+  const cards = brand.brief.keywords.map((kw, i) =>
+    `<article class="keyword-card">${keywordIcon(brand, brandDir, logoSvg, i)}<h3>${escapeHtml(kw)}</h3></article>`
+  ).join('');
+  const keywordSection = `<section class="keywords"><div class="keyword-grid">${cards}</div></section>`;
+
+  // ③ 스토리 밴드 — story 문단 + 마감 디테일 라이브 조각(details.css 실존 + 활성 항목만)
+  const hasDetails = existsSync(join(brandDir, 'details.css'));
+  const activeIds = new Set(
+    [...deriveDetailsCss(tokens, brand).matchAll(/\/\* detail:([\w-]+) \*\//g)].map(m => m[1])
+  );
+  const livePieces = [];
+  if (hasDetails && activeIds.has('spinner')) {
+    livePieces.push('<div class="live-item"><div class="ds-spinner"></div><span>로딩 스피너</span></div>');
+  }
+  if (hasDetails && activeIds.has('skeleton')) {
+    livePieces.push('<div class="live-item"><div class="ds-skeleton live-skel"></div><span>스켈레톤</span></div>');
+  }
+  const story = brand.brief?.story;
+  const storyBand = (story || livePieces.length)
+    ? `<section class="story">${story ? `<p class="story-text">${escapeHtml(story)}</p>` : ''}` +
+      `${livePieces.length ? `<div class="live-row">${livePieces.join('')}</div>` : ''}</section>`
+    : '';
+
+  // ④ 팔레트 스트립 — 토큰 6색 가로 밴드(라벨 포함)
+  const onPrimary = tokens.color.onPrimary || contrastOn(tokens.color.primary);
+  const paletteEntries = [
+    ['primary', tokens.color.primary], ['onPrimary', onPrimary],
+    ['bg', tokens.color.bg], ['surface', tokens.color.surface],
+    ['text', tokens.color.text], ['muted', tokens.color.muted],
+  ];
+  const paletteStrip = `<section class="palette"><div class="palette-strip">${paletteEntries.map(([n, hex]) =>
+    `<div class="palette-cell"><div class="palette-color" style="background:${hex}"></div>` +
+    `<div class="palette-label"><span class="palette-name">${n}</span><span class="palette-hex">${escapeHtml(hex)}</span></div></div>`
+  ).join('')}</div></section>`;
+
+  // ⑤ 푸터 — 심볼 mono + 프로젝트명 + 슬로건
+  const footer = `<footer class="footer">${footerSymbol(brand, brandDir, logoSvg)}` +
+    `<div class="footer-name">${escapeHtml(brand.meta.project)}</div>` +
+    `${slogan ? `<div class="footer-slogan">${escapeHtml(slogan)}</div>` : ''}</footer>`;
+
+  const detailsLink = hasDetails ? '<link rel="stylesheet" href="details.css">' : '';
+  return `<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(brand.meta.project)} — 컨셉</title>${detailsLink}<style>${conceptCss(tokens)}</style></head>
+<body>
+${hero}
+${keywordSection}
+${storyBand}
+${paletteStrip}
+${footer}
+</body></html>
+`;
+}
+
 // ── CLI ──
 if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
 function usage() {
-  console.error('사용법: node brand-board.mjs <프로젝트> --board <svg1> <svg2> <svg3> [--label 라운드1] | --brandbook');
+  console.error('사용법: node brand-board.mjs <프로젝트> --board <svg1> <svg2> <svg3> [--label 라운드1] | --brandbook | --concept');
 }
 
 function parseArgs(argv) {
@@ -258,6 +417,7 @@ function parseArgs(argv) {
   if (!dir || dir.startsWith('--')) { usage(); process.exit(1); }
 
   if (argv.includes('--brandbook')) return { dir, mode: 'brandbook' };
+  if (argv.includes('--concept')) return { dir, mode: 'concept' };
 
   const boardIdx = argv.indexOf('--board');
   if (boardIdx === -1) { usage(); process.exit(1); }
@@ -298,7 +458,7 @@ function main() {
     process.exit(0);
   }
 
-  // --brandbook
+  // --brandbook | --concept : 둘 다 tokens + 로고 SVG 필요
   const tokensPath = join(dir, '.design', 'tokens.json');
   if (!existsSync(tokensPath)) {
     console.error('.design/tokens.json 필요 — /design-tokens로 기준부터 확보'); process.exit(1);
@@ -308,6 +468,13 @@ function main() {
   const logoPath = join(dir, brand.logo.svg);
   if (!existsSync(logoPath)) { console.error(`로고 SVG 없음: ${brand.logo.svg}`); process.exit(1); }
   const logoSvg = readFileSync(logoPath, 'utf8');
+
+  if (mode === 'concept') {
+    const outPath = join(brandDir, 'concept.html');
+    writeFileSync(outPath, buildConceptPage(brand, tokens, logoSvg, brandDir));
+    console.log(JSON.stringify({ written: [outPath] }, null, 2));
+    process.exit(0);
+  }
 
   const outPath = join(brandDir, 'brandbook.html');
   writeFileSync(outPath, buildBrandbookPage(brand, tokens, logoSvg, brandDir));
