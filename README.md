@@ -15,8 +15,9 @@ claude plugin install design-check@design-studio-plugins
 `design-check`는 `design-studio`(같은 마켓플레이스)와 `playwright`(공식 마켓플레이스)에
 의존한다 — 위 두 줄만 실행하면 두 의존성이 자동 설치된다.
 
-브랜드까지 쓰려면 `claude plugin install brand-studio@design-studio-plugins` —
-design-check·design-studio·playwright가 자동 설치됨
+**브랜드(로고·아이콘·브랜드북)가 목적이면 이 한 줄이면 충분하다** —
+`claude plugin install brand-studio@design-studio-plugins`
+(design-check·design-studio·playwright가 전부 자동 설치됨)
 
 **전제조건**: Claude Code 최신 버전, Node 18+
 
@@ -37,7 +38,7 @@ design-check·design-studio·playwright가 자동 설치됨
 | `/design-inject` | design-check | 확정 기준을 CSS 변수/Tailwind `@theme`로 **생성해** 프로젝트에 심기 — 값 손타이핑 금지(`tokens-to-code.mjs`가 결정적 생성, 에이전트는 배선만) |
 | `/design-check` | design-check | 기준 대비 정적 점검(코드) + 실측 점검(playwright, URL 있을 때) |
 | `/design-apply` | design-check | 점검 리포트의 위반을 승인 게이트 거쳐 일괄 수정 (`/design-check` 이후에만) |
-| `/brand` | brand-studio | 브랜드 미팅 딸깍 — 로고 시스템·아이콘·그래픽 언어·OG/소셜·마감 디테일·브랜드북을 15년차 디자이너 미팅 UX로 생성·배선 |
+| `/brand` | brand-studio | 브랜드 미팅 딸깍 — 로고 시스템·아이콘·그래픽 언어·OG/소셜·마감 디테일·브랜드북을 15년차 디자이너 미팅 UX로 생성·배선. **대화형 미팅**이며 아이콘·OG 이미지는 playwright 브라우저 캡처를 거쳐 만들어진다 |
 
 ## tokens-v1 스키마
 
