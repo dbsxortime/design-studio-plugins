@@ -24,10 +24,18 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 ④ **커밋 금지.** 끝에 변경 파일 목록만 제시하고 커밋은 사용자에게 위임한다.
 ⑤ **시안·자산 색은 `tokens.json` 팔레트에서만.** 하드코딩 색 금지.
 ⑥ **캡처 후 `--verify` 통과 전까지 "완료" 선언 금지.**
-⑦ **`:28572` 프로세스는 kill하지 않는다.**
+⑦ **`:28572` 프로세스는 kill하지 않는다** — 스튜디오 포트. 아래 로컬 캡처 서버도 이 포트를 쓰지 않는다.
 
 ### AskUserQuestion 사용 지침
 타입·폰트 느낌·패턴 계열·OG 조판·디테일 선택 등 **선택형**은 AskUserQuestion으로 묻는다(추천 옵션을 **첫 번째**에 두고 근거 한 줄). 브랜드 스토리·타깃·지양점 같은 **자유 서술**은 일반 질문으로 받는다.
+
+### 로컬 캡처 서버 절차 (공통 — playwright MCP는 `file://`를 차단한다)
+`.design/brand/` 아래 산출물(`_capture.html`·`_board.html`·`brandbook.html`·`_og-capture.html`)을 열 때는 `file://`로 직접 열지 말고, 임시 로컬 HTTP 서버로 서빙한 뒤 `http://127.0.0.1:<포트>/...`로 연다.
+1. **서빙**: `cd <프로젝트>/.design/brand && python3 -m http.server 28573 --bind 127.0.0.1` 을 백그라운드로 띄운다. python3이 없으면 `npx serve -l 28573 .` 등 대안 한 줄로 대체.
+2. **포트**: 반드시 `28573`(또는 다른 미사용 포트) — **`:28572`는 스튜디오 포트라 쓰지 않는다**(철칙 ⑦).
+3. **열기**: playwright MCP로 `http://127.0.0.1:28573/<파일명>`을 연다.
+4. **캡처**: 가능하면 `browser_take_screenshot`의 요소 선택자(`#cap-*` 등)로 해당 요소만 찍는다. 선택자 캡처가 안 되는 상황이면 실행 코드 방식(요소 좌표·크기 계산 후 크롭)으로 대체한다.
+5. **정리**: 캡처가 끝나면 이 서빙 프로세스만 종료한다(스튜디오 `:28572` 프로세스는 절대 건드리지 않는다).
 
 ---
 
@@ -50,7 +58,7 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 3. **시안 3안을 스킬이 직접 SVG로 작도**(드로잉 크래프트 10칙 준수, 색은 tokens 팔레트만). 임시 저장: `.design/brand/logo/_cand-1.svg`~`_cand-3.svg`.
 4. 보드 생성 → 사용자에게 보여주기:
    `node <brand-studio-root>/scripts/brand-board.mjs <프로젝트> --board .design/brand/logo/_cand-1.svg .design/brand/logo/_cand-2.svg .design/brand/logo/_cand-3.svg --label 라운드1`
-   → `.design/brand/_board.html`(라이트/다크/32px 3맥락). **playwright MCP로 열어** 3맥락을 함께 보여준다.
+   → `.design/brand/_board.html`(라이트/다크/32px 3맥락). **로컬 캡처 서버 절차로 열어**(위 공통 절차 참고) 3맥락을 함께 보여준다.
 5. 피드백 반영은 **최대 2회전**(`--label 라운드2`). 확정안을 `.design/brand/logo/logo.svg`로 저장.
 
 **brand.json 기록**: `decisions.logoType`, `decisions.font`(fonts.md에서 고른 폰트명), `logo.svg = ".design/brand/logo/logo.svg"`, `progress.phase = "logo"`. → 확정 승인 시 다음.
@@ -100,7 +108,7 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 2. 슬로건 확정 → `applications.og.slogan`에 기록(og-render의 `--slogan` 생략 시 기본값으로 쓰임).
 3. 사이트 기본 OG 렌더:
    `node <brand-studio-root>/scripts/og-render.mjs <프로젝트> --title "브랜드명 또는 대표 문구" --out og`
-   → `.design/brand/_og-capture.html` + stdout `{capturePath, targetPng, size}`. **playwright로 열어** `id="cap-og"`를 캡처 → 안내된 `targetPng`(`.design/brand/social/og.png`)에 저장.
+   → `.design/brand/_og-capture.html` + stdout `{capturePath, targetPng, size}`. **로컬 캡처 서버 절차로 열어**(위 공통 절차 참고) `id="cap-og"`를 캡처 → 안내된 `targetPng`(`.design/brand/social/og.png`)에 저장.
 4. 소셜 커버·프로필·파비콘 OG(`og.png`·`social/*.png`)는 미팅 2의 `asset-expand` 캡처로 이미 생성됨 — `--verify` 결과로 존재를 재확인.
 
 **brand.json 기록**: `applications.og.slogan`, `applications.og.template = "og-template.html"`, `progress.phase = "applications"`. → 승인 시 다음.
@@ -131,7 +139,7 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 **진행**:
 1. 브랜드북 조립:
    `node <brand-studio-root>/scripts/brand-board.mjs <프로젝트> --brandbook`
-   → `.design/brand/brandbook.html`(로고 시스템·색·타이포·그래픽 언어·적용 자산·모션/디테일 6축). **playwright로 열어** 최종 검토를 받는다. `progress.phase = "final"`.
+   → `.design/brand/brandbook.html`(로고 시스템·색·타이포·그래픽 언어·적용 자산·모션/디테일 6축). **로컬 캡처 서버 절차로 열어**(위 공통 절차 참고) 최종 검토를 받는다. `progress.phase = "final"`.
 2. **최종 승인 게이트** 통과 후에만 **배선(내보내기)**. 배선은 `<head>` 링크·메타·전역 CSS `@import`만(철칙 ③).
 
 **배선 체크리스트** (전역 CSS/HTML `<head>`의 실제 위치 기준 **상대경로**로):
