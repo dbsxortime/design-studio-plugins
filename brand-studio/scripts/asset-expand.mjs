@@ -68,10 +68,14 @@ function coverBox(id, w, h, svg, projectName, tokens) {
     `color:${tokens.color.onPrimary ?? '#ffffff'};font-size:${fontSize}px">${escapeHtml(projectName)}</span></div>`;
 }
 
-function buildCapturePage(brand, tokens, logoSvg) {
+const FAVICON_IDS = new Set(['favicon-16', 'favicon-32', 'favicon-48']);
+
+/* faviconSvg는 brand.logo.favicon(재작도본)이 있으면 그것, 없으면 logoSvg와 동일(하위호환) */
+function buildCapturePage(brand, tokens, logoSvg, faviconSvg) {
   const maskSvg = maskableWrap(logoSvg, 512, tokens.color.bg ?? '#ffffff');
   const boxes = CAPTURES.map(c => {
     if (c.id === 'maskable-512') return iconBox(c.id, c.w, c.h, maskSvg);
+    if (FAVICON_IDS.has(c.id)) return iconBox(c.id, c.w, c.h, faviconSvg);
     if (ICON_IDS.has(c.id)) return iconBox(c.id, c.w, c.h, logoSvg);
     return coverBox(c.id, c.w, c.h, logoSvg, brand.meta.project, tokens);
   }).join('\n');
@@ -160,21 +164,29 @@ function main() {
   if (!existsSync(logoPath)) { console.error(`로고 SVG 없음: ${brand.logo.svg}`); process.exit(1); }
   const logoSvg = readFileSync(logoPath, 'utf8');
 
+  // brand.logo.favicon(선택) — 재작도본이 실재하면 파비콘 계열(favicon-16/32/48·icons/favicon.svg·
+  // safari-pinned-tab.svg)에 사용. 없으면 logoSvg로 대체(하위호환)
+  let faviconSvg = logoSvg;
+  if (brand.logo.favicon) {
+    const faviconPath = join(dir, brand.logo.favicon);
+    if (existsSync(faviconPath)) faviconSvg = readFileSync(faviconPath, 'utf8');
+  }
+
   mkdirSync(iconsDir, { recursive: true });
   mkdirSync(join(brandDir, 'social'), { recursive: true });
 
   const written = [];
 
   const capturePath = join(brandDir, '_capture.html');
-  writeFileSync(capturePath, buildCapturePage(brand, tokens, logoSvg));
+  writeFileSync(capturePath, buildCapturePage(brand, tokens, logoSvg, faviconSvg));
   written.push(capturePath);
 
   const faviconSvgPath = join(iconsDir, 'favicon.svg');
-  writeFileSync(faviconSvgPath, logoSvg);
+  writeFileSync(faviconSvgPath, faviconSvg);
   written.push(faviconSvgPath);
 
   const safariPath = join(iconsDir, 'safari-pinned-tab.svg');
-  writeFileSync(safariPath, toMono(logoSvg, '#000000'));
+  writeFileSync(safariPath, toMono(faviconSvg, '#000000'));
   written.push(safariPath);
 
   const manifestPath = join(iconsDir, 'manifest.webmanifest');

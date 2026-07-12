@@ -187,3 +187,52 @@ test('--verify — 캡처 파일 자체가 없으면 exit 1', () => {
   execFileSync('node', [SCRIPT, dir]);   // captures.json 생성 안 됨(파일 미존재)
   assert.throws(() => execFileSync('node', [SCRIPT, dir, '--verify'], { stdio: 'pipe' }));
 });
+
+test('logo.favicon 지정 시 — 파비콘 계열(캡처+icons/favicon.svg+safari-pinned-tab)은 재작도본, 나머지는 logo.svg 유지', () => {
+  const dir = makeProject();
+  const FAVICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#FF0000"/></svg>';
+  writeFileSync(join(dir, '.design', 'brand', 'logo', 'favicon.svg'), FAVICON_SVG);
+  const brand = JSON.parse(readFileSync(join(dir, '.design', 'brand.json'), 'utf8'));
+  brand.logo.favicon = '.design/brand/logo/favicon.svg';
+  writeFileSync(join(dir, '.design', 'brand.json'), JSON.stringify(brand));
+
+  execFileSync('node', [SCRIPT, dir]);
+  const brandDir = join(dir, '.design', 'brand');
+  const html = readFileSync(join(brandDir, '_capture.html'), 'utf8');
+  const faviconB64 = Buffer.from(FAVICON_SVG, 'utf8').toString('base64');
+  const logoB64 = Buffer.from(LOGO_SVG, 'utf8').toString('base64');
+
+  for (const id of ['favicon-16', 'favicon-32', 'favicon-48']) {
+    const m = html.match(new RegExp(`<div id="cap-${id}"[^>]*>[\\s\\S]*?<img src="([^"]*)"`));
+    assert.ok(m, `캡처 박스 없음: ${id}`);
+    assert.ok(m[1].includes(faviconB64), `${id}가 재작도된 favicon.svg를 쓰지 않음`);
+  }
+  for (const id of ['apple-touch-180', 'icon-192', 'icon-512']) {
+    const m = html.match(new RegExp(`<div id="cap-${id}"[^>]*>[\\s\\S]*?<img src="([^"]*)"`));
+    assert.ok(m, `캡처 박스 없음: ${id}`);
+    assert.ok(m[1].includes(logoB64), `${id}는 계속 logo.svg를 써야 함`);
+  }
+
+  const iconsFaviconSvg = readFileSync(join(brandDir, 'icons', 'favicon.svg'), 'utf8');
+  assert.strictEqual(iconsFaviconSvg, FAVICON_SVG, 'icons/favicon.svg는 재작도본을 써야 함');
+
+  const safari = readFileSync(join(brandDir, 'icons', 'safari-pinned-tab.svg'), 'utf8');
+  assert.ok(!safari.includes('#FF0000'), 'safari-pinned-tab은 단색화되어야 함');
+  assert.ok(!safari.includes('#0046FF'), 'safari-pinned-tab이 logo.svg 기반이면 안 됨');
+});
+
+test('logo.favicon 미지정 시 — 기존 동작(파비콘 계열도 logo.svg 사용) 유지', () => {
+  const dir = makeProject();
+  execFileSync('node', [SCRIPT, dir]);
+  const brandDir = join(dir, '.design', 'brand');
+  const html = readFileSync(join(brandDir, '_capture.html'), 'utf8');
+  const logoB64 = Buffer.from(LOGO_SVG, 'utf8').toString('base64');
+
+  for (const id of ['favicon-16', 'favicon-32', 'favicon-48']) {
+    const m = html.match(new RegExp(`<div id="cap-${id}"[^>]*>[\\s\\S]*?<img src="([^"]*)"`));
+    assert.ok(m, `캡처 박스 없음: ${id}`);
+    assert.ok(m[1].includes(logoB64), `${id}는 logo.svg를 써야 함(미지정 시 하위호환)`);
+  }
+  const iconsFaviconSvg = readFileSync(join(brandDir, 'icons', 'favicon.svg'), 'utf8');
+  assert.strictEqual(iconsFaviconSvg, LOGO_SVG, 'logo.favicon 미지정 시 icons/favicon.svg는 logo.svg와 동일해야 함');
+});

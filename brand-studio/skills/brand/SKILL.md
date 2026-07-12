@@ -62,16 +62,17 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 **먼저 Read**: `<brand-studio-root>/references/asset-playbook.md` (파비콘 축소 4원칙·maskable 안전영역·조판 크래프트).
 
 **진행**:
-1. 로고 변형 작도 → `.design/brand/logo/`에 저장: `logo-{horizontal|vertical|symbol}-{color|black|white|mono}.svg`. **파비콘은 축소가 아니라 재작도**(4원칙 준수).
+1. 로고 변형 작도 → `.design/brand/logo/`에 저장: `logo-{horizontal|vertical|symbol}-{color|black|white|mono}.svg`. **파비콘은 축소가 아니라 재작도**(4원칙 준수) — 4원칙을 이미 충족한 단순한 로고라면 재작도를 생략해도 된다.
+   - 재작도가 필요하면 단순화본을 `.design/brand/logo/favicon.svg`로 저장하고 brand.json의 `logo.favicon`에 그 경로를 기록한다. → asset-expand가 파비콘 계열(favicon-16/32/48·`icons/favicon.svg`·`icons/safari-pinned-tab.svg`)에 그 SVG를 쓴다(나머지 아이콘류는 계속 `logo.svg`). 재작도 불필요 판단이면 `logo.favicon`을 생략 — asset-expand가 `logo.svg`로 대체한다(하위호환).
 2. 세이프존(clearspace)·최소 크기(minSizePx) 확정.
 3. 자산 전개 + 부산물 생성:
    `node <brand-studio-root>/scripts/asset-expand.mjs <프로젝트>`
    → `.design/brand/_capture.html` + `icons/favicon.svg`·`icons/safari-pinned-tab.svg`·`icons/manifest.webmanifest` 즉시 생성. **stdout JSON `{captures:[{id,size,target}]}`** 를 캡처 목록으로 쓴다.
-4. **캡처**: `_capture.html`을 **playwright MCP로 열고**, 각 `id="cap-*"` 요소를 `browser_take_screenshot`으로 찍어 대응하는 `target` 경로(`.design/brand/` 기준: `icons/*.png`, `og.png`, `social/*.png`)에 PNG로 저장한다. 박스가 곧 최종 프레임이다.
+4. **캡처**: `_capture.html`을 **로컬 캡처 서버 절차로 열고**(위 공통 절차 참고), 각 `id="cap-*"` 요소를 `browser_take_screenshot`으로 찍어 대응하는 `target` 경로(`.design/brand/` 기준: `icons/*.png`, `og.png`, `social/*.png`)에 PNG로 저장한다. 박스가 곧 최종 프레임이다.
 5. ICO 패킹: `node <brand-studio-root>/scripts/asset-expand.mjs <프로젝트> --pack-ico` → `icons/favicon.ico`.
 6. **검증**: `node <brand-studio-root>/scripts/asset-expand.mjs <프로젝트> --verify` → 치수 불일치·누락이 나오면 그 항목만 **재캡처**하고 다시 `--verify`. **통과(`{ok:true}`) 전까지 완료 선언 금지**(철칙 ⑥).
 
-**brand.json 기록**: `logo.variants`(생성한 변형 파일명 배열), `logo.clearspace`, `logo.minSizePx`, `progress.phase = "system"`. → 승인 시 다음.
+**brand.json 기록**: `logo.variants`(생성한 변형 파일명 배열), `logo.favicon`(재작도했다면 그 경로, 아니면 생략), `logo.clearspace`, `logo.minSizePx`, `progress.phase = "system"`. → 승인 시 다음.
 
 ---
 
