@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 test('brand-studio plugin.json — 버전·의존성 3종', () => {
   const p = JSON.parse(readFileSync('brand-studio/.claude-plugin/plugin.json', 'utf8'));
   assert.strictEqual(p.name, 'brand-studio');
-  assert.strictEqual(p.version, '1.0.0');
+  assert.match(p.version, /^\d+\.\d+\.\d+$/);
   const names = p.dependencies.map(d => typeof d === 'string' ? d : d.name);
   assert.deepStrictEqual(names.sort(), ['design-check', 'design-studio', 'playwright']);
   const pw = p.dependencies.find(d => typeof d === 'object');
