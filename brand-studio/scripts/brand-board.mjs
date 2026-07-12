@@ -114,6 +114,25 @@ function typographySection(brand, tokens) {
 </section>`;
 }
 
+/* 패턴은 배경용 저대비(surface 톤) SVG라 surface 타일 배경과 겹치면 안 보인다.
+   실제 쓰임새(배경 반복 타일)처럼 tokens.color.bg 위에 background-image로 반복 렌더 */
+function patternTile(name, brandDir, tokens) {
+  const relPath = `graphics/${name}`;
+  const abs = join(brandDir, relPath);
+  const inner = existsSync(abs) ? '' : escapeHtml(name);
+  const bgImage = existsSync(abs) ? `;background-image:url('${relPath}')` : '';
+  return `<div class="graphics-tile pattern-tile" style="background-color:${tokens.color.bg}${bgImage}">${inner}</div>`;
+}
+
+// 셰이프는 로고 부분 요소 — 기존과 동일하게 surface 배경 위 인라인 img
+function shapeTile(name, brandDir, tokens) {
+  const abs = join(brandDir, 'graphics', name);
+  const inner = existsSync(abs)
+    ? `<img src="${dataUri(readFileSync(abs, 'utf8'))}" alt="${escapeHtml(name)}"/>`
+    : escapeHtml(name);
+  return `<div class="graphics-tile" style="background:${tokens.color.surface}">${inner}</div>`;
+}
+
 // patterns/shapes는 brand.json에 파일명만 명시됨(§6) — .design/brand/graphics/<name> 실존 시 삽입, 아니면 이름 타일
 function graphicsSection(brand, tokens, brandDir) {
   const patterns = brand.graphics?.patterns ?? [];
@@ -121,14 +140,10 @@ function graphicsSection(brand, tokens, brandDir) {
   if (!patterns.length && !shapes.length) {
     return `<section><h2>그래픽 언어</h2><p class="unset">미정</p></section>`;
   }
-  const tile = (name) => {
-    const abs = join(brandDir, 'graphics', name);
-    const inner = existsSync(abs)
-      ? `<img src="${dataUri(readFileSync(abs, 'utf8'))}" alt="${escapeHtml(name)}"/>`
-      : escapeHtml(name);
-    return `<div class="graphics-tile" style="background:${tokens.color.surface}">${inner}</div>`;
-  };
-  const grid = [...patterns, ...shapes].map(tile).join('');
+  const grid = [
+    ...patterns.map(name => patternTile(name, brandDir, tokens)),
+    ...shapes.map(name => shapeTile(name, brandDir, tokens)),
+  ].join('');
   const note = brand.graphics.motifNote ? `<p class="caption">${escapeHtml(brand.graphics.motifNote)}</p>` : '';
   return `<section><h2>그래픽 언어</h2><div class="graphics-grid">${grid}</div>${note}</section>`;
 }
@@ -195,6 +210,7 @@ function bookCss(tokens) {
   .graphics-grid{display:flex;gap:12px;flex-wrap:wrap}
   .graphics-tile{width:96px;height:96px;display:flex;align-items:center;justify-content:center;font-size:11px;text-align:center;border-radius:${tokens.radius.base};overflow:hidden}
   .graphics-tile img{width:100%;height:100%;object-fit:contain}
+  .graphics-tile.pattern-tile{background-repeat:repeat}
   .mockup-row{display:flex;gap:24px;align-items:flex-start}
   .mockup-browser{border:1px solid ${tokens.color.muted};border-radius:${tokens.radius.base};overflow:hidden;width:220px}
   .mockup-tab{display:flex;align-items:center;gap:6px;background:${tokens.color.surface};padding:6px 10px;font-size:11px}

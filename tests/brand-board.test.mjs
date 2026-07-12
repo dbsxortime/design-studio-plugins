@@ -106,6 +106,28 @@ test('--brandbook — 필수 섹션 6개 헤딩 + 토큰 primary 무손실 + 자
   assert.strictEqual((donts[1].match(/<li>/g) || []).length, 4);
 });
 
+test('--brandbook — 패턴 타일은 tokens.color.bg 배경 + background-image 반복, 셰이프 타일은 surface 배경 + 인라인 img', () => {
+  const dir = makeProject();
+  mkdirSync(join(dir, '.design', 'brand', 'graphics'), { recursive: true });
+  writeFileSync(join(dir, '.design', 'brand', 'graphics', 'pattern-a.svg'), candSvg('#123456'));
+  writeFileSync(join(dir, '.design', 'brand', 'graphics', 'shape-1.svg'), candSvg('#abcdef'));
+
+  execFileSync('node', [SCRIPT, dir, '--brandbook']);
+  const html = readFileSync(join(dir, '.design', 'brand', 'brandbook.html'), 'utf8');
+
+  const patternMatch = html.match(/<div class="graphics-tile pattern-tile" style="([^"]*)">/);
+  assert.ok(patternMatch, '패턴 타일을 찾지 못함');
+  assert.ok(patternMatch[1].includes(`background-color:${TOKENS.color.bg}`), '패턴 타일 배경은 tokens.color.bg여야 함');
+  assert.ok(patternMatch[1].includes("background-image:url('graphics/pattern-a.svg')"), '패턴 타일은 background-image로 반복 렌더해야 함');
+  assert.ok(!patternMatch[1].includes(TOKENS.color.surface), '패턴 타일 배경이 surface면 안 됨(원래 결함)');
+
+  const shapeMatch = html.match(/<div class="graphics-tile" style="([^"]*)"><img/);
+  assert.ok(shapeMatch, '셰이프 타일을 찾지 못함');
+  assert.ok(shapeMatch[1].includes(`background:${TOKENS.color.surface}`), '셰이프 타일 배경은 기존대로 surface여야 함');
+  const shapeB64 = Buffer.from(candSvg('#abcdef'), 'utf8').toString('base64');
+  assert.ok(html.includes(shapeB64), '셰이프 타일은 기존대로 인라인 img(data URI)여야 함');
+});
+
 test('--brandbook — graphics.patterns/shapes 없으면 "미정" 표기', () => {
   const dir = makeProject();
   const brand = JSON.parse(readFileSync(join(dir, '.design', 'brand.json'), 'utf8'));
