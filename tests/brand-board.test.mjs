@@ -150,50 +150,72 @@ test('brand.json 없는 프로젝트 → exit 1', () => {
   assert.throws(() => execFileSync('node', [SCRIPT, dir, '--board', 'a.svg', 'b.svg', 'c.svg'], { stdio: 'pipe' }));
 });
 
-// ── --concept (쇼케이스 랜딩) ──
+// ── --concept (쇼케이스 랜딩, v1.2 재설계) ──
+function conceptHtml(dir) {
+  execFileSync('node', [SCRIPT, dir, '--concept']);
+  return readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+}
+
 test('--concept — 결정성(2회 실행 바이트 동일)', () => {
   const dir = makeProject();
-  execFileSync('node', [SCRIPT, dir, '--concept']);
-  const first = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
-  execFileSync('node', [SCRIPT, dir, '--concept']);
-  const second = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+  const first = conceptHtml(dir);
+  const second = conceptHtml(dir);
   assert.strictEqual(first, second);
 });
 
-test('--concept — 히어로에 프로젝트명·슬로건 존재 + 반응형(viewport meta + 미디어쿼리)', () => {
+test('--concept — 히어로 프로젝트명·슬로건 + 반응형(viewport meta + 미디어쿼리)', () => {
   const dir = makeProject();
-  // 슬로건 소스: brief.philosophy 우선
   const brand = JSON.parse(readFileSync(join(dir, '.design', 'brand.json'), 'utf8'));
-  brand.brief.philosophy = '감정을 잇는 리듬';
+  brand.brief.philosophy = '감정을 잇는 리듬'; // 슬로건 소스: philosophy 우선
   writeFileSync(join(dir, '.design', 'brand.json'), JSON.stringify(brand));
-  execFileSync('node', [SCRIPT, dir, '--concept']);
-  const html = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+  const html = conceptHtml(dir);
 
   assert.ok(html.includes('class="hero-title">Fixture Brand<'), '히어로에 프로젝트명 없음');
   assert.ok(html.includes('감정을 잇는 리듬'), '히어로 슬로건(philosophy) 없음');
   assert.ok(html.includes('name="viewport"'), 'viewport meta 없음');
-  assert.ok(html.includes('@media (max-width:720px)'), '반응형 미디어쿼리 없음');
+  assert.ok(html.includes('@media (max-width:860px)'), '반응형 미디어쿼리 없음');
 });
 
-test('--concept — 키워드 카드 정확히 3개', () => {
-  const dir = makeProject();
-  execFileSync('node', [SCRIPT, dir, '--concept']);
-  const html = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
-  assert.strictEqual((html.match(/class="keyword-card"/g) || []).length, 3, '키워드 카드 3개 아님');
+test('--concept — 제품 UI 목업 프레임(브라우저 크롬 + 앱 화면) 존재', () => {
+  const html = conceptHtml(makeProject());
+  assert.ok(html.includes('class="mockup-chrome"'), '브라우저 크롬 프레임 없음');
+  assert.ok(html.includes('class="app-topbar"'), '앱 탑바 없음');
+  assert.ok(html.includes('class="app-summary"'), '요약 카드 없음');
+});
+
+test('--concept — 키워드 카드 3개 + 설명 한 줄 결정적 템플릿', () => {
+  const html = conceptHtml(makeProject());
+  assert.strictEqual((html.match(/class="keyword-card reveal"/g) || []).length, 3, '키워드 카드 3개 아님');
+  assert.ok(html.includes('의 인상을 유지합니다'), '키워드 설명 템플릿 문장 없음');
+});
+
+test('--concept — 컴포넌트 쇼케이스 밴드 존재', () => {
+  const html = conceptHtml(makeProject());
+  assert.ok(html.includes('이 브랜드의 UI 조각들'), '컴포넌트 쇼케이스 헤딩 없음');
+  assert.ok(html.includes('class="comp-grid"'), '컴포넌트 그리드 없음');
+  assert.ok(html.includes('class="toggle"') && html.includes('class="banner"'), '컴포넌트 조각(토글/배너) 없음');
+});
+
+test('--concept — 다크 밴드 + 로고 white 변형 파생, 팔레트 스트립 부재', () => {
+  const html = conceptHtml(makeProject());
+  assert.ok(html.includes('class="section darkband"'), '다크 밴드 섹션 없음');
+  // white 변형 파일이 없으면 toMono(bg=#ffffff)로 단색화 → 원본(primary)과 다른 흰색 data URI 파생
+  const m = html.match(/class="darkband-logo[^"]*" src="data:image\/svg\+xml;base64,([^"]+)"/);
+  assert.ok(m, '다크 밴드 반전 로고 data URI 없음');
+  const origB64 = Buffer.from(LOGO_SVG, 'utf8').toString('base64');
+  assert.notStrictEqual(m[1], origB64, 'white 로고가 원본과 동일(파생 안 됨)');
+  assert.ok(Buffer.from(m[1], 'base64').toString('utf8').toLowerCase().includes('#ffffff'), 'white 파생(#ffffff 단색화) 아님');
+  assert.ok(!html.includes('palette-strip'), '팔레트 스트립이 제거되지 않음(브랜드북 소관)');
 });
 
 test('--concept — motion.logoAnim=fade면 logo-fade 클래스, none이면 부재', () => {
   const dir = makeProject();
-  execFileSync('node', [SCRIPT, dir, '--concept']);
-  assert.ok(readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8').includes('logo-fade'),
-    'fade일 때 logo-fade 클래스 없음');
+  assert.ok(conceptHtml(dir).includes('logo-fade'), 'fade일 때 logo-fade 클래스 없음');
 
   const brand = JSON.parse(readFileSync(join(dir, '.design', 'brand.json'), 'utf8'));
   brand.motion.logoAnim = 'none';
   writeFileSync(join(dir, '.design', 'brand.json'), JSON.stringify(brand));
-  execFileSync('node', [SCRIPT, dir, '--concept']);
-  assert.ok(!readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8').includes('logo-fade'),
-    'none일 때 logo-fade 클래스가 남음');
+  assert.ok(!conceptHtml(dir).includes('logo-fade'), 'none일 때 logo-fade 클래스가 남음');
 });
 
 test('--concept — details 비활성 항목의 라이브 조각 미포함(spinner off)', () => {
@@ -203,8 +225,7 @@ test('--concept — details 비활성 항목의 라이브 조각 미포함(spinn
   const brand = JSON.parse(readFileSync(join(dir, '.design', 'brand.json'), 'utf8'));
   brand.assets.details = [{ id: 'spinner', enabled: false }];
   writeFileSync(join(dir, '.design', 'brand.json'), JSON.stringify(brand));
-  execFileSync('node', [SCRIPT, dir, '--concept']);
-  const html = readFileSync(join(dir, '.design', 'brand', 'concept.html'), 'utf8');
+  const html = conceptHtml(dir);
 
   assert.ok(!html.includes('ds-spinner'), '비활성 spinner의 라이브 조각이 포함됨');
   assert.ok(html.includes('ds-skeleton'), '활성 skeleton의 라이브 조각이 없음');

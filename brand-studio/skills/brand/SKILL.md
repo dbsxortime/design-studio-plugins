@@ -152,7 +152,7 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
    - 브랜드북: `node <brand-studio-root>/scripts/brand-board.mjs <프로젝트> --brandbook`
      → `.design/brand/brandbook.html`(로고 시스템·색·타이포·그래픽 언어·적용 자산·모션/디테일 6축).
    - 컨셉 페이지: `node <brand-studio-root>/scripts/brand-board.mjs <프로젝트> --concept`
-     → `.design/brand/concept.html`(확정 토큰·자산을 실제 서비스 랜딩처럼 조립한 쇼케이스 한 장 — 히어로·키워드 카드·스토리 밴드·팔레트 스트립·푸터).
+     → `.design/brand/concept.html`(확정 토큰·자산을 실제 SaaS 랜딩처럼 조립한 쇼케이스 한 장 — ① 히어로+제품 UI 목업(브라우저 크롬 안 가짜 앱 화면) ② 키워드 3카드 ③ 컴포넌트 쇼케이스(버튼·입력·토글·배너·카드) ④ 다크 밴드(로고 반전 + 스토리 + 디테일 라이브) ⑤ 푸터). 목업 수치는 keywords/story에서 결정적 파생.
    **로컬 캡처 서버 절차로 둘 다 열어**(위 공통 절차 참고) 나란히 프레젠테이션한다: "브랜드북 = 규정집(무엇을 어떻게 쓰나), 컨셉 페이지 = 이 브랜드로 만든 화면 예시(결과물이 어떻게 보이나)". 최종 검토를 받는다. `progress.phase = "final"`.
 2. **최종 승인 게이트** 통과 후에만 **배선(내보내기)**. 배선은 `<head>` 링크·메타·전역 CSS `@import`만(철칙 ③).
 
