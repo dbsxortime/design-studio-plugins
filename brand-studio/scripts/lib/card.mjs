@@ -1,6 +1,15 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 
+// 규격별 재단(trim) 크기(mm) — 인쇄소 기본값. bleed는 호출부에서 기본 2mm로 합성.
+export const PRINT_SPECS = {
+  landscape: { trimW: 90, trimH: 50 },
+  vertical: { trimW: 50, trimH: 90 },
+  square: { trimW: 60, trimH: 60 },
+  mini: { trimW: 70, trimH: 35 },
+  credit: { trimW: 85.6, trimH: 54 },
+};
+
 // shell CARD-TOKENS 마커 안의 12키(기본 6 + primary/text 파생 5 + gold)만 교체 대상.
 // --c-a-green/--c-a-red는 시맨틱 리터럴이라 shell의 마커 블록 밖에 남겨두고 여기선 다루지 않는다.
 export function deriveCardTokens(tokens) {

@@ -51,3 +51,24 @@ test('--variants: 선택 추출 + 라벨 + compare 확대 + 상태 기록', () =
   const c = readFileSync(join(d, '.design/card/variants-v2.html'), 'utf8');
   assert.ok(c.includes('zoom:2.4'));
 });
+
+test('--print: @page 규격, 2시트, 재단선, 가이드 오버라이드', () => {
+  const d = proj();
+  const st = JSON.parse(readFileSync(join(d, '.design/card.json'), 'utf8'));
+  st.final = '1-1';
+  writeFileSync(join(d, '.design/card.json'), JSON.stringify(st));
+  const outJson = JSON.parse(execFileSync('node', [SCRIPT, d, '--print']).toString());
+  const p = readFileSync(join(d, '.design/card/print.html'), 'utf8');
+  assert.ok(p.includes('@page { size: 94mm 54mm'));            // landscape 기본
+  assert.strictEqual((p.match(/class="sheet/g) || []).length, 2);
+  assert.ok(p.includes('trimline') && p.includes('page-break-after'));
+  assert.ok(p.includes('print-color-adjust: exact'));
+  assert.ok(outJson.pdfCmd.includes('--print-to-pdf') && outJson.cmykCmd.includes('CMYK'));
+  // 인쇄소 가이드 오버라이드
+  const st2 = JSON.parse(readFileSync(join(d, '.design/card.json'), 'utf8'));
+  st2.printSpec = { trimW: 91, trimH: 55, bleed: 1 };
+  writeFileSync(join(d, '.design/card.json'), JSON.stringify(st2));
+  execFileSync('node', [SCRIPT, d, '--print']);
+  const p2 = readFileSync(join(d, '.design/card/print.html'), 'utf8');
+  assert.ok(p2.includes('@page { size: 93mm 57mm'));
+});
