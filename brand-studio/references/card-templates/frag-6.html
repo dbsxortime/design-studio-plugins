@@ -1,0 +1,362 @@
+<section class="cat">
+<h2>6 · 테크 · 모던 — 채택 9종</h2>
+<style>
+/* ── cat-6 전용 (t6- 프리픽스로 타 카테고리와 충돌 방지) ── */
+.t6-brand{display:flex;align-items:center;gap:5px;font:700 10px var(--f-disp)}
+.t6-name{font:700 15px var(--f-disp);line-height:1.15}
+.t6-title{font:500 9px var(--f-sans);letter-spacing:.02em}
+.t6-contact{font:400 8px var(--f-mono);line-height:1.6;white-space:nowrap}
+
+/* 1 다크 미니멀 */
+.t6-dark-f{background:var(--c-a-ink2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px}
+.t6-dark-f .t6-brand{color:var(--c-on);font-size:11px;margin-bottom:22px}
+.t6-dark-f .t6-brand .mark{color:var(--c-a-lav)}
+.t6-dark-f .rule{width:60%;height:1px;background:var(--c-muted);margin:0 0 10px}
+.t6-dark-f .t6-name{color:var(--c-on);letter-spacing:.08em;text-transform:uppercase;font-size:13px}
+.t6-dark-f .t6-title{color:var(--c-a-lav);letter-spacing:.14em;text-transform:uppercase;margin:4px 0}
+.t6-dark-f .t6-contact{color:var(--c-on);opacity:.55;letter-spacing:.02em}
+.t6-dark-b{background:var(--c-a-ink2);position:relative;display:flex;align-items:center;justify-content:center}
+.t6-dark-b .qrbox{background:#fff;border-radius:4px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.t6-dark-b .qrbox svg{width:64px;height:64px;display:block}
+.t6-dark-b .qrbox span{font:700 6.5px var(--f-mono);color:var(--c-a-ink2);letter-spacing:.08em}
+
+/* 2 모노스페이스 터미널 */
+.t6-term-f{background:var(--c-a-ink2);display:flex;flex-direction:column;justify-content:center;padding:18px 20px}
+.t6-term-f .path{font:700 8px var(--f-mono);color:var(--c-a-lav);letter-spacing:.08em;opacity:.85;margin-bottom:10px}
+.t6-term-f .t6-name{font:700 22px var(--f-disp);color:var(--c-on);letter-spacing:-.01em}
+.t6-term-f .cur{display:inline-block;width:4px;height:16px;background:var(--c-a-lav);vertical-align:-3px;margin-left:3px}
+.t6-term-f .role{font:500 9px var(--f-mono);color:var(--c-on);opacity:.55;margin-top:6px;letter-spacing:.02em}
+.t6-term-b{background:var(--c-a-ink2);padding:14px;font-family:var(--f-mono);font-size:8.5px;line-height:2}
+.t6-term-b .ttl{color:var(--c-on);opacity:.55;margin-bottom:6px}
+.t6-term-b .k{color:var(--c-a-lav)}
+.t6-term-b .v{color:var(--c-on)}
+
+/* 3 볼드 워드마크 */
+.t6-word-f{background:var(--c-primary);display:flex;flex-direction:column;justify-content:space-between;padding:14px 12px}
+.t6-word-f .big{font:900 46px/.85 var(--f-disp);color:var(--c-on);letter-spacing:-.02em;word-break:break-all}
+.t6-word-f .line{font:700 8px var(--f-mono);color:var(--c-on);letter-spacing:.03em}
+.t6-word-b{background:var(--c-primary);display:flex;align-items:center;justify-content:center}
+.t6-word-b span{color:var(--c-on);font:500 9px var(--f-mono);letter-spacing:.04em}
+
+/* 4 QR 스마트 카드 */
+.t6-qr-f{background:var(--c-bg);display:flex;padding:14px}
+.t6-qr-f .info{width:64%;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.t6-qr-f .info .t6-brand{color:var(--c-primary)}
+.t6-qr-f .info .t6-name{color:var(--c-text)}
+.t6-qr-f .info .t6-title{color:var(--c-muted)}
+.t6-qr-f .info .t6-contact{color:var(--c-text)}
+.t6-qr-f .qrwrap{width:36%;display:flex;align-items:center;justify-content:center}
+.t6-qr{width:74px;height:74px;background:#fff;border-radius:3px;padding:5px;display:flex;align-items:center;justify-content:center;flex:none}
+.t6-qr svg{width:100%;height:100%;display:block}
+.t6-qr-b{background:var(--c-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.t6-qr-b .cta{font:700 10px var(--f-disp);color:var(--c-text);letter-spacing:.02em}
+
+/* 5 이소메트릭 3D */
+.t6-iso-f{background:var(--c-bg);display:flex;align-items:center;padding:14px;gap:10px}
+.t6-iso-f svg{flex:none}
+.t6-iso-f .info{display:flex;flex-direction:column;gap:5px}
+.t6-iso-f .t6-brand{color:var(--c-primary)}
+.t6-iso-f .t6-name{color:var(--c-text)}
+.t6-iso-f .t6-title{color:var(--c-muted)}
+.t6-iso-f .t6-contact{color:var(--c-text)}
+.t6-iso-b{background:var(--c-bg);position:relative;overflow:hidden}
+.t6-iso-b .grid{position:absolute;inset:-20px;background-image:
+  repeating-linear-gradient(60deg,var(--c-a-lav) 0 1.5px,transparent 1.5px 26px),
+  repeating-linear-gradient(-60deg,var(--c-a-lav) 0 1.5px,transparent 1.5px 26px),
+  repeating-linear-gradient(0deg,var(--c-a-lav) 0 1.5px,transparent 1.5px 26px);
+  opacity:.16}
+
+/* 6 스위스 그리드 + 모노 액센트 */
+.t6-swiss-f{background:var(--c-bg);padding:16px;display:flex;flex-direction:column;justify-content:space-between}
+.t6-swiss-f .t6-brand{color:var(--c-text);align-self:flex-start}
+.t6-swiss-f .base{display:flex;align-items:baseline;gap:6px}
+.t6-swiss-f .t6-name{color:var(--c-text)}
+.t6-swiss-f .dot{width:5px;height:5px;border-radius:50%;background:var(--c-a-red);flex:none}
+.t6-swiss-f .t6-title{color:var(--c-muted);border-top:1px solid var(--c-text);padding-top:4px;margin-top:2px}
+.t6-swiss-b{background:var(--c-bg);padding:16px;display:flex;flex-direction:column;justify-content:center;gap:7px}
+.t6-swiss-b .row{display:flex;gap:8px;font-family:var(--f-mono);font-size:9px}
+.t6-swiss-b .lbl{color:var(--c-muted);width:38px;flex:none}
+.t6-swiss-b .val{color:var(--c-text)}
+
+/* 7 지오메트릭 라인·노드 */
+.t6-node-f{background:var(--c-surface);position:relative;padding:14px}
+.t6-node-f svg{position:absolute;left:10px;top:10px}
+.t6-node-f .info{position:absolute;right:14px;bottom:12px;text-align:right}
+.t6-node-f .t6-name{color:var(--c-text)}
+.t6-node-f .t6-title{color:var(--c-muted)}
+.t6-node-f .t6-contact{color:var(--c-text)}
+.t6-node-b{background:var(--c-surface);position:relative;overflow:hidden}
+.t6-node-b svg{position:absolute;inset:0}
+
+/* 8 블루프린트 와이어프레임 */
+.t6-blue-f{background:var(--c-primary);position:relative;overflow:hidden;padding:12px}
+.t6-blue-f svg{position:absolute;inset:0}
+.t6-blue-f .info{position:absolute;left:14px;bottom:12px}
+.t6-blue-f .t6-name{color:var(--c-on);letter-spacing:.06em;font-size:16px;font-weight:800}
+.t6-blue-f .t6-title{color:var(--c-on);opacity:.7;letter-spacing:.1em;text-transform:uppercase}
+.t6-blue-f .t6-contact{color:var(--c-on);opacity:.55}
+.t6-blue-b{background:var(--c-primary);position:relative}
+.t6-blue-b .grid{position:absolute;inset:0;background-image:
+  repeating-linear-gradient(90deg,var(--c-on) 0 1.5px,transparent 1.5px 14px),
+  repeating-linear-gradient(0deg,var(--c-on) 0 1.5px,transparent 1.5px 14px);
+  opacity:.13}
+.t6-blue-b .axis{position:absolute;left:14px;top:12px;color:var(--c-on);font:700 12px var(--f-mono);opacity:.7}
+.t6-blue-b .scale{position:absolute;left:14px;top:34px;color:var(--c-on);font:700 7px var(--f-mono);opacity:.55;letter-spacing:.08em}
+.t6-blue-b .tblock{position:absolute;right:14px;bottom:12px;text-align:right;color:var(--c-on);font:700 9px var(--f-mono);letter-spacing:.05em;line-height:1.7}
+.t6-blue-b .tblock .lbl{display:block;opacity:.5;font-size:6.5px;letter-spacing:.12em;text-transform:uppercase}
+
+/* 9 픽셀/8비트 레트로테크 */
+.t6-pixel-f{background:var(--c-a-ink2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px}
+.t6-pixel-grid{display:grid;grid-template-columns:repeat(9,4px);grid-template-rows:repeat(9,4px);gap:1px}
+.t6-pixel-grid i{background:transparent}
+.t6-pixel-grid i.on1{background:var(--c-a-lav)}
+.t6-pixel-grid i.on2{background:var(--c-on)}
+.t6-pixel-f .t6-name{font-family:var(--f-mono);color:var(--c-on);font-size:12px;letter-spacing:.04em}
+.t6-pixel-f .t6-title{color:var(--c-a-lav);font-size:8px;letter-spacing:.08em;text-transform:uppercase}
+.t6-pixel-f .t6-contact{color:var(--c-on);opacity:.5;font-size:7px;letter-spacing:.02em;margin-top:2px}
+.t6-pixel-b{background:var(--c-a-ink2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.t6-pixel-b .star{display:grid;grid-template-columns:repeat(7,6px);grid-template-rows:repeat(7,6px);gap:1px}
+.t6-pixel-b .star i{background:transparent}
+.t6-pixel-b .star i.on{background:var(--c-a-lav)}
+.t6-pixel-b .cap{font:700 8px var(--f-mono);color:var(--c-on);opacity:.5;letter-spacing:.15em}
+</style>
+<div class="grid">
+
+<div class="tpl" data-id="6-1">
+  <div class="tpl-head"><b>1. 다크 미니멀</b><span class="grade S">S · A</span></div>
+  <div class="cards">
+    <div class="card t6-dark-f">
+      <div class="t6-brand"><span class="mark"></span>{{org}}</div>
+      <div class="rule"></div>
+      <div class="t6-name">{{name}}</div>
+      <div class="t6-title">{{role}}</div>
+      <div class="t6-contact">{{domain}} · {{phone}}</div>
+    </div>
+    <div class="card t6-dark-b">
+      <div class="qrbox">
+        <svg viewBox="0 0 33 33" width="64" height="64">{{qr}}</svg>
+        <span>{{domain}}</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">bg=순흑에 가까운 --c-a-ink2, 액센트는 --c-a-lav 단 1개만. 하단 1/3 구분선(--c-muted) 아래 정보 배치, 올캡+자간 확장. 매트 블랙 풀커버는 스크래치·지문이 잘 남으므로 소프트터치 라미네이트 마감을 매트 단독 대신 필수 지정(리뷰 보완). 뒷면 좌하단 소형 QR(포트폴리오 연결)은 근사 격자 — 실 발주 시 2×2cm·quiet zone 기준 재검증. 2차: 뒷면의 스캔 불가 노이즈 격자를 제거하고 {{domain}} 실 QR(33×33 모듈, 흰 quiet zone 박스)을 중앙 배치 — "노이즈 점" 대신 실제 앵커 요소로 교체.</p>
+</div>
+
+<div class="tpl" data-id="6-2">
+  <div class="tpl-head"><b>2. 모노스페이스 터미널</b><span class="grade">A-</span></div>
+  <div class="cards">
+    <div class="card t6-term-f">
+      <div class="path">~/contact/park-yuntaek</div>
+      <div class="t6-name">{{name}}<span class="cur"></span></div>
+      <div class="role">{{role}} @ {{org}}</div>
+    </div>
+    <div class="card t6-term-b">
+      <div class="ttl">contact.json</div>
+      <div><span class="k">"site"</span>: <span class="v">"{{domain}}"</span></div>
+      <div><span class="k">"tel"</span>: <span class="v">"{{phone}}"</span></div>
+      <div><span class="k">"mail"</span>: <span class="v">"{{email}}"</span></div>
+    </div>
+  </div>
+  <p class="note">bg=--c-a-ink2 다크 에디터 톤, 신택스 강조=--c-a-lav. 뒷면 contact.json 블록은 그대로 유지 — 커서는 인쇄 정지 아이콘으로 고정. 리뷰 지시대로 muted(주석색)를 --c-on 55% 이상으로 확보해 다크 bg에서도 연락처 항상 판독 가능. 폰트는 JetBrains Mono류(OFL) 안전. 2차: "물리 카드 위 브라우저 창" 자기모순 지적 반영 — 트래픽라이트+창 바를 완전히 제거하고 경로 라벨(~/contact)+대형 이름+역할의 순수 타이포 위계로 재조판. 모티프(터미널 UI)를 걷어내도 조판 자체가 성립하도록 재설계.</p>
+</div>
+
+<div class="tpl" data-id="6-3">
+  <div class="tpl-head"><b>3. 볼드 워드마크</b><span class="grade">A-</span></div>
+  <div class="cards">
+    <div class="card t6-word-f">
+      <div class="big">JOBS<br>LAB</div>
+      <div class="line">{{name}} · {{role}} · {{phone}}</div>
+    </div>
+    <div class="card t6-word-b"><span>{{domain}} · {{email}}</span></div>
+  </div>
+  <p class="note">bg=--c-primary 단색, text=--c-on. 워드마크 자체가 그래픽 — 별도 장식 없음(Distill 원칙). 리뷰 지시 반영: 무광/유광 코팅 대비는 배경 텍스처에만 적용하고, 하단 8pt 연락처는 코팅 효과에 의존하지 않고 잉크 대비로 100% 확정 판독되게 처리. 2차: 공통 규칙 7개 점검 결과 위반 없음 — 뒷면 텍스트 앵커 유지, 골드·QR·그리드·패턴 미사용, 모티프 없이 타이포만으로 조판 완결. 변경사항 없음.</p>
+</div>
+
+<div class="tpl" data-id="6-4">
+  <div class="tpl-head"><b>4. QR 스마트 카드</b><span class="grade">A-</span></div>
+  <div class="cards">
+    <div class="card t6-qr-f">
+      <div class="info">
+        <div class="t6-brand"><span class="mark"></span>{{org}}</div>
+        <div class="t6-name">{{name}}</div>
+        <div class="t6-title">{{role}}</div>
+        <div class="t6-contact">{{phone}}<br>{{email}}</div>
+      </div>
+      <div class="qrwrap">
+        <div class="t6-qr"><svg viewBox="0 0 33 33">{{qr}}</svg></div>
+      </div>
+    </div>
+    <div class="card t6-qr-b">
+      <div class="cta">Scan to connect</div>
+      <div class="t6-qr"><svg viewBox="0 0 33 33">{{qr}}</svg></div>
+    </div>
+  </div>
+  <p class="note">QR은 실제 {{domain}} QR(33×33 모듈, qr-{{org}}.svg path 인라인 임베드)로 스캔 가능. stroke만 --c-text 토큰, 배경은 스캔 신뢰도를 위해 순백 quiet zone 고정 유지. 실 발주 시 최소 2×2cm·quiet zone 모듈 4개분 재검증 권장. 2차: "존재 이유 붕괴" 지적 반영 — 체커보드 CSS 근사물을 폐기하고 실 스캔 가능한 QR로 전면 교체, 실 모듈을 가릴 위험이 있는 가짜 파인더패턴(.fp)·중앙 로고 오버레이 삭제. "우측 40% 점유 무겁다" 지적도 반영해 정보 64%/QR 36%로 재배분.</p>
+</div>
+
+<div class="tpl" data-id="6-5">
+  <div class="tpl-head"><b>5. 이소메트릭 3D</b><span class="grade">A-</span></div>
+  <div class="cards">
+    <div class="card t6-iso-f">
+      <svg width="92" height="100" viewBox="0 0 92 100">
+        <g transform="translate(24,66)">
+          <polygon points="0,-20 18,-10 0,0 -18,-10" fill="var(--c-primary)"/>
+          <polygon points="-18,-10 0,0 0,20 -18,10" fill="var(--c-a-deep)"/>
+          <polygon points="18,-10 0,0 0,20 18,10" fill="var(--c-a-ink2)"/>
+        </g>
+        <g transform="translate(50,44)">
+          <polygon points="0,-20 18,-10 0,0 -18,-10" fill="var(--c-primary)"/>
+          <polygon points="-18,-10 0,0 0,20 -18,10" fill="var(--c-a-deep)"/>
+          <polygon points="18,-10 0,0 0,20 18,10" fill="var(--c-a-ink2)"/>
+        </g>
+        <g transform="translate(50,82)">
+          <polygon points="0,-20 18,-10 0,0 -18,-10" fill="var(--c-primary)"/>
+          <polygon points="-18,-10 0,0 0,20 -18,10" fill="var(--c-a-deep)"/>
+          <polygon points="18,-10 0,0 0,20 18,10" fill="var(--c-a-ink2)"/>
+        </g>
+      </svg>
+      <div class="info">
+        <div class="t6-brand"><span class="mark"></span>{{org}}</div>
+        <div class="t6-name">{{name}}</div>
+        <div class="t6-title">{{role}}</div>
+        <div class="t6-contact">{{domain}}<br>{{phone}}</div>
+      </div>
+    </div>
+    <div class="card t6-iso-b"><div class="grid"></div></div>
+  </div>
+  <p class="note">큐브 3개 조합(과밀 방지, 5개 이하 제한 준수), 상단면=--c-primary·좌측면=--c-a-deep·우측면=--c-a-ink2로 3단 음영을 토큰 파생만으로 구성 — 리뷰가 지목한 "토큰화 우수" 사례. 상단면만 스팟 UV 하이라이트 권장. 뒷면은 옅은 이소메트릭 그리드만, 텍스트 없음. 2차: 공통 규칙 5(헤어라인 최소 굵기) 적용 — 뒷면 그리드 선 굵기를 갤러리 1px→1.5px로 상향, 저대비 방지로 opacity .25→.3 조정(인쇄 소실 위험 완충). 3차: 뒷면 그리드가 전면을 뒤덮어 배경이 카드를 압도한다는 지적 반영 — 선 굵기 1.5px(인쇄 소실 최소선)는 유지하고 opacity만 .3→.16으로 하향, 텍스트 없는 순수 여백 카드로 더 희미하게 절제.</p>
+</div>
+
+<div class="tpl" data-id="6-6">
+  <div class="tpl-head"><b>6. 스위스 그리드 + 모노 액센트</b><span class="grade S">S · A</span></div>
+  <div class="cards">
+    <div class="card t6-swiss-f">
+      <div class="t6-brand"><span class="mark"></span>{{org}}</div>
+      <div>
+        <div class="base"><span class="t6-name">{{name}}</span><span class="dot"></span></div>
+        <div class="t6-title">{{role}} — {{domain}}</div>
+      </div>
+    </div>
+    <div class="card t6-swiss-b">
+      <div class="row"><span class="lbl">tel</span><span class="val">{{phone}}</span></div>
+      <div class="row"><span class="lbl">mail</span><span class="val">{{email}}</span></div>
+      <div class="row"><span class="lbl">web</span><span class="val">{{domain}}</span></div>
+    </div>
+  </div>
+  <p class="note">12컬럼 그리드 기반 여백 40%+ 확보, 액센트(--c-a-red 점 1개)는 카드 면적의 5% 이하로 절제. 헤드라인은 --f-disp(Satoshi), 데이터성 정보(전화/메일)만 --f-mono로 전환해 대비. 리뷰 지시 반영: "Helvetica류" 대신 상용 라이선스 이슈 없는 토큰 폰트(Wanted Sans/Satoshi)로 대체 확정. 코튼 무광 스톡 권장. 2차: 공통 규칙 7개 점검 결과 위반 없음 — 뒷면 데이터 리스트가 이미 앵커 역할, 골드·QR·그리드·패턴 미사용. 변경사항 없음(유일하게 유행을 안 타는 조판 유지).</p>
+</div>
+
+<div class="tpl" data-id="6-7">
+  <div class="tpl-head"><b>7. 지오메트릭 라인·노드</b><span class="grade">B+</span></div>
+  <div class="cards">
+    <div class="card t6-node-f">
+      <svg width="130" height="90" viewBox="0 0 130 90">
+        <g stroke="var(--c-primary)" stroke-width="1.2" fill="none">
+          <line x1="40" y1="45" x2="72.9" y2="26"/>
+          <line x1="40" y1="45" x2="40" y2="83"/>
+          <line x1="40" y1="45" x2="7.1" y2="26"/>
+        </g>
+        <circle cx="72.9" cy="26" r="3.5" fill="var(--c-primary)" opacity=".7"/>
+        <circle cx="40" cy="83" r="3" fill="var(--c-primary)"/>
+        <circle cx="7.1" cy="26" r="2.8" fill="var(--c-primary)" opacity=".6"/>
+        <circle cx="40" cy="45" r="6" fill="var(--c-primary)"/>
+        <g stroke="var(--c-bg)" stroke-width="1" stroke-linecap="round">
+          <line x1="37" y1="43" x2="43" y2="43"/>
+          <line x1="38" y1="46.5" x2="42" y2="46.5"/>
+        </g>
+      </svg>
+      <div class="info">
+        <div class="t6-name">{{name}}</div>
+        <div class="t6-title">{{role}} · {{org}}</div>
+        <div class="t6-contact">{{phone}}</div>
+      </div>
+    </div>
+    <div class="card t6-node-b">
+      <svg viewBox="0 0 270 150">
+        <g stroke="var(--c-primary)" stroke-width="1.2" fill="var(--c-primary)" opacity=".22">
+          <line x1="45" y1="40" x2="63.1" y2="29.55"/><line x1="45" y1="40" x2="45" y2="60.9"/><line x1="45" y1="40" x2="26.9" y2="29.55"/>
+          <circle cx="63.1" cy="29.55" r="1.8"/><circle cx="45" cy="60.9" r="1.8"/><circle cx="26.9" cy="29.55" r="1.8"/>
+          <circle cx="45" cy="40" r="3.4"/>
+          <line x1="150" y1="100" x2="168.1" y2="89.55"/><line x1="150" y1="100" x2="150" y2="120.9"/><line x1="150" y1="100" x2="131.9" y2="89.55"/>
+          <circle cx="168.1" cy="89.55" r="1.8"/><circle cx="150" cy="120.9" r="1.8"/><circle cx="131.9" cy="89.55" r="1.8"/>
+          <circle cx="150" cy="100" r="3.4"/>
+          <line x1="225" y1="45" x2="243.1" y2="34.55"/><line x1="225" y1="45" x2="225" y2="65.9"/><line x1="225" y1="45" x2="206.9" y2="34.55"/>
+          <circle cx="243.1" cy="34.55" r="1.8"/><circle cx="225" cy="65.9" r="1.8"/><circle cx="206.9" cy="34.55" r="1.8"/>
+          <circle cx="225" cy="45" r="3.4"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <p class="note">선 컬러 단색(--c-primary), muted는 동일 색의 저투명 버전(opacity)으로만 파생 — 토큰 적용성 우수. 리뷰 보완 지시: 원안의 0.5pt 활판(letterpress)은 가는 획 뭉갬 위험이 있어 배제 — 선 굵기를 0.75pt(≈0.26mm) 이상으로 올리고 후가공을 오프셋 인쇄 또는 디보싱으로 조정. 2차: "임의로 흩어져 의미가 안 읽힌다"는 지적 반영 — 노드를 허브 1개+위성 3개의 3방향 방사형(120° 간격) 구조로 재배치해 의도된 네트워크로 읽히게 하고, 허브 내부에 .mark 심볼의 2줄 바를 축소 이식해 브랜드 파생을 명시(공통 규칙 6). 뒷면도 동일 허브 구조를 3곳에 반복 배치해 "임의성"을 "패턴"으로 전환.</p>
+</div>
+
+<div class="tpl" data-id="6-8">
+  <div class="tpl-head"><b>8. 블루프린트 와이어프레임</b><span class="grade">B+</span></div>
+  <div class="cards">
+    <div class="card t6-blue-f">
+      <svg viewBox="0 0 270 150">
+        <g stroke="var(--c-on)" stroke-width="1.3" fill="none" opacity=".9">
+          <circle cx="135" cy="52" r="26"/>
+          <line x1="115" y1="52" x2="155" y2="52"/>
+          <line x1="135" y1="32" x2="135" y2="72"/>
+        </g>
+        <g stroke="var(--c-on)" stroke-width="1" opacity=".55">
+          <line x1="20" y1="20" x2="250" y2="20"/>
+          <line x1="20" y1="16" x2="20" y2="24"/><line x1="250" y1="16" x2="250" y2="24"/>
+        </g>
+        <text x="128" y="16" fill="var(--c-on)" opacity=".55" font-family="var(--f-mono)" font-size="6">90.0mm</text>
+        <text x="135" y="86" text-anchor="middle" fill="var(--c-on)" opacity=".6" font-family="var(--f-mono)" font-size="6">X135 · Y52</text>
+      </svg>
+      <div class="info">
+        <div class="t6-name">{{name}}</div>
+        <div class="t6-title">{{role}}</div>
+        <div class="t6-contact">{{domain}} · {{phone}}</div>
+      </div>
+    </div>
+    <div class="card t6-blue-b">
+      <div class="grid"></div>
+      <div class="axis">+</div>
+      <div class="scale">SCALE 1:1</div>
+      <div class="tblock"><span class="lbl">Drawn</span>{{domain}}</div>
+    </div>
+  </div>
+  <p class="note">bg=--c-primary(블루프린트 톤), 로고는 흰 아웃라인(면 채움 없음), 치수선+수치 라벨로 도면 감성. muted 정보는 --c-on 30% 투명으로 위계 구분. 리뷰 보완 지시: 진한 색면 풀블리드는 잉크 커버리지가 높아 접힘 시 스커프·크랙 위험 — "일반 스톡" 대신 소프트터치 또는 매트 라미네이트 마감을 명시. 치수선 두께 0.25pt 이하는 지양. 2차: "크로스헤어 원이 공허"하다는 지적 반영 — 좌표 라벨(X135·Y52)을 부여해 장식이 아닌 도면 표기로 기능시키고, 이름 타이포를 16px/800weight로 키워 도면 모티프를 걷어내도 조판이 성립하게 보강. 그리드 선 굵기 1px→1.5px·opacity .16→.22로 소실 위험 완충, 뒷면 축 마크에 SCALE 라벨 추가로 빈 공간에 앵커 부여. 3차: "뒷면이 그리드 모티프에 의존한다"는 잔존 지적 반영 — 그리드 opacity를 .22→.13(인쇄 소실 안 될 최소선)으로 낮추고, 우하단에 도면 타이틀블록(Drawn/{{domain}}) 타이포 앵커를 신설해 뒷면이 그리드 장식이 아닌 실제 정보로 성립하게 재설계.</p>
+</div>
+
+<div class="tpl" data-id="6-9">
+  <div class="tpl-head"><b>9. 픽셀 / 8비트 레트로테크</b><span class="grade">B+</span></div>
+  <div class="cards">
+    <div class="card t6-pixel-f">
+      <div class="t6-pixel-grid">
+        <i></i><i></i><i class="on1"></i><i class="on1"></i><i class="on1"></i><i class="on1"></i><i class="on1"></i><i></i><i></i>
+        <i></i><i class="on1"></i><i class="on1"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on1"></i><i class="on1"></i><i></i>
+        <i class="on1"></i><i class="on1"></i><i class="on2"></i><i></i><i class="on2"></i><i></i><i class="on2"></i><i class="on1"></i><i class="on1"></i>
+        <i class="on1"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on1"></i>
+        <i class="on1"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on1"></i>
+        <i></i><i class="on1"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on1"></i><i></i>
+        <i></i><i></i><i class="on1"></i><i class="on2"></i><i class="on2"></i><i class="on2"></i><i class="on1"></i><i></i><i></i>
+        <i></i><i></i><i></i><i class="on1"></i><i class="on2"></i><i class="on1"></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i class="on1"></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="t6-name">{{name}}</div>
+      <div class="t6-title">{{org}} · {{role}}</div>
+      <div class="t6-contact">{{phone}}</div>
+    </div>
+    <div class="card t6-pixel-b">
+      <div class="star">
+        <i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i>
+        <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+        <i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+        <i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i>
+        <i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="cap">{{domain}}</div>
+    </div>
+  </div>
+  <p class="note">팔레트 4색 제한(--c-a-ink2/--c-a-lav/--c-on/투명)으로 8비트 제약 재현, 안티에일리어싱 없는 계단 경계 의도 유지. 리뷰 지시: 비트맵/픽셀 폰트는 상업 임베딩 라이선스 확인 필수 — 본 데모는 헤드라인을 시스템 --f-mono로 근사, 실 발주 시 라이선스 확정된 픽셀 폰트로 교체. 최소 도트 1mm 이상 권장(촘촘하면 인쇄 시 뭉갬). 2차: 앞면에 연락처 라인이 누락돼 있어 추가(기능적 완결성 확보). "뒷면 인베이더가 검정 위에 작게 떠 균형이 빈다"는 지적 반영 — 캡션({{domain}})을 하단에 추가해 별 아이콘 단독 부유 대신 아이콘+타이포 2단 구성으로 무게중심 보완.</p>
+</div>
+
+</div>
+</section>

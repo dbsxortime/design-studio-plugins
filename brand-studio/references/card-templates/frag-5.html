@@ -1,0 +1,219 @@
+<section class="cat">
+<h2>5 · 일러스트 · 패턴 — 채택 6종</h2>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ms5" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <line x1="7" y1="10" x2="17" y2="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="9" y1="14" x2="15" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="grid">
+
+<div class="tpl" data-id="5-1">
+  <div class="tpl-head"><b>9 · 브랜드 마크 타일 반복(브릭 패턴)</b><span class="grade S">S</span></div>
+  <div class="cards">
+    <div class="card" style="background:var(--c-primary)">
+      <svg width="270" height="150" viewBox="0 0 270 150" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <pattern id="p9a" width="135" height="50" patternUnits="userSpaceOnUse">
+            <text x="14" y="22" font-family="var(--f-disp)" font-size="19" font-weight="800" fill="var(--c-on)" opacity=".5">{{org}}</text>
+            <text x="36" y="43" font-family="var(--f-disp)" font-size="19" font-weight="800" fill="var(--c-on)" opacity=".5">{{org}}</text>
+          </pattern>
+        </defs>
+        <rect width="270" height="150" fill="url(#p9a)"/>
+      </svg>
+      <div style="position:absolute;left:0;right:0;bottom:0;background:var(--c-on);padding:9px 14px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font:700 12px var(--f-disp);color:var(--c-primary)"><span class="mark" style="color:var(--c-primary)"></span> {{name}}</span>
+        <span style="font:400 9.5px var(--f-sans);color:var(--c-muted)">{{org}} · {{role}}</span>
+      </div>
+    </div>
+    <div class="card" style="background:var(--c-on)">
+      <svg width="270" height="150" viewBox="0 0 270 150" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <pattern id="p9b" width="135" height="50" patternUnits="userSpaceOnUse">
+            <text x="14" y="22" font-family="var(--f-disp)" font-size="19" font-weight="800" fill="var(--c-primary)" opacity=".5">{{org}}</text>
+            <text x="36" y="43" font-family="var(--f-disp)" font-size="19" font-weight="800" fill="var(--c-primary)" opacity=".5">{{org}}</text>
+          </pattern>
+        </defs>
+        <rect width="270" height="150" fill="url(#p9b)"/>
+      </svg>
+      <div style="position:absolute;left:0;right:0;bottom:0;background:var(--c-primary);padding:9px 14px;display:flex;flex-direction:column;gap:1px">
+        <span style="font:700 10.5px var(--f-mono);color:var(--c-on);letter-spacing:.03em">{{domain}} · {{phone}}</span>
+        <span style="font:400 9px var(--f-mono);color:var(--c-a-lav)">{{email}}</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">컨셉: 워드마크 "{{org}}"을 벽돌쌓기(brick bond)로 어긋나게 반복해 카드 전면을 채움. 패턴 파생: 로고 자산(워드마크) 그대로 재사용, 별도 일러스트 0 — 유일한 진성 로고-온리. 앞/뒤가 흑백 반전 페어라 색만 바꿔 팀원 카드로 확장. <br>2차: 타일을 135×50(약 +30~47%)으로 키우고 좌우 마진을 넉넉히 둬 단어가 잘리지 않게 재배치, 오프셋도 정확히 절반(격자감의 원인)에서 벗어난 값으로 조정, 카드 폭 270이 타일 폭의 정배수가 되도록 위상을 맞춰 좌우 프레임에서 단어가 온전히 시작/종료되게 함. <br>3차: 반복 텍스트 opacity를 .85→.5로 낮춰 전면 채움에도 배경층으로 물러나게 조정 — 워드마크 형태(브랜드 인상)는 그대로, 카드 전체를 짓누르던 소리만 줄임.</p>
+</div>
+
+<div class="tpl" data-id="5-2">
+  <div class="tpl-head"><b>5 · 지오메트릭 모자이크 타일</b><span class="grade">A</span></div>
+  <div class="cards">
+    <div class="card" style="background:var(--c-a-light)">
+      <svg width="270" height="150" viewBox="0 0 270 150" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <pattern id="p5a" width="48" height="48" patternUnits="userSpaceOnUse">
+            <rect width="48" height="48" fill="var(--c-a-light)"/>
+            <g transform="translate(24,24) rotate(45)" opacity=".4">
+              <rect x="-13" y="-13" width="13" height="13" fill="var(--c-a-lav)"/>
+              <rect x="0" y="-13" width="13" height="13" fill="var(--c-a-lav2)"/>
+              <rect x="-13" y="0" width="13" height="13" fill="var(--c-a-lav2)"/>
+              <rect x="0" y="0" width="13" height="13" fill="var(--c-a-lav)"/>
+            </g>
+            <use href="#ms5" x="14" y="14" width="20" height="20" color="var(--c-a-deep)" opacity=".3"/>
+          </pattern>
+        </defs>
+        <rect width="270" height="150" fill="url(#p5a)"/>
+      </svg>
+      <div style="position:absolute;top:14px;left:14px;width:50px;height:50px;border-radius:50%;background:var(--c-a-deep);display:flex;align-items:center;justify-content:center">
+        <span class="mark" style="color:var(--c-on);font-size:20px"></span>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:0;background:var(--c-a-deep);padding:8px 14px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font:700 12px var(--f-disp);color:var(--c-on)">{{name}}</span>
+        <span style="font:400 9px var(--f-sans);color:var(--c-a-light)">{{org}} · {{role}}</span>
+      </div>
+    </div>
+    <div class="card">
+      <svg width="270" height="150" viewBox="0 0 270 150" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <pattern id="p5b" width="48" height="48" patternUnits="userSpaceOnUse">
+            <rect width="48" height="48" fill="var(--c-a-light)"/>
+            <g transform="translate(24,24) rotate(45)" opacity=".4">
+              <rect x="-13" y="-13" width="13" height="13" fill="var(--c-a-lav)"/>
+              <rect x="0" y="-13" width="13" height="13" fill="var(--c-a-lav2)"/>
+              <rect x="-13" y="0" width="13" height="13" fill="var(--c-a-lav2)"/>
+              <rect x="0" y="0" width="13" height="13" fill="var(--c-a-lav)"/>
+            </g>
+            <use href="#ms5" x="14" y="14" width="20" height="20" color="var(--c-a-deep)" opacity=".3"/>
+          </pattern>
+        </defs>
+        <rect width="270" height="150" fill="url(#p5b)"/>
+      </svg>
+      <div style="position:absolute;right:14px;bottom:14px;width:28px;height:28px;border-radius:50%;background:var(--c-a-deep);display:flex;align-items:center;justify-content:center">
+        <span class="mark" style="color:var(--c-on);font-size:13px"></span>
+      </div>
+    </div>
+  </div>
+  <p class="note">컨셉: 아줄레주풍 4방향 대칭 타일 위에 원형 로고 배지를 오버레이, 정보는 배지+하단 솔리드 바에만. 패턴 파생: 마크의 원(⚪)을 90°씩 회전 복제한 부채꼴 4장 — 로고에 기하 형태가 있을 때 성립하는 조건부 로고-온리(#6·#13과 동일 파생엔진, 스킨만 다름). 뒷면은 패턴 단독(연락처는 별지 삽입 권장). <br>2차: 부채꼴 4장이 합쳐져 원이 되며 각진 리듬이 죽던 문제를 해결 — 아크 대신 45° 회전 사각 4분할(다이아몬드)로 각진 모자이크를 유지하고, 타일마다 마크 심볼(#ms5)을 그대로 스탬프해 "로고에서 파생"을 설명이 아닌 형태로 증명. 타일을 38→48px로 키우고 다이아몬드 주변에 여백을 둬 밀도를 낮춰 배지가 짓눌리던 문제 해소. 빈 뒷면에는 작은 마크 배지를 앵커로 추가. <br>3차: 2차에서 대비를 올린 게 과했음 — 다이아몬드 채움 opacity를 1→.4, 타일 속 마크 스탬프를 .8→.3으로 낮춰 배경층으로 후퇴. 형태(각진 모자이크·마크 파생)는 그대로 두고 소리만 죽여 배지·하단 바 텍스트가 다시 앞으로 나오게 함.</p>
+</div>
+
+<div class="tpl" data-id="5-3">
+  <div class="tpl-head"><b>6 · 일본 전통 문양(세이가이하)</b><span class="grade">A</span></div>
+  <div class="cards">
+    <div class="card" style="background:var(--c-bg)">
+      <div style="position:absolute;top:14px;left:14px;width:26px;height:26px;border-radius:50%;border:1.6px solid var(--c-text);display:flex;align-items:center;justify-content:center">
+        <span class="mark" style="color:var(--c-text);font-size:13px"></span>
+      </div>
+      <div style="position:absolute;top:14px;right:20px;writing-mode:vertical-rl;font:500 15px var(--f-serif);color:var(--c-text);letter-spacing:.1em">{{name}}</div>
+      <div style="position:absolute;top:14px;right:46px;writing-mode:vertical-rl;font:400 9px var(--f-sans);color:var(--c-muted);letter-spacing:.06em">{{org}} · {{role}}</div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:38px;background-image:radial-gradient(circle at 50% 0%, transparent 20%, var(--c-text) 21% 25%, transparent 26% 30%, var(--c-text) 31% 35%, transparent 36% 40%, var(--c-text) 41% 45%, transparent 46%);background-size:40px 20px"></div>
+    </div>
+    <div class="card" style="background:var(--c-bg)">
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle at 50% 0%, transparent 20%, var(--c-text) 21% 25%, transparent 26% 30%, var(--c-text) 31% 35%, transparent 36% 40%, var(--c-text) 41% 45%, transparent 46%);background-size:40px 20px"></div>
+      <div style="position:absolute;right:16px;bottom:12px;width:22px;height:22px;border-radius:50%;border:1.4px solid var(--c-text);opacity:.6;display:flex;align-items:center;justify-content:center">
+        <span class="mark" style="color:var(--c-text);font-size:11px"></span>
+      </div>
+    </div>
+  </div>
+  <p class="note">컨셉: 세이가이하(청해파) 문양을 하단 1/4에만 노출, 상단 2/3는 완전 여백+세로쓰기 이름. 패턴 파생: 마크의 원호를 동심원으로 반복하는 CSS radial-gradient 규칙 — 전통 문양이 이미 타일 반복 규칙을 갖고 있어 각도만 맞추면 즉시 적용(#5·#13과 동일 파생엔진, 로고 파생이 아닌 표준 타일 편입). 뒷면은 문양 전면+텍스트 없음(순수 브랜드 인상용). <br>2차: "노트로만 존재하던" 브랜드 귀속을 형태로 붙임 — 앞면 이름 옆에 마크 배지를 최소 개입으로 추가해 {{org}} 소속을 눈으로 확인 가능하게 하고, 텍스트가 없던 뒷면에도 저채도 마크 배지를 앵커로 넣어 "방치된 여백"이 아닌 "의도된 여백"으로 읽히게 함. 조형(세로쓰기·여백 절제)은 그대로 보존.</p>
+</div>
+
+<div class="tpl" data-id="5-4">
+  <div class="tpl-head"><b>13 · 아르데코 스크린프린트 패턴</b><span class="grade">A</span></div>
+  <div class="cards">
+    <div class="card" style="background:var(--c-primary)">
+      <svg width="270" height="150" viewBox="0 0 270 150" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <g id="deco-fan5">
+            <path d="M0,0 L38,0 A38,38 0 0,1 37.53,5.94 Z"/>
+            <path d="M0,0 L36.14,11.75 A38,38 0 0,1 33.86,17.25 Z"/>
+            <path d="M0,0 L30.75,22.33 A38,38 0 0,1 26.87,26.87 Z"/>
+            <path d="M0,0 L22.33,30.75 A38,38 0 0,1 17.25,33.86 Z"/>
+            <path d="M0,0 L11.75,36.14 A38,38 0 0,1 5.94,37.53 Z"/>
+          </g>
+        </defs>
+        <use href="#deco-fan5" fill="var(--c-a-gold)" opacity=".65"/>
+        <use href="#deco-fan5" fill="var(--c-a-gold)" opacity=".65" transform="translate(270,0) scale(-1,1)"/>
+        <use href="#deco-fan5" fill="var(--c-a-gold)" opacity=".65" transform="translate(0,150) scale(1,-1)"/>
+        <use href="#deco-fan5" fill="var(--c-a-gold)" opacity=".65" transform="translate(270,150) scale(-1,-1)"/>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+        <span class="mark" style="color:var(--c-a-gold);font-size:24px"></span>
+        <span class="foil" style="font:700 14px var(--f-disp);letter-spacing:.05em">{{name}}</span>
+        <span style="font:400 9px var(--f-sans);color:var(--c-a-light)">{{org}} · {{role}}</span>
+      </div>
+    </div>
+    <div class="card" style="background:var(--c-a-ink2)">
+      <div style="position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 130%, var(--c-primary) 0deg 9deg, var(--c-a-ink2) 9deg 18deg);opacity:.55"></div>
+      <div class="foil-bg" style="position:absolute;left:22px;right:22px;bottom:16px;height:3px;border-radius:2px"></div>
+    </div>
+  </div>
+  <p class="note">컨셉: 코너 4곳의 부채꼴(선버스트) 프레임 + 중앙 대칭 로고, 뒷면은 방사형 스크린프린트 패턴+메탈릭 포인트. 패턴 파생: 마크 원호를 코너 기준 방사 복제한 부채꼴 — 부채꼴 모티프 1개를 방사 복제하면 완성(#5·#6과 동일 파생엔진). 메탈릭은 골드 그라데이션(.foil)으로 근사, 무금박 브랜드는 primary 그라데이션 폴백 가능. <br>2차: 그린+골드 팔레트 이탈을 해소 — 배경/뒷면 방사 패턴을 --c-a-green에서 브랜드 primary로 교체(6장 나란히 놓아도 이제 같은 회사). 코너 선버스트는 CSS conic-gradient(7° 웨지 계단 아티팩트)를 걷어내고 정확한 원호 좌표의 SVG 부채꼴(패스 5장×4코너)로 재작도해 계단짐 없이 크리스프하게, 반경도 56→38px로 줄여 골드가 "면"이 아닌 "코너 포인트"로 읽히게 축소. primary 배경 위에서 골드 대비도 회복됨. <br>3차: 코너 선버스트 opacity를 .9→.65로 낮춰 중앙 텍스트보다 튀지 않게, 뒷면 방사 스크린프린트 전체에 opacity .55를 얹어 줄무늬 대비를 죽임 — 아르데코 조형은 유지하되 카드 전체를 압도하던 명암을 배경 수준으로 후퇴.</p>
+</div>
+
+<div class="tpl" data-id="5-5">
+  <div class="tpl-head"><b>14 · 텍스타일 스와치 패턴</b><span class="grade">A</span></div>
+  <div class="cards">
+    <div class="card" style="display:flex;padding:0">
+      <div style="width:135px;height:150px;background-image:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 3px, transparent 3px 6px, rgba(255,255,255,.6) 6px 9px, transparent 9px 12px),repeating-linear-gradient(90deg, var(--c-primary) 0 6px, var(--c-a-light) 6px 12px)"></div>
+      <div style="width:135px;height:150px;background:var(--c-on);border-left:1px dashed var(--c-muted);padding:12px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <span class="mark" style="color:var(--c-primary)"></span>
+          <span style="width:7px;height:7px;border-radius:50%;border:1px solid var(--c-muted)"></span>
+        </div>
+        <div>
+          <div style="font:700 12.5px var(--f-disp);color:var(--c-text)">{{name}}</div>
+          <div style="font:400 8.5px var(--f-sans);color:var(--c-muted);margin-top:1px">{{org}} · {{role}}</div>
+        </div>
+        <div style="font:500 7.5px var(--f-mono);color:var(--c-muted);letter-spacing:.05em;line-height:1.5">COL.01 / PRIMARY<br>{{domain}} · {{phone}}<br>{{email}}</div>
+      </div>
+    </div>
+    <div class="card" style="background-image:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 3px, transparent 3px 6px, rgba(255,255,255,.6) 6px 9px, transparent 9px 12px),repeating-linear-gradient(90deg, var(--c-primary) 0 6px, var(--c-a-light) 6px 12px)">
+      <span style="position:absolute;top:10px;left:10px;width:7px;height:7px;border-radius:50%;border:1px solid var(--c-on);opacity:.85"></span>
+    </div>
+  </div>
+  <p class="note">컨셉: 원단 견본 태그를 명함화 — 절반은 위빙 스와치, 절반은 가격표 라벨 형식. 패턴 파생: 브랜드 컬러 토큰 2개(primary/light)만으로 씨실·날실 교차 규칙을 CSS repeating-linear-gradient로 기계 생성 — 로고 셰이프 불요, 토큰만으로 성립. <br>2차: 위사(가로) 오버레이가 저투명 화이트 단일층이라 직조 교차감이 없고 규칙적인 5px 줄이 바코드로 읽히던 문제 — 위사 레이어를 명암 2단(그림자 rgba(0,0,0,.32)+하이라이트 rgba(255,255,255,.85)) 교대 밴드로 바꿔 실이 위/아래로 지나가는 교차 음영을 실제로 보이게 함. 경사/위사 주기를 12px로 정렬해 모아레 없이 격자가 맞물리게 조정. <br>3차: 2차에서 넣은 명암 밴드 대비가 과했음 — 그림자 .32→.18, 하이라이트 .85→.6으로 낮춰 직조감은 유지하되 카드 절반을 압도하던 명암 대비를 배경 수준으로 줄임(텍스트는 원래도 별도 솔리드 패널이라 직접 충돌은 없었음).</p>
+</div>
+
+<div class="tpl" data-id="5-6">
+  <div class="tpl-head"><b>15 · 반복 아이콘 그리드 패턴</b><span class="grade">A</span></div>
+  <div class="cards">
+    <div class="card" style="background:var(--c-a-light)">
+      <svg width="270" height="150" viewBox="0 0 270 150" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <pattern id="p15a" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(8)">
+            <use href="#ms5" x="2" y="2" width="18" height="18" color="var(--c-a-deep)" opacity=".4"/>
+            <use href="#ms5" x="20" y="20" width="18" height="18" color="var(--c-a-deep)" opacity=".22"/>
+          </pattern>
+        </defs>
+        <rect width="270" height="150" fill="url(#p15a)"/>
+      </svg>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--c-on);border-radius:8px;padding:11px 20px;text-align:center;box-shadow:0 2px 10px rgba(25,23,49,.12)">
+        <div style="font:700 12.5px var(--f-disp);color:var(--c-text)">{{name}}</div>
+        <div style="font:400 8.5px var(--f-sans);color:var(--c-muted);margin-top:2px">{{org}} · {{role}}</div>
+      </div>
+    </div>
+    <div class="card" style="background:var(--c-a-light)">
+      <svg width="270" height="150" viewBox="0 0 270 150" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <pattern id="p15b" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(8)">
+            <use href="#ms5" x="2" y="2" width="18" height="18" color="var(--c-a-deep)" opacity=".4"/>
+            <use href="#ms5" x="20" y="20" width="18" height="18" color="var(--c-a-deep)" opacity=".22"/>
+          </pattern>
+        </defs>
+        <rect width="270" height="150" fill="url(#p15b)"/>
+      </svg>
+      <div style="position:absolute;right:14px;bottom:14px;width:24px;height:24px;border-radius:50%;background:var(--c-on);box-shadow:0 2px 8px rgba(25,23,49,.14);display:flex;align-items:center;justify-content:center">
+        <span class="mark" style="color:var(--c-a-deep);font-size:12px"></span>
+      </div>
+    </div>
+  </div>
+  <p class="note">컨셉: 마크 심볼을 작은 그리드로 촘촘히 반복해 "아이콘 월페이퍼" 배경을 만들고, 중앙 화이트 라벨로 텍스트를 완전 격리. 패턴 파생: 별도 아이콘 세트 제작 없이 마크(원+줄) 자체를 반복 단위로 재사용 — 토큰 자산만으로 완결. <br>2차: opacity .55/.35 + 배경과 근접한 색(lav2 on light)이라 패턴이 사실상 안 보이던 문제 — 색을 고대비 --c-a-deep로 바꾸고 opacity를 .9/.55로 올려 월페이퍼가 실제로 보이게 재작업. 아이콘/타일도 16→18px, 34→40px로 키워 각 개체가 또렷이 읽히도록 조정, 셀 안에서 겹치지 않게 여백 재계산. 텍스트 없는 뒷면에는 작은 마크 배지를 앵커로 추가. <br>3차: 2차의 고대비 보정이 반대로 과했음(카드 존재감을 패턴이 삼킴) — 색·크기·간격은 그대로 두고 opacity만 .9/.55→.4/.22로 낮춰 "보이되 물러나는" 배경층으로 재조정. 중앙 화이트 라벨(텍스트 세이프존)은 원래도 격리돼 있어 그대로 유지.</p>
+</div>
+
+</div>
+</section>

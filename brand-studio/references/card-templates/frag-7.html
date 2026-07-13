@@ -1,0 +1,215 @@
+<section class="cat">
+<h2>7 · 텍스처 · 포토 · 듀오톤 — 채택 6종</h2>
+<div class="grid">
+
+<!-- ============ #7 콘크리트 텍스처 미니멀 (A-) ============ -->
+<div class="tpl" data-id="7-1">
+  <div class="tpl-head"><b>7 · 콘크리트 텍스처 미니멀</b><span class="grade">A-</span></div>
+  <div class="cards">
+    <div class="card">
+      <svg width="0" height="0" style="position:absolute">
+        <filter id="c7-f1"><feTurbulence type="fractalNoise" baseFrequency="0.35" numOctaves="5" seed="11" stitchTiles="stitch" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .48 0"/></filter>
+        <filter id="c7-f2"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="3" seed="23" stitchTiles="stitch" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .3 0"/></filter>
+      </svg>
+      <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 20% 10%,#9a999d,#7c7b7f 60%,#6f6e72)"></div>
+      <div style="position:absolute;inset:0;filter:url(#c7-f1);mix-blend-mode:multiply"></div>
+      <div style="position:absolute;inset:0;filter:url(#c7-f2);mix-blend-mode:screen;opacity:.45"></div>
+      <!-- 3차: 텍스트 세이프존 — 중앙 로고 뒤 질감을 페이드시켜 여백(모서리)에만 질감이 남도록 함 -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 130px 95px at 50% 55%,rgba(66,65,70,.4),transparent 72%)"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+        <span class="mark" style="color:var(--c-primary);width:1.6em;height:1.6em;border-width:.1em"></span>
+        <div style="font:900 13px/1 var(--f-disp);letter-spacing:.28em;color:#F4F3F0">{{orgUpper}}</div>
+        <div style="width:26px;height:2px;background:var(--c-primary)"></div>
+      </div>
+    </div>
+    <div class="card">
+      <svg width="0" height="0" style="position:absolute">
+        <filter id="c7-b1"><feTurbulence type="fractalNoise" baseFrequency="0.35" numOctaves="5" seed="42" stitchTiles="stitch" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .48 0"/></filter>
+        <filter id="c7-b2"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="3" seed="53" stitchTiles="stitch" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .3 0"/></filter>
+      </svg>
+      <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 80% 90%,#9a999d,#7c7b7f 60%,#6f6e72)"></div>
+      <div style="position:absolute;inset:0;filter:url(#c7-b1);mix-blend-mode:multiply"></div>
+      <div style="position:absolute;inset:0;filter:url(#c7-b2);mix-blend-mode:screen;opacity:.45"></div>
+      <!-- 3차: 좌측 텍스트 블록 뒤 페이드 — 오른쪽 여백은 질감 그대로, 텍스트 영역만 눌러줌 -->
+      <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(58,57,61,.42) 0%,rgba(58,57,61,.42) 44%,transparent 70%)"></div>
+      <div style="position:absolute;left:22px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:4px;color:#F4F3F0;font-family:var(--f-sans)">
+        <div style="width:20px;height:2px;background:var(--c-primary);margin-bottom:4px"></div>
+        <b style="font:700 13px/1.2 var(--f-disp);letter-spacing:.03em">{{name}}</b>
+        <span style="font-size:9.5px;opacity:.75">{{role}} · {{org}}</span>
+        <span style="font-size:9px;opacity:.6;margin-top:6px">{{domain}} · {{phone}}</span>
+        <span style="font-size:9px;opacity:.6">{{email}}</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">필요 소스 없음 — SVG fractal noise(feTurbulence) 2겹 블렌드로 콘크리트 얼룩 근사(카드마다 seed 변주 가능), 소재색은 실물 근사치라 토큰 미적용. primary는 로고 아래 포인트 라인 1개소에만. 리뷰 1순위(소스프리·즉시사용). <b>2차: baseFrequency 0.85→0.35로 낮추고 그레인 alpha .5→.62로 올려 "먼지 그라디언트"에서 러프한 콘크리트 입자로 전환, 미세 하이라이트 결(screen 레이어)을 뒷면에도 추가해 앞/뒷면 소재 일관성 확보. 인쇄 재현: 질감지(스노우지 엠보 or 콘크리트 무늬지) 실사 인쇄 권장, CSS 근사는 화면 참고용.</b> <b>3차: 배경이 텍스트를 잡아먹는다는 피드백 반영 — multiply 노이즈 alpha .62→.48로 중간값 하향, 앞/뒷면 모두 텍스트 블록 뒤에 페이드 오버레이(세이프존)를 추가해 로고·연락처 주변만 질감을 눌러주고 카드 여백(모서리)엔 질감을 그대로 남김.</b></p>
+</div>
+
+<!-- ============ #15 그라디언트 듀오톤 포트레이트 (A-) ============ -->
+<div class="tpl" data-id="7-2">
+  <div class="tpl-head"><b>15 · 그라디언트 듀오톤 포트레이트</b><span class="grade">A-</span></div>
+  <div class="cards">
+    <div class="card" style="background:linear-gradient(160deg,var(--c-a-deep) 0%,var(--c-primary) 45%,var(--c-a-lav) 100%);overflow:hidden">
+      <!-- 실사 대기 앵커: 텍스트 라벨 대신 듀오톤 인물 실루엣(두상+어깨) 형태로 자리 표시 -->
+      <div style="position:absolute;right:-18px;bottom:-30px;width:168px;height:190px;border-radius:48% 48% 40% 40%;background:rgba(255,255,255,.13)"></div>
+      <div style="position:absolute;right:38px;bottom:96px;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.22)"></div>
+      <div style="position:absolute;left:12px;bottom:10px;display:flex;align-items:center;gap:5px;color:#fff">
+        <span class="mark" style="width:1em;height:1em"></span>
+        <span style="font:700 10px/1 var(--f-disp);letter-spacing:.05em">{{org}}</span>
+      </div>
+    </div>
+    <div class="card" style="background:linear-gradient(115deg,var(--c-a-deep) 0%,var(--c-a-deep) 42%,var(--c-a-lav) 100%);display:flex;align-items:center;padding:0 22px">
+      <div style="color:#fff">
+        <b style="font:800 13px/1.2 var(--f-disp);letter-spacing:.02em">{{name}}</b><br>
+        <span style="font-size:9.5px;opacity:.85">{{role}} · {{org}}</span><br>
+        <span style="font-size:9px;opacity:.7;display:block;margin-top:6px">{{domain}} · {{phone}}</span>
+        <span style="font-size:9px;opacity:.7;display:block">{{email}}</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">⚠ 소스 품질 의존 — 필요 소스: 인물/제품 사진 1장(흑백 변환 전제, 대비 뚜렷할수록 효과 좋음). 그레이스케일 후 CSS 그라디언트 맵으로 duotone화, primary=그림자 영역·--c-a-lav(primary 계열 밝은 톤)=하이라이트 영역. 토큰 관점 대표 채택 1순위. <b>2차: "PHOTO — 인물 컷" 텍스트 라벨을 제거하고 두상+어깨 실루엣 형태(반투명 흰 도형 2개)로 대체 — 갤러리에서 "미완성 슬라이드"로 읽히던 문제 해결, 실사 확보 시 이 실루엣 자리에 그대로 인물 사진을 앉히면 됨.</b></p>
+</div>
+
+<!-- ============ #2 크라프트지 화이트잉크 (B+) ============ -->
+<div class="tpl" data-id="7-3">
+  <div class="tpl-head"><b>2 · 크라프트지 화이트잉크</b><span class="grade">B+</span></div>
+  <div class="cards">
+    <div class="card">
+      <svg width="0" height="0" style="position:absolute">
+        <filter id="c2-f1"><feTurbulence type="fractalNoise" baseFrequency="0.28" numOctaves="4" seed="3" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .44 0"/></filter>
+        <filter id="c2-f2"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="17" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .22 0"/></filter>
+      </svg>
+      <div style="position:absolute;inset:0;background:#a9835a"></div>
+      <div style="position:absolute;inset:0;filter:url(#c2-f1);mix-blend-mode:multiply;opacity:.72"></div>
+      <div style="position:absolute;inset:0;filter:url(#c2-f2);mix-blend-mode:screen;opacity:.42"></div>
+      <!-- 3차: 중앙 로고 세이프존 — 텍스트 뒤만 눌러 여백에 질감을 남김 -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 120px 92px at 50% 55%,rgba(107,79,45,.38),transparent 72%)"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+        <span class="mark" style="color:#fff;width:1.7em;height:1.7em"></span>
+        <div style="font:700 11px/1 var(--f-serif);letter-spacing:.1em;color:#fff;text-transform:uppercase">{{org}}</div>
+        <div style="width:16px;height:2px;background:var(--c-primary)"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="position:absolute;inset:0;background:#a9835a"></div>
+      <div style="position:absolute;inset:0;filter:url(#c2-f1);mix-blend-mode:multiply;opacity:.72"></div>
+      <div style="position:absolute;inset:0;filter:url(#c2-f2);mix-blend-mode:screen;opacity:.42"></div>
+      <!-- 3차: 좌측 텍스트·아이콘 블록 뒤 페이드 — 우측 여백은 질감 유지 -->
+      <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(107,79,45,.4) 0%,rgba(107,79,45,.4) 46%,transparent 70%)"></div>
+      <svg viewBox="0 0 24 24" width="22" height="22" style="position:absolute;top:14px;left:16px;stroke:#fff;fill:none;stroke-width:1.4"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3.4"/><rect x="8" y="4" width="4" height="3"/></svg>
+      <div style="position:absolute;left:16px;bottom:12px;color:#fff">
+        <b style="font:700 12px/1.3 var(--f-serif)">{{name}}</b><br>
+        <span style="font-size:9px;opacity:.85">{{role}} · {{org}}</span><br>
+        <span style="font-size:8.5px;opacity:.7">{{domain}} · {{phone}}</span><br>
+        <span style="font-size:8.5px;opacity:.7">{{email}}</span>
+      </div>
+      <div style="position:absolute;right:16px;bottom:14px;width:9px;height:9px;border-radius:50%;background:var(--c-primary)"></div>
+    </div>
+  </div>
+  <p class="note">필요 소스 없음(라인 아이콘). 크라프트 갈색은 소재색이라 토큰 미적용 — 리뷰 보완 반영해 primary를 포인트 라인·점 1개소에 실제 사용(기존 안은 화이트잉크에만 매핑돼 토큰 미반영 지적됨). 배경 노이즈는 feTurbulence로 근사. <b>2차: 저투명 단층 노이즈(baseFrequency 0.7·alpha .3)가 평면 갈색지로 수렴하던 문제 — baseFrequency 0.28로 낮춰 섬유 얼룩을 굵게 만들고 alpha .55로 대비 상향, 밝은 파이버 스펙클(screen 레이어) 1겹을 겹쳐 재생지 특유의 결·매트감 확보. 인쇄 재현: 실물은 크라프트 원지+화이트잉크 인쇄로 대체(재현도 최상), 톤온톤 엠보 옵션도 병기.</b> <b>3차: 배경이 "가죽·모래" 수준으로 과했다는 피드백 반영 — multiply alpha .55→.44·레이어 opacity .85→.72로 중간값 하향, 로고·연락처 텍스트 뒤에 갈색 페이드 오버레이(세이프존)를 얹어 텍스트 판독성 확보. 여백(우측/모서리)은 질감 그대로 유지.</b></p>
+</div>
+
+<!-- ============ #3 리소그래프 하프톤 오프셋 (B+) ============ -->
+<div class="tpl" data-id="7-4">
+  <div class="tpl-head"><b>3 · 리소그래프 하프톤 오프셋</b><span class="grade">B+</span></div>
+  <div class="cards">
+    <div class="card" style="background:var(--c-a-light)">
+      <!-- 사진/도트 영역을 96px로 축소 — 하단 로고 행과 최소 54px 여백 확보(도트-로고 겹침 방지) -->
+      <div class="photo-ph" style="position:absolute;left:6px;right:6px;top:6px;height:96px;background:#c7c4d1;color:rgba(25,23,49,.4);font-size:8px">PHOTO — 흑백 인물/제품</div>
+      <!-- 브랜드 마크 파생 워터마크: 도트가 .mark 원형에서 번져나온 형태임을 시각화 -->
+      <svg viewBox="0 0 100 100" style="position:absolute;left:6px;top:6px;width:258px;height:96px" preserveAspectRatio="xMidYMid meet"><circle cx="50" cy="50" r="30" fill="none" stroke="var(--c-text)" stroke-width="1" opacity=".12"/></svg>
+      <div style="position:absolute;left:6px;right:6px;top:6px;height:96px;mix-blend-mode:multiply;opacity:.38;background-image:radial-gradient(var(--c-primary) 32%,transparent 33%);background-size:6px 6px"></div>
+      <div style="position:absolute;left:8px;right:4px;top:8px;height:92px;mix-blend-mode:multiply;opacity:.28;background-image:radial-gradient(var(--c-a-lav2) 32%,transparent 33%);background-size:6px 6px"></div>
+      <div style="position:absolute;left:6px;bottom:8px;display:flex;align-items:center;gap:4px">
+        <span class="mark" style="color:var(--c-text);width:1em;height:1em"></span>
+        <span style="font:800 10px/1 var(--f-disp);letter-spacing:.04em;color:var(--c-text)">{{org}}</span>
+      </div>
+    </div>
+    <div class="card" style="background:var(--c-a-light)">
+      <!-- 텍스트 세이프존(0~150px)과 도트 존(160~270px)을 헤어라인으로 명시 분리 — 도트가 텍스트를 관통하던 문제 해결 -->
+      <div style="position:absolute;left:160px;top:0;bottom:0;width:110px;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 34px);mask-image:linear-gradient(to right,transparent,#000 34px)">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(var(--c-primary) 30%,transparent 31%);background-size:9px 9px;opacity:.5"></div>
+        <div style="position:absolute;left:-10px;right:0;top:0;bottom:0;background-image:radial-gradient(var(--c-a-lav2) 30%,transparent 31%);background-size:9px 9px;opacity:.4"></div>
+        <svg viewBox="0 0 110 150" style="position:absolute;inset:0" preserveAspectRatio="xMidYMid slice"><circle cx="70" cy="75" r="42" fill="none" stroke="var(--c-text)" stroke-width="1.2" opacity=".14"/></svg>
+      </div>
+      <div style="position:absolute;left:150px;top:14px;bottom:14px;width:1.5px;background:var(--c-primary)"></div>
+      <div style="position:absolute;left:20px;top:0;bottom:0;width:122px;display:flex;flex-direction:column;justify-content:center;gap:4px">
+        <b style="font:800 13px/1.2 var(--f-disp);color:var(--c-text)">{{name}}</b>
+        <span style="font-size:9.5px;color:var(--c-muted)">{{role}} · {{org}}</span>
+        <span style="font-size:9px;color:var(--c-muted);margin-top:6px">{{domain}} · {{phone}}</span>
+        <span style="font-size:9px;color:var(--c-muted)">{{email}}</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">⚠ 소스 품질 의존 — 필요 소스: 흑백 변환 가능한 인물/제품 사진 1장. primary/--c-a-lav2 두 판을 halftone 도트로 3px 오프셋해 리소 미스레지스트레이션 근사. 듀오톤 토큰 모범 사례(primary+secondary 2도 원칙). <b>2차: 우측 카드 — 도트가 이름·연락처 텍스트를 관통하던 문제를 헤어라인(x150) 기준 좌(텍스트 세이프존, width 122px 고정)/우(도트존, 좌측 34px 마스크 페이드) 완전 분리로 해결. 좌측 카드 — 사진/도트 영역을 104→96px로 줄여 하단 로고 행과 여백 확보. 양쪽 모두 도트 밑에 .mark 파생 원형 워터마크를 얹어 패턴이 브랜드 심볼에서 나온 것임을 시각화.</b></p>
+</div>
+
+<!-- ============ #9 대리석 텍스처 럭셔리 (B+) ============ -->
+<div class="tpl" data-id="7-5">
+  <div class="tpl-head"><b>9 · 대리석 텍스처 럭셔리</b><span class="grade">B+</span></div>
+  <div class="cards">
+    <div class="card">
+      <svg width="0" height="0" style="position:absolute">
+        <filter id="c9-f1"><feTurbulence type="turbulence" baseFrequency="0.012 0.06" numOctaves="2" seed="5" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 .1  0 0 0 0 .1  0 0 0 0 .12  0 0 0 .5 0"/></filter>
+      </svg>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#f4f2f4,#e6e3e8 55%,#f4f2f4)"></div>
+      <div style="position:absolute;inset:0;filter:url(#c9-f1);mix-blend-mode:multiply;opacity:.5"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+        <span class="mark" style="color:var(--c-primary);width:1.3em;height:1.3em;border-width:.1em"></span>
+        <div style="width:1.5px;height:14px;background:var(--c-primary)"></div>
+        <div style="font:400 12px/1 var(--f-serif);letter-spacing:.14em;color:var(--c-primary)">{{org}}</div>
+      </div>
+    </div>
+    <div class="card" style="background:#e9e6ea;display:flex;align-items:center;padding:0 22px">
+      <div>
+        <b style="font:400 13px/1.3 var(--f-serif);color:var(--c-text)">{{name}}</b><br>
+        <span style="font-size:9.5px;color:var(--c-muted)">{{role}} · {{org}}</span><br>
+        <span style="font-size:9px;color:var(--c-primary);margin-top:6px;display:block">{{domain}} · {{phone}}</span>
+        <span style="font-size:9px;color:var(--c-muted)">{{email}}</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">필요 소스 없음(패턴 소재). SVG turbulence로 대리석 맥 근사, 대리석 자체는 무채색 소재색이라 토큰 미적용. 리뷰 지적(골드 강제 시 임의 primary와 불일치) 반영해 금박 대신 var(--c-primary) 라인·텍스트로 포인트 — 골드 포일은 실물 후가공 옵션으로만 부기. <b>2차: 이 카테고리 유일한 ✅ — 결 강도는 그대로 기준선 유지, 세로 헤어라인만 1px→1.5px로 살짝 올려 소실 위험 제거(내용·질감 변경 없음).</b></p>
+</div>
+
+<!-- ============ #11 빈티지 신문지 그레인 (B+) ============ -->
+<div class="tpl" data-id="7-6">
+  <div class="tpl-head"><b>11 · 빈티지 신문지 그레인</b><span class="grade">B+</span></div>
+  <div class="cards">
+    <div class="card">
+      <svg width="0" height="0" style="position:absolute">
+        <filter id="c11-f1"><feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="4" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .38 0"/></filter>
+        <filter id="c11-f2"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="31" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .18 0"/></filter>
+      </svg>
+      <div style="position:absolute;inset:0;background:#ece7da"></div>
+      <div style="position:absolute;inset:0;filter:url(#c11-f1);mix-blend-mode:multiply"></div>
+      <div style="position:absolute;inset:0;filter:url(#c11-f2);mix-blend-mode:screen;opacity:.45"></div>
+      <!-- 3차: 상단 이름 블록 뒤 페이드 — 하단 여백은 그레인 그대로 유지 -->
+      <div style="position:absolute;inset:0;background:linear-gradient(175deg,rgba(236,231,218,.5) 0%,rgba(236,231,218,.5) 40%,transparent 66%)"></div>
+      <div style="position:absolute;inset:14px;display:flex;flex-direction:column">
+        <div style="font:900 20px/1 var(--f-serif);color:var(--c-text);letter-spacing:-.01em">{{name}}</div>
+        <div style="height:1.5px;background:var(--c-primary);margin:8px 0 6px;width:60%"></div>
+        <div style="font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted)">{{role}} — {{org}}</div>
+      </div>
+      <div style="position:absolute;right:14px;top:12px;display:flex;align-items:center;gap:4px">
+        <span class="mark" style="color:var(--c-primary);width:.9em;height:.9em"></span>
+      </div>
+    </div>
+    <div class="card">
+      <div style="position:absolute;inset:0;background:#ece7da"></div>
+      <div style="position:absolute;inset:0;filter:url(#c11-f1);mix-blend-mode:multiply"></div>
+      <div style="position:absolute;inset:0;filter:url(#c11-f2);mix-blend-mode:screen;opacity:.45"></div>
+      <!-- 3차: 좌측 연락처 블록 뒤 페이드 — 우측 여백은 그레인 그대로 유지 -->
+      <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(236,231,218,.5) 0%,rgba(236,231,218,.5) 42%,transparent 66%)"></div>
+      <div style="position:absolute;left:16px;top:14px;bottom:14px;width:1.5px;background:var(--c-primary)"></div>
+      <div style="position:absolute;left:26px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:4px">
+        <span style="font-size:8px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase">{{domain}}</span>
+        <span style="font-size:9px;color:var(--c-text)">{{phone}}</span>
+        <span style="font-size:9px;color:var(--c-text)">{{email}}</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">필요 소스: 사진 선택(없어도 성립 — 텍스트 기본 프리셋 채택). 배경은 베이지 소재색(토큰 미적용) + feTurbulence 그레인. 리뷰 보완대로 primary를 이름 이니셜·컬럼 구분선 2개소로 확장. <b>2차: 그레인이 옅어 "베이지 평면지"로 보이던 문제 — alpha .25→.5로 올리고 baseFrequency 0.9→0.45로 낮춰 저급지 특유의 거친 얼룩을 살리고, 흰 파이버 스펙클 레이어를 추가해 신문지 질감 확보. 세로 헤어라인 1px→1.5px 상향. 인쇄 재현: 실물은 무광 재생지(신문용지 유사 벌크지)에 1도 인쇄 권장.</b> <b>3차: 그레인이 텍스트를 잡아먹는다는 피드백 반영 — multiply alpha .5→.38로 중간값 하향(2차 이전 .25보다는 여전히 진함), 이름·연락처 블록 뒤에 베이지 페이드 오버레이(세이프존)를 얹어 판독성 확보. 하단/우측 여백은 그레인 그대로 유지.</b></p>
+</div>
+
+</div>
+</section>

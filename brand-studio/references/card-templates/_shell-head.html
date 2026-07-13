@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>명함 템플릿 갤러리 — 채택 62종 ({{org}} 토큰 렌더)</title>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+<style>
+/* ── 토큰 ({{org}}) — 이 블록만 바꾸면 갤러리 전체가 다른 브랜드로 재스킨됨 ── */
+/*CARD-TOKENS-START*/
+:root{
+  --c-primary:#332D7B; --c-on:#FFFFFF; --c-bg:#FFFFFF; --c-surface:#F7F7FB;
+  --c-text:#191731; --c-muted:#6B6980;
+  --c-a-lav:#A79FF2; --c-a-lav2:#8B82E8; --c-a-light:#EFEDFA; --c-a-deep:#221E5C;
+  --c-a-ink2:#131126; --c-a-green:#2E6B52; --c-a-gold:#8A6A2F; --c-a-red:#9C3B32;
+  --f-sans:'Wanted Sans Variable','Wanted Sans',-apple-system,sans-serif;
+  --f-disp:'Satoshi',var(--f-sans); --f-serif:Georgia,'Times New Roman',serif;
+  --f-mono:'SF Mono',ui-monospace,Menlo,monospace;
+}
+/*CARD-TOKENS-END*/
+*{box-sizing:border-box}
+body{margin:0;background:#EEEDF3;color:var(--c-text);font-family:var(--f-sans);padding:48px 4vw 96px}
+h1{font-family:var(--f-disp);font-size:28px;margin:0 0 6px}
+.sub{color:var(--c-muted);font-size:14px;margin:0 0 12px}
+.cat{margin:64px 0 0}
+.cat>h2{font-family:var(--f-disp);font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-primary);border-bottom:2px solid var(--c-text);padding-bottom:10px;margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(620px,1fr));gap:26px}
+.tpl{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 12px rgba(25,23,49,.06)}
+.tpl-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;gap:10px}
+.tpl-head b{font-size:15px}
+.grade{font:700 11px/1 var(--f-disp);padding:4px 10px;border-radius:999px;background:var(--c-a-light);color:var(--c-primary);flex:none}
+.grade.S{background:var(--c-primary);color:var(--c-on)}
+.cards{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+/* 카드 캔버스: 90×50 → 3배(270×150). 변형 규격 클래스 병기 */
+.card{width:270px;height:150px;border-radius:6px;position:relative;overflow:hidden;background:var(--c-bg);box-shadow:0 1px 6px rgba(25,23,49,.16);flex:none;font-family:var(--f-sans)}
+.card.sq{width:180px;height:180px}   /* 60×60 */
+.card.vert{width:150px;height:270px} /* 50×90 세로 */
+.card.mini{width:210px;height:105px} /* 미니 */
+.card.cc{width:257px;height:162px}   /* 85.6×54 신용카드 규격 */
+.note{margin:10px 0 0;font-size:12.5px;color:var(--c-muted);line-height:1.55}
+/* 공용 브랜드 마크 (원+요약 줄 심볼) — 색은 currentColor */
+.mark{display:inline-block;width:1em;height:1em;border:.13em solid currentColor;border-radius:50%;position:relative;vertical-align:-.12em;flex:none}
+.mark::before,.mark::after{content:"";position:absolute;left:24%;right:24%;height:.12em;border-radius:1em;background:currentColor;top:33%}
+.mark::after{left:34%;right:34%;top:57%}
+/* 후가공 근사 유틸 */
+.foil{background:linear-gradient(105deg,#8A6A2F 0%,#D8B56A 35%,#F3E3B3 50%,#D8B56A 65%,#8A6A2F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.foil-silver{background:linear-gradient(105deg,#8b8b95 0%,#d9d9e0 35%,#ffffff 50%,#d9d9e0 65%,#8b8b95 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.foil-bg{background:linear-gradient(105deg,#8A6A2F,#D8B56A 40%,#F3E3B3 52%,#D8B56A 64%,#8A6A2F)}
+.deboss{color:transparent;text-shadow:0 1px 0 rgba(255,255,255,.55),0 -1px 0 rgba(0,0,0,.22);background:none}
+.photo-ph{background:linear-gradient(135deg,#524C74,#191731);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:9px;letter-spacing:.25em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<h1><span class="mark" style="color:var(--c-primary)"></span> 명함 템플릿 갤러리</h1>
+<p class="sub">리서치 116종 중 디자인 리뷰 채택분 — {{org}} 토큰(#332D7B)·{{name}} 명의로 통일 렌더. 토큰만 바꾸면 전체 재스킨.</p>

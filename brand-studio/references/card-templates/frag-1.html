@@ -1,0 +1,310 @@
+<section class="cat"><h2>1 · 미니멀 · 타이포그래피 — 채택 15종</h2><div class="grid">
+
+  <!-- #1 스위스 그리드 — S -->
+  <div class="tpl" data-id="1-1">
+    <div class="tpl-head"><b>#1 스위스 그리드</b><span class="grade S">S</span></div>
+    <div class="cards">
+      <div class="card">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,var(--c-muted) 0 2px,transparent 2px 50px);opacity:.13"></div>
+        <div style="position:absolute;top:16px;left:16px">
+          <div style="font:800 22px var(--f-sans);letter-spacing:-.01em">{{name}}</div>
+          <div style="font:600 10px var(--f-sans);color:var(--c-a-red);margin-top:3px">{{role}}</div>
+        </div>
+        <div style="position:absolute;top:16px;right:16px;display:flex;align-items:center;gap:4px;font:700 8px var(--f-disp)">
+          <span class="mark" style="font-size:9px"></span>{{org}}
+        </div>
+        <div style="position:absolute;left:16px;bottom:16px;font:500 8.5px var(--f-sans);line-height:1.6">
+          {{phone}}<br>{{email}}<br>{{domain}}
+        </div>
+      </div>
+      <div class="card">
+        <div style="position:absolute;top:0;bottom:0;left:135px;width:2px;background:var(--c-a-red)"></div>
+        <span class="mark" style="position:absolute;left:129px;top:16px;font-size:12px;color:var(--c-a-red)"></span>
+        <div style="position:absolute;left:0;right:0;bottom:14px;text-align:center;font:600 7.5px var(--f-mono);color:var(--c-muted);letter-spacing:.1em">COL 03 / 06</div>
+      </div>
+    </div>
+    <p class="note">엄격한 6열 모듈러 그리드 위 좌측 정렬 정보, 액센트는 직함 1곳에만. 보완: 뒷면 노출 헤어라인을 1px(≈0.33pt)로 확보해 축소 시 소실 방지. 2차: 그리드 헤어라인 2px·불투명도 .24로 상향(소실 방지), 뒷면에 마크+열 인덱스 캡션 추가해 축 정렬 의도를 명시. 3차: 배경 절제 — 헤어라인 불투명도 .24→.13, 간격 45px→50px로 낮춰 텍스트 위 존재감 축소.</p>
+  </div>
+
+  <!-- #2 초대형 이니셜 — A -->
+  <div class="tpl" data-id="1-2">
+    <div class="tpl-head"><b>#2 초대형 이니셜</b><span class="grade A">A</span></div>
+    <div class="cards">
+      <div class="card" style="background:var(--c-surface)">
+        <div style="position:absolute;left:-16px;top:-12px;font:900 168px var(--f-sans);color:var(--c-text);line-height:1;letter-spacing:-.02em">{{initial}}</div>
+        <div style="position:absolute;right:14px;top:14px;bottom:14px;width:82px;display:flex;flex-direction:column;justify-content:space-between;text-align:right">
+          <div style="font:700 9.5px var(--f-sans)">{{name}}</div>
+          <div style="font:500 7.5px var(--f-sans);color:var(--c-muted);line-height:1.5">
+            {{role}}<br>{{phone}}<br>{{email}}<br>{{domain}}
+          </div>
+        </div>
+      </div>
+      <div class="card" style="background:var(--c-surface)">
+        <div style="position:absolute;left:0;right:0;bottom:16px;text-align:center;font:700 9px var(--f-disp);color:var(--c-a-ink2)">{{org}}</div>
+      </div>
+    </div>
+    <p class="note">이니셜이 카드 좌측 2/3를 채우며 크롭됨, 우측 1/3에 전체 정보 소형 스택. 보완: 우측 블록 최소 7.5px(≈6.5pt 하한)로 고정해 축소 뭉침 방지. 2차: 이니셜 서체를 Wanted Sans(실제 900 웨이트)로 교체해 Satoshi 폴백의 회색 번짐을 해소, 색을 c-text로 진하게, 크롭 위치를 조정해 어정쩡함을 완화.</p>
+  </div>
+
+  <!-- #3 세리프·산세리프 대비 — A -->
+  <div class="tpl" data-id="1-3">
+    <div class="tpl-head"><b>#3 세리프·산세리프 대비</b><span class="grade A">A</span></div>
+    <div class="cards">
+      <div class="card" style="background:var(--c-surface);text-align:center">
+        <div style="position:absolute;left:0;right:0;top:22px;font:400 21px var(--f-serif);letter-spacing:.04em">{{name}}</div>
+        <div style="position:absolute;left:50%;top:56px;width:36px;height:2px;background:var(--c-text);transform:translateX(-50%)"></div>
+        <div style="position:absolute;left:0;right:0;top:68px;font:400 9px var(--f-sans);letter-spacing:.1em;color:var(--c-muted)">{{role}}</div>
+        <div style="position:absolute;left:0;right:0;bottom:16px;font:400 8px var(--f-sans);letter-spacing:.08em;color:var(--c-muted);line-height:1.7">
+          {{phone}} · {{email}}<br>{{domain}}
+        </div>
+      </div>
+      <div class="card" style="background:var(--c-surface);display:flex;align-items:center;justify-content:center">
+        <div style="font:400 12px var(--f-serif);letter-spacing:.08em">{{org}}</div>
+      </div>
+    </div>
+    <p class="note">이름=세리프, 나머지=산세리프+와이드 트래킹의 에디토리얼 대비. 보완: bg를 웜 오프화이트(기본값)로 고정해 딥블루 대비 리스크 회피. 2차: 구분선을 2px(≈0.5pt 이상)로 보강해 인쇄 소실 리스크 제거. 그 외 변경 없음(이미 채택 기준 충족).</p>
+  </div>
+
+  <!-- #4 단일 서체 멀티웨이트 — B -->
+  <div class="tpl" data-id="1-4">
+    <div class="tpl-head"><b>#4 단일 서체 멀티웨이트</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card">
+        <div style="position:absolute;left:16px;top:18px;font:800 19px var(--f-sans)">{{name}}</div>
+        <div style="position:absolute;left:16px;top:48px;font:400 10.5px var(--f-sans)">{{role}}</div>
+        <div style="position:absolute;left:16px;top:64px;font:400 9px var(--f-sans);line-height:1.7;color:var(--c-text)">
+          {{phone}}<br>{{email}}<br>{{domain}}
+        </div>
+      </div>
+      <div class="card">
+        <div style="position:absolute;left:16px;bottom:16px;font:800 12px var(--f-disp)">{{org}}</div>
+        <div style="position:absolute;right:16px;bottom:18px;display:flex;align-items:flex-end;gap:3px" title="weight ramp">
+          <span style="width:4px;height:6px;background:var(--c-muted);opacity:.5"></span>
+          <span style="width:4px;height:10px;background:var(--c-muted);opacity:.7"></span>
+          <span style="width:4px;height:14px;background:var(--c-text);opacity:.9"></span>
+          <span style="width:4px;height:18px;background:var(--c-text)"></span>
+        </div>
+      </div>
+    </div>
+    <p class="note">단일 산세리프, 웨이트 3단만으로 위계. 보완: 연락처를 Light→Regular 하한으로 올리고 크기 차이를 병행해 실물 저대비 문제 해소. 2차: 연락처 행간 1.7로 축소해 블록 풀림 방지, 뒷면에 웨이트 램프 마이크로 그래픽을 추가해 콘셉트 앵커 확보(빈 뒷면 방지).</p>
+  </div>
+
+  <!-- #6 네임포워드 2단 컬럼 — B -->
+  <div class="tpl" data-id="1-5">
+    <div class="tpl-head"><b>#6 네임포워드 2단 컬럼</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card">
+        <div style="position:absolute;left:0;top:22px;bottom:22px;width:2px;left:135px;background-image:repeating-linear-gradient(180deg,var(--c-muted) 0 3px,transparent 3px 7px);opacity:.4"></div>
+        <div style="position:absolute;left:18px;top:22px;width:105px">
+          <div style="font:800 20px var(--f-sans);color:var(--c-primary)">{{name}}</div>
+          <div style="font:500 9.5px var(--f-sans);color:var(--c-muted);margin-top:4px">{{role}}</div>
+        </div>
+        <div style="position:absolute;left:150px;top:25px;font:500 9px var(--f-sans);line-height:1.95">
+          {{phone}}<br>{{email}}<br>{{domain}}
+        </div>
+      </div>
+      <div class="card" style="display:flex;align-items:center;justify-content:center;gap:5px">
+        <span class="mark" style="font-size:16px;color:var(--c-primary)"></span>
+        <span style="font:700 12px var(--f-disp);color:var(--c-primary)">{{org}}</span>
+      </div>
+    </div>
+    <p class="note">이름/직함 컬럼과 연락처 컬럼을 여백만으로 분리한 스캔형 레이아웃. 보완: 좌우 베이스라인을 그리드 스냅 가이드로 명시해 #1과 차별화. 2차: 점선 구분선 2px로 보강, 우측 연락처 블록의 top·행간을 조정해 좌측 이름 컬럼과 베이스라인이 어긋나 보이던 문제 해소.</p>
+  </div>
+
+  <!-- #7 센터 축 대칭 — B -->
+  <div class="tpl" data-id="1-6">
+    <div class="tpl-head"><b>#7 센터 축 대칭</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center">
+        <div style="font:700 17px var(--f-serif);letter-spacing:.06em">{{name}}</div>
+        <div style="font:500 9px var(--f-sans);color:var(--c-muted);letter-spacing:.04em">{{role}}</div>
+        <div style="font:400 8px var(--f-sans);color:var(--c-muted);line-height:1.7">{{phone}} · {{email}}<br>{{domain}}</div>
+      </div>
+      <div class="card" style="background:var(--c-surface);display:flex;align-items:center;justify-content:center">
+        <div style="font:900 22px var(--f-disp);letter-spacing:.1em;color:transparent;background:none;text-shadow:0 1px 0 rgba(255,255,255,.85),0 -1px 1px rgba(0,0,0,.45),0 -2px 3px rgba(0,0,0,.12)">{{orgUpper}}</div>
+      </div>
+    </div>
+    <p class="note">모든 텍스트를 중앙 세로축에 대칭 배치한 격식형. 보완: 자간 트래킹 상한 설정(과다 지양)하고 뒷면 심볼을 형압 처리해 #16·#18과 차별화. 2차: 자간을 .06em으로 축소(과다 지양), 뒷면을 .mark deboss(테두리 기반이라 렌더에서 완전 소실되는 구조적 결함)에서 다층 text-shadow 워드마크 형압으로 교체 + surface 배경으로 눌림 대비 확보해 실제로 보이는 형압 구현.</p>
+  </div>
+
+  <!-- #8 세로형(포트레이트) 미니멀 — B -->
+  <div class="tpl" data-id="1-7">
+    <div class="tpl-head"><b>#8 세로형(포트레이트) 미니멀</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card vert" style="text-align:center">
+        <div style="position:absolute;left:0;right:0;top:28px;font:800 24px var(--f-sans);line-height:1.35">{{name}}</div>
+        <span class="mark" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:13px;color:var(--c-primary);opacity:.32"></span>
+        <div style="position:absolute;left:0;right:0;bottom:24px;font:400 8px var(--f-sans);color:var(--c-muted);line-height:1.8">
+          {{role}}<br>{{phone}}<br>{{email}}
+        </div>
+      </div>
+      <div class="card vert" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+        <span class="mark" style="font-size:20px;color:var(--c-primary)"></span>
+        <span style="font:700 11px var(--f-disp);color:var(--c-primary)">{{org}}</span>
+      </div>
+    </div>
+    <p class="note">가로 관습을 깨는 50×90 세로 카드, 성/이름을 별도 줄로 끊어 세로 리듬 형성. 보완: 지갑 슬롯 부적합 리스크 있어 두꺼운 재질로 실사용 보완 필요 — 시각 시그니처가 목적인 브랜드 한정 권장. 2차: 상단 이름·하단 연락처 사이 중앙 공백에 저채도 마크 심볼을 배치해 세로 리듬 축을 보강. 3차: 배경 절제 — 중앙 마크 심볼 불투명도 .55→.32로 낮춰 상하 텍스트 사이 여백감 회복.</p>
+  </div>
+
+  <!-- #10 모노스페이스 그리드 — A -->
+  <div class="tpl" data-id="1-8">
+    <div class="tpl-head"><b>#10 모노스페이스 그리드</b><span class="grade A">A</span></div>
+    <div class="cards">
+      <div class="card" style="background:var(--c-a-ink2);color:var(--c-on);font-family:var(--f-mono)">
+        <div style="position:absolute;left:16px;top:18px;font-size:10px;line-height:2.0">
+          <span style="color:var(--c-a-green)">name:</span> {{name}}<br>
+          <span style="color:var(--c-a-green)">role:</span> {{role}}<br>
+          <span style="color:var(--c-a-green)">tel:</span> {{phone}}<br>
+          <span style="color:var(--c-a-green)">mail:</span> {{email}}<span style="color:var(--c-a-green)">▮</span>
+        </div>
+      </div>
+      <div class="card" style="background:var(--c-a-ink2);color:var(--c-on);font-family:var(--f-mono);display:flex;align-items:center;justify-content:center">
+        <div style="font-size:9px;color:var(--c-muted)">// {{slogan1}}, {{slogan2}}</div>
+      </div>
+    </div>
+    <p class="note">터미널 문법(name:, role:)을 흉내낸 다크 그리드, 라벨만 액센트 그린. 보완: 다크 풀커버리지는 매트 마감 필수 명시, 라벨 액센트 대비율 검증. 2차: 공통 규칙 점검 완료 — 뒷면 앵커(카피)·다크 매트 명시 이미 충족되어 변경 없음.</p>
+  </div>
+
+  <!-- #11 크라프트 언코티드 — B (#5 흡수) -->
+  <div class="tpl" data-id="1-9">
+    <div class="tpl-head"><b>#11 크라프트 언코티드</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card" style="background-color:color-mix(in srgb,var(--c-a-gold) 22%,var(--c-bg) 78%);background-image:radial-gradient(circle at 15% 25%,rgba(30,20,10,.06) 0 .6px,transparent .6px),radial-gradient(circle at 55% 65%,rgba(30,20,10,.05) 0 .6px,transparent .6px),radial-gradient(circle at 82% 40%,rgba(30,20,10,.055) 0 .6px,transparent .6px),radial-gradient(circle at 35% 85%,rgba(30,20,10,.045) 0 .6px,transparent .6px);background-size:8px 8px,10px 10px,7px 7px,9px 9px">
+        <div style="position:absolute;left:16px;top:62px;font:600 16px var(--f-sans);color:var(--c-a-ink2)">{{name}}</div>
+        <div style="position:absolute;left:16px;top:88px;font:400 9px var(--f-sans);color:var(--c-a-ink2);line-height:1.9">
+          {{role}}<br>{{phone}} · {{email}}
+        </div>
+        <div style="position:absolute;right:16px;bottom:14px;display:flex;gap:4px">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--c-a-green);display:inline-block" title="세이지 변형"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--c-a-lav);display:inline-block" title="더스티블루 변형"></span>
+        </div>
+      </div>
+      <div class="card" style="background-color:color-mix(in srgb,var(--c-a-gold) 22%,var(--c-bg) 78%);background-image:radial-gradient(circle at 15% 25%,rgba(30,20,10,.06) 0 .6px,transparent .6px),radial-gradient(circle at 55% 65%,rgba(30,20,10,.05) 0 .6px,transparent .6px),radial-gradient(circle at 82% 40%,rgba(30,20,10,.055) 0 .6px,transparent .6px),radial-gradient(circle at 35% 85%,rgba(30,20,10,.045) 0 .6px,transparent .6px);background-size:8px 8px,10px 10px,7px 7px,9px 9px"></div>
+    </div>
+    <p class="note">미표백 원지 질감 위 단색 잉크, 상단 여백 40%+로 절제. 보완: #5(잉크 온 컬러드 스톡)를 하위 변형으로 흡수 — 우하단 스와치가 세이지·더스티블루 유색지 옵션. 2차: 다중 radial-gradient 입자 레이어를 추가해 '평면 색지'로 보이던 문제를 해소(대리석 카드 기준 결 강도 근사). 3차: 배경 절제 — 입자 불투명도 전체 하향(.10~.07→.06~.045), 간격 확대(6~8px→8~10px)로 질감 밀도 축소.</p>
+  </div>
+
+  <!-- #12 블라인드 디보스 모노크롬(하이브리드) — B -->
+  <div class="tpl" data-id="1-10">
+    <div class="tpl-head"><b>#12 블라인드 디보스 모노크롬(하이브리드)</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card" style="background:var(--c-surface)">
+        <div style="position:absolute;left:16px;top:16px;font:900 10px var(--f-disp);letter-spacing:.08em;color:transparent;background:none;text-shadow:0 1px 0 rgba(255,255,255,.85),0 -1px 1px rgba(0,0,0,.45),0 -1.5px 2px rgba(0,0,0,.12)">{{orgUpper}}</div>
+        <div style="position:absolute;left:16px;top:56px;font:800 22px var(--f-serif);color:var(--c-text)">{{name}}</div>
+        <div style="position:absolute;left:16px;bottom:16px;font:400 8px var(--f-sans);color:var(--c-muted)">{{role}} · {{phone}}</div>
+      </div>
+      <div class="card" style="background:var(--c-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+        <div style="font:900 28px var(--f-disp);letter-spacing:.1em;color:transparent;background:none;text-shadow:0 1.5px 0 rgba(255,255,255,.85),0 -1.5px 1px rgba(0,0,0,.45),0 -2.5px 4px rgba(0,0,0,.12)">{{orgUpper}}</div>
+        <div style="font:500 7px var(--f-sans);color:var(--c-muted);letter-spacing:.15em">BLIND DEBOSS · 로고 단독 형압</div>
+      </div>
+    </div>
+    <p class="note">잉크 없이 형압만으로 이름을 새기는 촉각형, 나머지는 얇은 잉크 라인. 보완: 디지털 인쇄 재현 불가 — 프리미엄 전용 티어로만 사용, "이름 잉크1도+로고만 형압" 하이브리드 대체 변형을 별도 병기 필수. 2차(렌더 재작업): 이름은 실잉크(c-text)로 인쇄하고 로고만 형압 처리하는 하이브리드로 전면 재구성 — 기존 .mark deboss(테두리 기반이라 렌더에서 완전 소실)를 다층 text-shadow 워드마크로 교체, surface 배경으로 눌림 대비를 확보하고 뒷면에 "BLIND DEBOSS" 캡션을 앵커로 추가.</p>
+  </div>
+
+  <!-- #14 반복 이니셜 워터마크 — B -->
+  <div class="tpl" data-id="1-11">
+    <div class="tpl-head"><b>#14 반복 이니셜 워터마크</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card" style="overflow:hidden">
+        <div style="position:absolute;inset:-20px;font:900 46px var(--f-disp);color:var(--c-muted);opacity:.07;line-height:1.25;transform:rotate(-18deg);letter-spacing:9px;white-space:pre">{{initial}} {{initial}} {{initial}} {{initial}}<br>{{initial}} {{initial}} {{initial}} {{initial}}<br>{{initial}} {{initial}} {{initial}} {{initial}}</div>
+        <span class="mark" style="position:absolute;right:14px;top:14px;font-size:18px;color:var(--c-muted);opacity:.12"></span>
+        <div style="position:absolute;left:16px;bottom:16px">
+          <div style="font:800 16px var(--f-sans)">{{name}}</div>
+          <div style="font:400 8.5px var(--f-sans);color:var(--c-text);margin-top:3px;line-height:1.7">{{role}}<br>{{phone}} · {{email}}</div>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden;display:flex;align-items:center;justify-content:center">
+        <div style="position:absolute;inset:-20px;font:900 46px var(--f-disp);color:var(--c-muted);opacity:.07;line-height:1.25;transform:rotate(-18deg);letter-spacing:9px;white-space:pre">{{initial}} {{initial}} {{initial}} {{initial}}<br>{{initial}} {{initial}} {{initial}} {{initial}}<br>{{initial}} {{initial}} {{initial}} {{initial}}</div>
+        <div style="display:flex;align-items:center;gap:5px;position:relative">
+          <span class="mark" style="font-size:16px;color:var(--c-primary)"></span>
+          <span style="font:700 11px var(--f-disp);color:var(--c-primary)">{{org}}</span>
+        </div>
+      </div>
+    </div>
+    <p class="note">이니셜을 저채도로 반복 배치한 텍스처 위에 정보를 좌하단 고대비로 배치. 보완: 워터마크 톤을 12~15% 하한(opacity .15)으로 올려 인쇄 소실 방지. 2차: 전면 우상단에 저채도 마크 심볼을 추가해 반복 패턴이 브랜드 심볼에서 파생됐음을 시각적으로 연결. 3차: 배경 절제 — 워터마크 불투명도 .15→.07, 자간 6px→9px·행간 1.05→1.25로 밀도 낮춤, 우상단 마크 .2→.12로 축소.</p>
+  </div>
+
+  <!-- #15 도트 그리드 배경 — B -->
+  <div class="tpl" data-id="1-12">
+    <div class="tpl-head"><b>#15 도트 그리드 배경</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(var(--c-text) 1.3px,transparent 1.3px);background-size:14px 14px;opacity:.16"></div>
+        <div style="position:absolute;left:18px;top:20px">
+          <div style="font:700 17px var(--f-sans)">{{name}}</div>
+          <div style="font:500 9px var(--f-sans);color:var(--c-a-red);margin-top:3px">{{role}}</div>
+          <div style="font:400 8.5px var(--f-sans);color:var(--c-text);margin-top:10px;line-height:1.8">{{phone}}<br>{{email}}<br>{{domain}}</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;align-items:center;justify-content:center">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(var(--c-text) 1.3px,transparent 1.3px);background-size:14px 14px;opacity:.16"></div>
+        <div style="position:relative;text-align:center">
+          <span class="mark" style="font-size:16px;color:var(--c-primary)"></span>
+          <div style="font:600 7px var(--f-mono);color:var(--c-muted);letter-spacing:.15em;margin-top:6px">X037.5 Y126.9</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">제도용지 느낌 도트 그리드 배경에 정보를 얹은 정밀함 인상. 보완: 원문의 대각선(좌상단·우하단) 베이스볼 다이아몬드 배치를 폐기하고 단일 좌측 축으로 재정렬. 2차: 도트 색을 c-text로, 불투명도 .3으로 상향해 정밀함 인상 강화. 뒷면에 마크+좌표 캡션을 추가해 '제도용지' 콘셉트를 앵커로 연결(빈 뒷면 방지). 3차: 배경 절제 — 도트 불투명도 .3→.16, 간격 11px→14px로 낮춰 정보 위 시각적 부담 축소.</p>
+  </div>
+
+  <!-- #16 스퀘어 미니멀 — B -->
+  <div class="tpl" data-id="1-13">
+    <div class="tpl-head"><b>#16 스퀘어 미니멀</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card sq">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,var(--c-muted) 0 2px,transparent 2px 38px),repeating-linear-gradient(180deg,var(--c-muted) 0 2px,transparent 2px 38px);opacity:.12"></div>
+        <div style="position:absolute;left:0;right:0;bottom:20px;text-align:center">
+          <div style="font:800 15px var(--f-sans)">{{name}}</div>
+          <div style="font:400 8px var(--f-sans);color:var(--c-muted);margin-top:4px;line-height:1.7">{{phone}}<br>{{email}}</div>
+        </div>
+      </div>
+      <div class="card sq" style="display:flex;align-items:center;justify-content:center">
+        <span class="mark" style="font-size:22px;color:var(--c-primary)"></span>
+      </div>
+    </div>
+    <p class="note">65×65 정사각 판형 자체가 차별점, 정보는 중앙하단 1/4에만 압축. 보완: #1의 모듈 그리드 로직을 내부에 이식해 "정사각+구조"로 #9류와 차별화. 2차: 내부 그리드 굵기 2px·불투명도 .2로 상향해 그리드 구조 인상이 실제로 보이게 보강. 3차: 배경 절제 — 내부 그리드 불투명도 .2→.12, 간격 30px→38px로 낮춰 중앙 텍스트 대비 확보.</p>
+  </div>
+
+  <!-- #17 QR 브릿지 미니멀 — A -->
+  <div class="tpl" data-id="1-14">
+    <div class="tpl-head"><b>#17 QR 브릿지 미니멀</b><span class="grade A">A</span></div>
+    <div class="cards">
+      <div class="card">
+        <div style="position:absolute;left:16px;top:18px">
+          <div style="font:800 17px var(--f-sans)">{{name}}</div>
+          <div style="font:500 9.5px var(--f-sans);color:var(--c-muted);margin-top:3px">{{role}}</div>
+        </div>
+        <div style="position:absolute;right:14px;bottom:14px;width:42px;height:42px;background:var(--c-on);padding:3px">
+          <svg viewBox="0 0 33 33" width="100%" height="100%" shape-rendering="crispEdges" role="img" aria-label="{{domain}} QR">{{qr}}</svg>
+        </div>
+      </div>
+      <div class="card" style="display:flex;align-items:center;justify-content:center">
+        <div style="font:400 9px var(--f-sans);color:var(--c-muted);letter-spacing:.03em">Scan for full profile</div>
+      </div>
+    </div>
+    <p class="note">인쇄 정보를 이름·직함만으로 최소화하고 QR로 디지털 프로필 연결. 보완: QR 실측 1.5×1.5cm(42px)에 quiet zone(padding 3px) 확보, 순수 블랙 유지로 스캔률 방어. 2차: 체커보드 근사(가짜 QR)를 실제 스캔 가능한 {{domain}} QR(qr-{{org}}.svg 경로 인라인 임베드, stroke만 c-text로 교체, quiet zone·크기 유지)로 교체.</p>
+  </div>
+
+  <!-- #18 컬러 엣지 액센트 — B (조건, #13 흡수) -->
+  <div class="tpl" data-id="1-15">
+    <div class="tpl-head"><b>#18 컬러 엣지 액센트</b><span class="grade B">B</span></div>
+    <div class="cards">
+      <div class="card" style="display:flex;align-items:center;justify-content:center;text-align:center">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c-a-lav)"></div>
+        <span class="mark" style="position:absolute;left:22px;top:18px;font-size:11px;color:var(--c-a-lav)"></span>
+        <div>
+          <div style="font:800 18px var(--f-sans)">{{name}}</div>
+          <div style="font:500 9.5px var(--f-sans);color:var(--c-muted);margin-top:4px">{{role}}</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c-a-lav)"></div>
+        <div style="position:absolute;left:22px;top:20px;font:400 9px var(--f-sans);line-height:2.0">
+          {{phone}}<br>{{email}}<br>{{domain}}
+        </div>
+      </div>
+    </div>
+    <p class="note">앞뒤 완전 모노톤, 카드를 쌓았을 때만 드러나는 엣지 컬러가 유일한 장치 — 연락처는 뒷면으로 분리. 보완: #13(페인티드 엣지)을 흡수 — 진입장벽 낮은 소량 공정을 대표형으로 채택, 비비드 톤은 이 엣지 색상의 변형으로 병존. 2차: 전면 좌상단에 마크 심볼(엣지 컬러 톤)을 추가해 여백 균형을 보강 — 연락처는 의도대로 뒷면 유지.</p>
+  </div>
+
+</div></section>
