@@ -324,7 +324,7 @@ function conceptCss(tokens) {
   .hero .btn-secondary{background:transparent;color:${onPrimary};border-color:${onPrimary}}
 
   /* 브라우저 크롬 목업 */
-  .mockup{background:${c.bg};border-radius:${r.card};overflow:hidden;box-shadow:0 34px 64px -22px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.04)}
+  .mockup{background:${c.bg};color:${c.text};border-radius:${r.card};overflow:hidden;box-shadow:0 34px 64px -22px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.04)}
   .mockup-chrome{display:flex;align-items:center;gap:10px;padding:11px 14px;background:${c.surface}}
   .mockup-dots{display:flex;gap:6px}
   .mockup-dots i{width:10px;height:10px;border-radius:50%;background:${c.muted};opacity:.5}
