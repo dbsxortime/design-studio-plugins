@@ -1,0 +1,1287 @@
+[
+  {
+    "id": "1-1",
+    "category": "minimal",
+    "name": "#1 스위스 그리드",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "그리드",
+      "헤어라인"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "1-2",
+    "category": "minimal",
+    "name": "#2 초대형 이니셜",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "이니셜",
+      "크롭"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "1-3",
+    "category": "minimal",
+    "name": "#3 세리프·산세리프 대비",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "대비",
+      "에디토리얼"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "1-4",
+    "category": "minimal",
+    "name": "#4 단일 서체 멀티웨이트",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "웨이트",
+      "위계"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "멀티웨이트 위계가 전형적이라 포트폴리오 차별성 약함"
+  },
+  {
+    "id": "1-5",
+    "category": "minimal",
+    "name": "#6 네임포워드 2단 컬럼",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "2단컬럼",
+      "스캔형"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "스캔형으로 유능하나 조형적 개성은 평범"
+  },
+  {
+    "id": "1-6",
+    "category": "minimal",
+    "name": "#7 센터 축 대칭",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "대칭",
+      "형압"
+    ],
+    "needs": [],
+    "finish": [
+      "emboss"
+    ],
+    "notes": "센터 세리프는 흔한 해법, 형압은 근사 시뮬레이션"
+  },
+  {
+    "id": "1-7",
+    "category": "minimal",
+    "name": "#8 세로형(포트레이트) 미니멀",
+    "grade": "B",
+    "verdict": "pass",
+    "format": "vertical",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "세로형",
+      "포트레이트"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "1-8",
+    "category": "minimal",
+    "name": "#10 모노스페이스 그리드",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "모노스페이스",
+      "다크매트"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "1-9",
+    "category": "minimal",
+    "name": "#11 크라프트 언코티드",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "크라프트",
+      "언코티드"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "크라프트 결은 개선됐으나 실물 종이 질감 없이는 화면만으론 완결 안 됨"
+  },
+  {
+    "id": "1-10",
+    "category": "minimal",
+    "name": "#12 블라인드 디보스 모노크롬(하이브리드)",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "블라인드",
+      "형압"
+    ],
+    "needs": [],
+    "finish": [
+      "emboss"
+    ],
+    "notes": "형압은 근사 시뮬레이션, 실물 촉각 전제에서만 프리미엄 성립"
+  },
+  {
+    "id": "1-11",
+    "category": "minimal",
+    "name": "#14 반복 이니셜 워터마크",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "워터마크",
+      "반복"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "패턴이 다소 번잡하나 브랜드 파생 연결은 명시됨"
+  },
+  {
+    "id": "1-12",
+    "category": "minimal",
+    "name": "#15 도트 그리드 배경",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "도트그리드",
+      "제도용지"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "도트 톤이 옅어 정밀함 인상 약함"
+  },
+  {
+    "id": "1-13",
+    "category": "minimal",
+    "name": "#16 스퀘어 미니멀",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "square",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "스퀘어",
+      "그리드"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "정보가 좌하단에 몰려 상단·우측 여백 균형 미흡"
+  },
+  {
+    "id": "1-14",
+    "category": "minimal",
+    "name": "#17 QR 브릿지 미니멀",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "QR",
+      "대각긴장"
+    ],
+    "needs": [
+      "qr"
+    ],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "1-15",
+    "category": "minimal",
+    "name": "#18 컬러 엣지 액센트",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "절제",
+      "타이포",
+      "여백",
+      "엣지컬러",
+      "액센트"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "전면이 마크 하나뿐으로 성기고, 엣지 컬러 매력이 절반만 전달"
+  },
+  {
+    "id": "2-1",
+    "category": "bold",
+    "name": "몬드리안 그리드 블록",
+    "grade": "A",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "몬드리안",
+      "블록"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "뒷면 라벤더 셀 email 텍스트 대비 약 3.9:1로 미달(색면 텍스트 규칙 위반)"
+  },
+  {
+    "id": "2-2",
+    "category": "bold",
+    "name": "프론트백 컬러 반전",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "듀얼톤",
+      "반전"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "2-3",
+    "category": "bold",
+    "name": "모노그램 컬러 스퀘어",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "모노그램",
+      "스퀘어"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "2-4",
+    "category": "bold",
+    "name": "오버사이즈 워드마크",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "워드마크",
+      "오버사이즈"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "2-5",
+    "category": "bold",
+    "name": "페인티드 엣지 로테이팅 컬러",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "페인티드엣지",
+      "로테이팅"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "2-6",
+    "category": "bold",
+    "name": "버티컬 컬러 밴드",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "밴드",
+      "컬러대비"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "2-7",
+    "category": "bold",
+    "name": "체크보드 카운터",
+    "grade": "A",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "체크보드",
+      "도트그리드"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "뒷면 도트 스트립이 저채도라 컨셉이 얄팍하게 읽힘"
+  },
+  {
+    "id": "2-8",
+    "category": "bold",
+    "name": "컬러 블록 컷아웃 윈도우",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "컷아웃",
+      "윈도우"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "2-9",
+    "category": "bold",
+    "name": "스탬프 인덱스 탭",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "대담",
+      "컬러",
+      "임팩트",
+      "스탬프",
+      "인덱스탭"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "3-1",
+    "category": "classic",
+    "name": "아트데코 지오메트릭 골드/블랙",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "아트데코",
+      "골드"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-gold"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "3-2",
+    "category": "classic",
+    "name": "모노그램 크레스트 프라이빗 뱅크",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "크레스트",
+      "프라이빗뱅크"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "3-3",
+    "category": "classic",
+    "name": "블랙&골드 마블",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "마블",
+      "골드"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-gold"
+    ],
+    "notes": "베이닝이 대각 스머지·블롭으로 읽혀 석재 질감이 아직 미설득"
+  },
+  {
+    "id": "3-4",
+    "category": "classic",
+    "name": "네이비·골드박 이그제큐티브",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "금융",
+      "법률",
+      "리더십"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "3-5",
+    "category": "classic",
+    "name": "빈티지 왁스실",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "왁스실",
+      "봉랍"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "3-6",
+    "category": "classic",
+    "name": "크래프트+골드박 건축 스튜디오",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "건축",
+      "코너브래킷"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "3-7",
+    "category": "classic",
+    "name": "부동산 스웨이드 포일",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "스웨이드",
+      "부동산"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-silver"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "3-8",
+    "category": "classic",
+    "name": "워치/주얼리 메탈 인그레이빙",
+    "grade": "B",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "워치",
+      "인그레이빙"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-silver"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "3-9",
+    "category": "classic",
+    "name": "호텔 컨시어지 골드 엠블럼",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "호스피탈리티",
+      "프리미엄"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-gold"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "3-10",
+    "category": "classic",
+    "name": "젠틀맨스클럽 딥그린",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "딥그린",
+      "클럽"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-gold"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "3-11",
+    "category": "classic",
+    "name": "블랙&실버 미니멀 포일",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "실버포일",
+      "미니멀"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-silver"
+    ],
+    "notes": "뒷면이 완전 무앵커(순검정)로 뒷면 방치 규칙 위반"
+  },
+  {
+    "id": "3-12",
+    "category": "classic",
+    "name": "실크 라미네이트+스팟UV 리얼터",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "스팟UV",
+      "리얼터"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "3-13",
+    "category": "classic",
+    "name": "그레이 서모그래피 뎁보싱",
+    "grade": "B",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "서모그래피",
+      "뎁보싱"
+    ],
+    "needs": [],
+    "finish": [
+      "emboss"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "3-14",
+    "category": "classic",
+    "name": "화이트 클린 엠보싱",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "화이트",
+      "엠보싱"
+    ],
+    "needs": [],
+    "finish": [
+      "emboss"
+    ],
+    "notes": "뒷면 고스트 마크 opacity가 옅어(.13) near-blank로 읽힘"
+  },
+  {
+    "id": "3-15",
+    "category": "classic",
+    "name": "블랙&화이트 듀플렉스 레터프레스+포일",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "듀플렉스",
+      "레터프레스"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-gold"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "3-16",
+    "category": "classic",
+    "name": "로펌 블라인드 레터프레스 모노크롬",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "격식",
+      "신뢰",
+      "럭셔리",
+      "장인",
+      "인쇄공예"
+    ],
+    "needs": [],
+    "finish": [
+      "emboss"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "4-1",
+    "category": "creative",
+    "name": "미니멀 정사각",
+    "grade": "A",
+    "verdict": "polish",
+    "format": "square",
+    "tags": [
+      "개성",
+      "비정형",
+      "크리에이티브",
+      "정사각",
+      "다이컷"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "60mm 정사각이 표준 지갑 명함칸(약 55mm)을 초과해 전용 홀더 전제가 필요"
+  },
+  {
+    "id": "4-2",
+    "category": "creative",
+    "name": "세로형 미니멀",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "vertical",
+    "tags": [
+      "개성",
+      "비정형",
+      "크리에이티브",
+      "세로",
+      "미니멀"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "4-3",
+    "category": "creative",
+    "name": "초소형 미니",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "mini",
+    "tags": [
+      "개성",
+      "비정형",
+      "크리에이티브",
+      "초소형",
+      "QR"
+    ],
+    "needs": [
+      "qr"
+    ],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "4-4",
+    "category": "creative",
+    "name": "원코너 라운드",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "개성",
+      "비정형",
+      "크리에이티브",
+      "원코너",
+      "라운드"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "4-5",
+    "category": "creative",
+    "name": "듀플렉스 엣지",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "개성",
+      "비정형",
+      "크리에이티브",
+      "듀플렉스",
+      "히든디테일"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "4-6",
+    "category": "creative",
+    "name": "투명 아크릴/PVC",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "개성",
+      "비정형",
+      "크리에이티브",
+      "아크릴",
+      "투명"
+    ],
+    "needs": [],
+    "finish": [
+      "emboss"
+    ],
+    "notes": "도트질감이 프로스티드 유리로 읽혀 완전한 투명감은 미달"
+  },
+  {
+    "id": "4-7",
+    "category": "creative",
+    "name": "노치·탭 컷아웃",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "개성",
+      "비정형",
+      "크리에이티브",
+      "노치",
+      "다이컷"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "노치가 렌더에서 얕게 읽히고 상단 풀폭 띠가 밋밋"
+  },
+  {
+    "id": "4-8",
+    "category": "creative",
+    "name": "트레이딩카드형",
+    "grade": "B",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "개성",
+      "비정형",
+      "크리에이티브",
+      "트레이딩카드",
+      "쇼케이스"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-gold"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "5-1",
+    "category": "pattern",
+    "name": "브랜드 마크 타일 반복(브릭 패턴)",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "패턴",
+      "아이덴티티",
+      "리듬",
+      "워드마크",
+      "반복"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "5-2",
+    "category": "pattern",
+    "name": "지오메트릭 모자이크 타일",
+    "grade": "A",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "패턴",
+      "아이덴티티",
+      "리듬",
+      "모자이크",
+      "다이아몬드"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "다이아 셀 내부 마크 스탬프가 작고 저해상에서 뭉개짐"
+  },
+  {
+    "id": "5-3",
+    "category": "pattern",
+    "name": "일본 전통 문양(세이가이하)",
+    "grade": "A",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "패턴",
+      "아이덴티티",
+      "리듬",
+      "세이가이하",
+      "전통문양"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "파도 자체는 로고 파생이 아니라 귀속이 코너 배지에 의존"
+  },
+  {
+    "id": "5-4",
+    "category": "pattern",
+    "name": "아르데코 스크린프린트 패턴",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "패턴",
+      "아이덴티티",
+      "리듬",
+      "아르데코",
+      "선버스트"
+    ],
+    "needs": [],
+    "finish": [
+      "foil-gold"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "5-5",
+    "category": "pattern",
+    "name": "텍스타일 스와치 패턴",
+    "grade": "A",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "패턴",
+      "아이덴티티",
+      "리듬",
+      "텍스타일",
+      "위빙"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "위빙이 깅엄/체크 프린트로 읽히고 브랜드 귀속이 코너 배지에만 존재"
+  },
+  {
+    "id": "5-6",
+    "category": "pattern",
+    "name": "반복 아이콘 그리드 패턴",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "패턴",
+      "아이덴티티",
+      "리듬",
+      "심볼",
+      "브랜드귀속"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "6-1",
+    "category": "tech",
+    "name": "다크 미니멀",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "다크",
+      "QR"
+    ],
+    "needs": [
+      "qr"
+    ],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "6-2",
+    "category": "tech",
+    "name": "모노스페이스 터미널",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "터미널",
+      "모노스페이스"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "6-3",
+    "category": "tech",
+    "name": "볼드 워드마크",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "개발자",
+      "강한타이포"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "6-4",
+    "category": "tech",
+    "name": "QR 스마트 카드",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "디지털",
+      "연결"
+    ],
+    "needs": [
+      "qr"
+    ],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "6-5",
+    "category": "tech",
+    "name": "이소메트릭 3D",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "이소메트릭",
+      "3D"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "6-6",
+    "category": "tech",
+    "name": "스위스 그리드 + 모노 액센트",
+    "grade": "S",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "스타트업",
+      "그리드",
+      "불변"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "6-7",
+    "category": "tech",
+    "name": "지오메트릭 라인·노드",
+    "grade": "B",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "노드",
+      "방사형"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "6-8",
+    "category": "tech",
+    "name": "블루프린트 와이어프레임",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "블루프린트",
+      "와이어프레임"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "다크 풀블리드 잉크 커버리지가 미해결이고 뒷면이 그리드 모티프에 계속 의존"
+  },
+  {
+    "id": "6-9",
+    "category": "tech",
+    "name": "픽셀 / 8비트 레트로테크",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "테크",
+      "모던",
+      "정밀",
+      "픽셀",
+      "레트로"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "화면 은유·니치 클리셰가 개념상 잔존(모티프를 걷어내면 빈 카드)"
+  },
+  {
+    "id": "7-1",
+    "category": "texture",
+    "name": "콘크리트 텍스처 미니멀",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "질감",
+      "소재",
+      "촉감",
+      "콘크리트",
+      "러프"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "7-2",
+    "category": "texture",
+    "name": "그라디언트 듀오톤 포트레이트",
+    "grade": "A",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "질감",
+      "소재",
+      "촉감",
+      "듀오톤",
+      "포트레이트"
+    ],
+    "needs": [
+      "photo"
+    ],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "7-3",
+    "category": "texture",
+    "name": "크라프트지 화이트잉크",
+    "grade": "B",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "질감",
+      "소재",
+      "촉감",
+      "크라프트지",
+      "화이트잉크"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "7-4",
+    "category": "texture",
+    "name": "리소그래프 하프톤 오프셋",
+    "grade": "B",
+    "verdict": "polish",
+    "format": "landscape",
+    "tags": [
+      "질감",
+      "소재",
+      "촉감",
+      "리소그래프",
+      "하프톤"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": "좌카드 대각 잔여 워터마크가 미스레지 불량처럼 읽히고 실사 소스 의존"
+  },
+  {
+    "id": "7-5",
+    "category": "texture",
+    "name": "대리석 텍스처 럭셔리",
+    "grade": "B",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "질감",
+      "소재",
+      "촉감",
+      "럭셔리"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  },
+  {
+    "id": "7-6",
+    "category": "texture",
+    "name": "빈티지 신문지 그레인",
+    "grade": "B",
+    "verdict": "pass",
+    "format": "landscape",
+    "tags": [
+      "질감",
+      "소재",
+      "촉감",
+      "신문지",
+      "그레인"
+    ],
+    "needs": [],
+    "finish": [],
+    "notes": ""
+  }
+]
