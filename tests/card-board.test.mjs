@@ -34,3 +34,20 @@ test('--gallery: 69종, 토큰 재스킨, 슬롯 잔존 0, 배지, 결정성', (
   execFileSync('node', [SCRIPT, d, '--gallery', '--recommend', '3-1,6-1']);
   assert.strictEqual(readFileSync(join(d, '.design/card/gallery.html'), 'utf8'), g1); // 결정성
 });
+
+test('--variants: 선택 추출 + 라벨 + compare 확대 + 상태 기록', () => {
+  const d = proj();
+  execFileSync('node', [SCRIPT, d, '--variants', '--pick', '1-1,2-1']);
+  const v = readFileSync(join(d, '.design/card/variants-v1.html'), 'utf8');
+  assert.strictEqual((v.match(/class="tpl" /g) || []).length, 2);
+  assert.ok(v.includes('V1a') && v.includes('V1b'));
+  assert.ok(v.includes('김철수'));
+  const st = JSON.parse(readFileSync(join(d, '.design/card.json'), 'utf8'));
+  assert.deepStrictEqual(st.rounds[0].picks, ['1-1', '2-1']);
+  execFileSync('node', [SCRIPT, d, '--variants', '--pick', '1-1,2-1']); // 같은 round 재실행
+  const st2 = JSON.parse(readFileSync(join(d, '.design/card.json'), 'utf8'));
+  assert.strictEqual(st2.rounds.length, 1);                              // append 아님
+  execFileSync('node', [SCRIPT, d, '--variants', '--pick', '1-1', '--round', '2', '--compare']);
+  const c = readFileSync(join(d, '.design/card/variants-v2.html'), 'utf8');
+  assert.ok(c.includes('zoom:2.4'));
+});
