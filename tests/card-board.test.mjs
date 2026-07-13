@@ -35,6 +35,16 @@ test('--gallery: 69종, 토큰 재스킨, 슬롯 잔존 0, 배지, 결정성', (
   assert.strictEqual(readFileSync(join(d, '.design/card/gallery.html'), 'utf8'), g1); // 결정성
 });
 
+test('--gallery: qr.svg 있으면 QR 카드에 주입 (pending 아님)', () => {
+  const d = proj();
+  mkdirSync(join(d, '.design/card'), { recursive: true });
+  writeFileSync(join(d, '.design/card/qr.svg'), '<svg viewBox="0 0 33 33"><path stroke="#000" d="M4 4.5h7"/></svg>');
+  execFileSync('node', [SCRIPT, d, '--gallery']);
+  const g = readFileSync(join(d, '.design/card/gallery.html'), 'utf8');
+  assert.ok(g.includes('<path stroke="#000" d="M4 4.5h7"/>'));
+  assert.ok(!g.includes('<!--qr-pending-->'));
+});
+
 test('--variants: 선택 추출 + 라벨 + compare 확대 + 상태 기록', () => {
   const d = proj();
   execFileSync('node', [SCRIPT, d, '--variants', '--pick', '1-1,2-1']);

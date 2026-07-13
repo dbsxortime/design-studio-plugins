@@ -41,6 +41,14 @@ function frags() {
   return [1, 2, 3, 4, 5, 6, 7].map(n => readFileSync(join(TPL_DIR, `frag-${n}.html`), 'utf8')).join('\n');
 }
 
+// .design/card/qr.svg를 읽어 fillSlots용 qrInner(래퍼 <svg> 스트립)로 변환.
+// 세 모드(gallery/variants/print) 공통 — 파일 없으면 null(각 모드가 경고 여부를 결정).
+function readQrInner() {
+  const qrPath = join(outDir, 'qr.svg');
+  if (!existsSync(qrPath)) return null;
+  return readFileSync(qrPath, 'utf8').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+}
+
 // 단일 카드(<div class="tpl" data-id="…">…</div>)만 균형 태그 카운팅으로 추출.
 // 주의: 각 카드 앞에 <!-- 주석 -->이 끼어 있어 "다음 형제 카드/섹션 직전"을 룩어헤드로 잡는 방식은
 // 룩어헤드가 즉시 실패해 다음 카드들까지 통째로 삼켜버린다(frag 마지막 카드는 반대로 .grid 닫는
@@ -86,7 +94,9 @@ function extractCards(tplHtml) {
 
 if (mode === '--gallery') {
   const recommend = (arg('--recommend') || '').split(',').filter(Boolean);
-  let body = fillSlots(frags(), state.info || {});
+  const qrInner = readQrInner();
+  const info = qrInner ? { ...(state.info || {}), qrInner } : (state.info || {});
+  let body = fillSlots(frags(), info);
   for (const id of recommend) {
     body = body.replace(`data-id="${id}"`, `data-id="${id}" data-rec="1"`);
   }
@@ -103,8 +113,10 @@ if (mode === '--gallery') {
   const compare = rest.includes('--compare');
   const label = arg('--label') || `V${round}`;
   const zoom = compare ? 2.4 : 1.6;
+  const qrInner = readQrInner();
+  const info = qrInner ? { ...(state.info || {}), qrInner } : (state.info || {});
   const cards = picks.map((id, i) => {
-    const tpl = fillSlots(extractTpl(id), state.info || {});
+    const tpl = fillSlots(extractTpl(id), info);
     return `<div class="vwrap"><div class="vlabel">V${round}${String.fromCharCode(97 + i)} · ${id}</div>${tpl}</div>`;
   }).join('\n');
   const html = shellWithTokens() +
@@ -124,9 +136,9 @@ if (mode === '--gallery') {
   if (!entry) { console.error(`템플릿 ${state.final} 매니페스트에 없음`); process.exit(1); }
   const spec = { ...(PRINT_SPECS[entry.format]), bleed: 2, ...(state.printSpec || {}) };
   const W = spec.trimW + spec.bleed * 2, H = spec.trimH + spec.bleed * 2;
-  const qrPath = join(outDir, 'qr.svg');
   const info = { ...state.info };
-  if (existsSync(qrPath)) info.qrInner = readFileSync(qrPath, 'utf8').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+  const qrInner = readQrInner();
+  if (qrInner) info.qrInner = qrInner;
   else if (entry.needs.includes('qr')) console.error('경고: .design/card/qr.svg 없음 — QR 미주입');
   const tpl = fillSlots(extractTpl(state.final), info);
   const cardHtmls = extractCards(tpl);
