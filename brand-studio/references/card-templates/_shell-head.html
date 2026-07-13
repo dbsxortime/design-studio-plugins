@@ -13,12 +13,14 @@
   --c-primary:#332D7B; --c-on:#FFFFFF; --c-bg:#FFFFFF; --c-surface:#F7F7FB;
   --c-text:#191731; --c-muted:#6B6980;
   --c-a-lav:#A79FF2; --c-a-lav2:#8B82E8; --c-a-light:#EFEDFA; --c-a-deep:#221E5C;
-  --c-a-ink2:#131126; --c-a-green:#2E6B52; --c-a-gold:#8A6A2F; --c-a-red:#9C3B32;
+  --c-a-ink2:#131126; --c-a-gold:#8A6A2F;
   --f-sans:'Wanted Sans Variable','Wanted Sans',-apple-system,sans-serif;
   --f-disp:'Satoshi',var(--f-sans); --f-serif:Georgia,'Times New Roman',serif;
   --f-mono:'SF Mono',ui-monospace,Menlo,monospace;
 }
 /*CARD-TOKENS-END*/
+/* 시맨틱 상태색 — 브랜드 primary 파생 대상이 아니라 마커 블록 밖에 고정 리터럴로 유지 */
+:root{ --c-a-green:#2E6B52; --c-a-red:#9C3B32; }
 *{box-sizing:border-box}
 body{margin:0;background:#EEEDF3;color:var(--c-text);font-family:var(--f-sans);padding:48px 4vw 96px}
 h1{font-family:var(--f-disp);font-size:28px;margin:0 0 6px}
