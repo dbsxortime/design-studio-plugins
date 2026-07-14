@@ -168,4 +168,7 @@ description: 로고·아이콘·파비콘·OG·소셜·브랜드북을 하나의
 - [ ] `<meta name="theme-color" content="{tokens.color.primary}">`
 - [ ] 전역 CSS에 `@import ".../details.css";` (details.css 실제 위치 기준 상대경로)
 
-3. 배선 완료 후 `progress.phase = "exported"`로 기록. **커밋하지 않는다** — 변경/생성 파일 목록을 표로 제시하고 커밋은 사용자에게 위임한다(철칙 ④).
+3. **(선택) 쇼케이스 번들** — 산출물을 웹에 그대로 올릴 수 있는 자기완결 정적 폴더로 묶을지 묻는다. 원하면:
+   `node <brand-studio-root>/scripts/showcase-build.mjs <프로젝트> [--base-url https://호스트/슬러그]`
+   → `.design/showcase/` (컨셉·브랜드북·명함 갤러리·인쇄 PDF 사본 + 상단 고정 알림 바["Design Studio가 생성한 실제 산출물" + 산출물 탭 + 나도 만들기 링크] + index는 컨셉으로 즉시 이동). 존재하는 산출물만 탭에 실리고, 바 색은 프로젝트 토큰에서 파생된다. 배포 URL이 확정되면 `--base-url`로 재실행해야 공유 썸네일(og:image)이 절대 URL로 박힌다. 원본 산출물은 무수정 — 재생성은 이 스크립트 재실행으로만.
+4. 배선 완료 후 `progress.phase = "exported"`로 기록. **커밋하지 않는다** — 변경/생성 파일 목록을 표로 제시하고 커밋은 사용자에게 위임한다(철칙 ④).

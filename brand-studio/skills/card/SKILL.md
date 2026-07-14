@@ -101,7 +101,7 @@ description: 브랜드 재료(토큰·로고·슬로건) 위에서 명함을 갤
    - [ ] 화면 전용 요소(재단선 등) 인쇄본에 미노출
    QR이 있는 템플릿이면 **실기기 스캔 확인** 항목을 추가한다.
 
-**card.json 기록**: `exports`(생성한 html/pdf 경로 배열 — 스크립트가 자동 기록). → 전 항목 확인 시 `progress`를 `done`으로 간주하고 변경/생성 파일 목록을 표로 제시(커밋은 사용자에게 위임 — 철칙 ①).
+**card.json 기록**: `exports`(생성한 html/pdf 경로 배열 — 스크립트가 자동 기록). → 전 항목 확인 시 `progress`를 `done`으로 간주하고 변경/생성 파일 목록을 표로 제시(커밋은 사용자에게 위임 — 철칙 ①). 프로젝트에 쇼케이스 번들(`.design/showcase/`)이 있으면 `node <brand-studio-root>/scripts/showcase-build.mjs <프로젝트>` 재실행으로 명함 갤러리·PDF를 번들에 반영하라고 안내한다.
 
 ---
 

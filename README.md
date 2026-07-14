@@ -40,7 +40,7 @@ claude plugin install design-check@design-studio-plugins
 | `/design-inject` | design-check | 확정 기준을 CSS 변수/Tailwind `@theme`로 **생성해** 프로젝트에 심기 — 값 손타이핑 금지(`tokens-to-code.mjs`가 결정적 생성, 에이전트는 배선만) |
 | `/design-check` | design-check | 기준 대비 정적 점검(코드) + 실측 점검(playwright, URL 있을 때) |
 | `/design-apply` | design-check | 점검 리포트의 위반을 승인 게이트 거쳐 일괄 수정 (`/design-check` 이후에만) |
-| `/brand` | brand-studio | 브랜드 미팅 딸깍 — 로고 시스템·아이콘·그래픽 언어·OG/소셜·마감 디테일·**브랜드북+컨셉 페이지**를 15년차 디자이너 미팅 UX로 생성·배선. 브랜드북(규정집) + 컨셉 페이지(이 브랜드로 만든 서비스 랜딩 쇼케이스)를 함께 산출. **대화형 미팅**이며 아이콘·OG 이미지는 playwright 브라우저 캡처를 거쳐 만들어진다 |
+| `/brand` | brand-studio | 브랜드 미팅 딸깍 — 로고 시스템·아이콘·그래픽 언어·OG/소셜·마감 디테일·**브랜드북+컨셉 페이지**를 15년차 디자이너 미팅 UX로 생성·배선. 브랜드북(규정집) + 컨셉 페이지(이 브랜드로 만든 서비스 랜딩 쇼케이스)를 함께 산출. 마지막에 (선택) **웹 게시용 쇼케이스 번들**(`.design/showcase/` — 산출물 사본 + "Design Studio 산출물" 상단 알림 바 + 산출물 탭)을 묶어준다. **대화형 미팅**이며 아이콘·OG 이미지는 playwright 브라우저 캡처를 거쳐 만들어진다 |
 | `/card` | brand-studio | 명함 미팅 — 디자인 리서치·전문가 심사를 거친 **템플릿 69종(7카테고리)**을 내 토큰으로 통째 재스킨한 갤러리에서 고르고(추천 배지), 고른 시안 위에서 V시리즈로 다듬은 뒤, 인쇄소 규격(재단+블리드 2mm, 가이드 PDF 오버라이드)의 **입고용 PDF+CMYK**까지 산출. 규격은 미리 묻지 않는다 — 고른 시안이 곧 규격. QR은 실제 스캔되는 것만 주입 |
 
 ## tokens-v1 스키마
