@@ -73,6 +73,10 @@ test('--print: @page 규격, 2시트, 재단선, 가이드 오버라이드', () 
   assert.strictEqual((p.match(/class="sheet/g) || []).length, 2);
   assert.ok(p.includes('trimline') && p.includes('page-break-after'));
   assert.ok(p.includes('print-color-adjust: exact'));
+  // 커버 배율: 카드가 블리드(94×54)까지 채우도록 확대 — max(94mm/270px, 54mm/150px) ≈ 1.3606
+  assert.ok(p.includes('zoom:1.3606'));
+  // 실물 재단 대응: 인쇄판에서 라운드·그림자 제거
+  assert.ok(p.includes('border-radius:0') && p.includes('box-shadow:none'));
   assert.ok(outJson.pdfCmd.includes('--print-to-pdf') && outJson.cmykCmd.includes('CMYK'));
   // 인쇄소 가이드 오버라이드
   const st2 = JSON.parse(readFileSync(join(d, '.design/card.json'), 'utf8'));

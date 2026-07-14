@@ -144,9 +144,13 @@ if (mode === '--gallery') {
   const cardHtmls = extractCards(tpl);
   if (cardHtmls.length < 2) console.error(`경고: 템플릿 ${state.final}은 카드 ${cardHtmls.length}장뿐 — 1시트만 생성`);
   const PXMM = 96 / 25.4;
-  const cardW = entry.format === 'vertical' ? 150 : entry.format === 'square' ? 180 : entry.format === 'mini' ? 210 : entry.format === 'credit' ? 257 : 270;
-  const scale = (spec.trimW * PXMM) / cardW;
-  console.error('안내: 풀블리드 카드는 블리드 경계 확인 — .sheet 배경은 --c-bg로 채워짐(카드 배경과 다르면 흰 띠 가능)');
+  const [cardW, cardH] = entry.format === 'vertical' ? [150, 270] : entry.format === 'square' ? [180, 180]
+    : entry.format === 'mini' ? [210, 105] : entry.format === 'credit' ? [257, 162] : [270, 150];
+  // 커버 배율: 카드가 블리드(작업 크기)까지 채우도록 확대 — 풀블리드 배경의 흰 띠 방지.
+  // 재단선 밖으로 잘리는 양만큼 콘텐츠가 가장자리로 이동하므로 안전선 확인을 안내한다.
+  const scale = Math.max((W * PXMM) / cardW, (H * PXMM) / cardH);
+  const cropMm = ((cardW * scale) / PXMM - W) / 2 + spec.bleed;
+  console.error(`안내: 카드를 블리드까지 확대(커버) 배치 — 콘텐츠 여백이 재단선 기준 약 ${cropMm.toFixed(1)}mm 줄어듦, 안전선(3mm) 침범 여부를 재단선 프리뷰로 확인`);
   const sheets = cardHtmls.slice(0, 2).map(c =>
     `<div class="sheet"><div class="scaler">${c}</div><div class="trimline"></div></div>`).join('\n');
   const html = shellWithTokens() + `
@@ -162,6 +166,8 @@ body > h1, body > .sub { display:none; }
    zoom은 페인트 타임 행렬이 아니라 레이아웃 타임에 크기를 재계산해 클립이 정확히 적용된다. */
 .sheet { width:${W}mm; height:${H}mm; position:relative; overflow:hidden; background:var(--c-bg); display:flex; align-items:center; justify-content:center; }
 .scaler { zoom:${scale.toFixed(4)}; }
+/* 실물 재단은 직각·그림자 없음 — 화면용 라운드/섀도는 인쇄판에서 제거 */
+.scaler .card { border-radius:0; box-shadow:none; }
 .trimline { position:absolute; inset:${spec.bleed}mm; border:1px dashed rgba(233,60,140,.5); pointer-events:none; }
 .sheet { page-break-after: always; }
 @media print { .trimline{display:none} }
