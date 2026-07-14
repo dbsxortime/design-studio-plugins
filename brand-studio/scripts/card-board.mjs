@@ -6,12 +6,15 @@
      → .design/card/variants-v{round}.html — 선택 시안만 확대 비교 보드로 조립
    외부 요청 0, 산출 결정적(타임스탬프·난수 금지) — 스타일은 shell 인라인 CSS. */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { deriveCardTokens, fillSlots, loadCardState, saveCardState, PRINT_SPECS } from './lib/card.mjs';
 
 const TPL_DIR = join(dirname(fileURLToPath(import.meta.url)), '../references/card-templates');
-const [projectDir, mode, ...rest] = process.argv.slice(2);
+const [projectDirArg, mode, ...rest] = process.argv.slice(2);
+// 상대경로 프로젝트를 그대로 쓰면 --print의 file:// URL이 깨진 주소가 되고,
+// Chrome은 에러 페이지를 "성공"으로 PDF 저장한다(신선한 눈 테스트 실측) — 항상 절대경로화.
+const projectDir = projectDirArg ? resolve(projectDirArg) : projectDirArg;
 if (!projectDir || !mode) {
   console.error('사용법: card-board.mjs <프로젝트> --gallery [--recommend ids]');
   process.exit(1);
@@ -111,7 +114,9 @@ if (mode === '--gallery') {
   if (!picks.length) { console.error('--pick 필수'); process.exit(1); }
   const round = Number(arg('--round') || 1);
   const compare = rest.includes('--compare');
-  const label = arg('--label') || `V${round}`;
+  // 같은 라운드 재실행(예: --compare만 추가) 시 직전 라벨을 조용히 잃지 않도록 유지
+  const prevRound = (state.rounds || []).find(r => r.v === round);
+  const label = arg('--label') || prevRound?.label || `V${round}`;
   const zoom = compare ? 2.4 : 1.6;
   const qrInner = readQrInner();
   const info = qrInner ? { ...(state.info || {}), qrInner } : (state.info || {});

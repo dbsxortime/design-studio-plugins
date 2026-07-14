@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, basename, dirname, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 
 const SCRIPT = 'brand-studio/scripts/card-board.mjs';
@@ -85,4 +85,24 @@ test('--print: @page 규격, 2시트, 재단선, 가이드 오버라이드', () 
   execFileSync('node', [SCRIPT, d, '--print']);
   const p2 = readFileSync(join(d, '.design/card/print.html'), 'utf8');
   assert.ok(p2.includes('@page { size: 93mm 57mm'));
+});
+
+test('--print: 상대경로 프로젝트도 절대 file:// URL 생성', () => {
+  const d = proj();
+  const st = JSON.parse(readFileSync(join(d, '.design/card.json'), 'utf8'));
+  st.final = '1-1';
+  writeFileSync(join(d, '.design/card.json'), JSON.stringify(st));
+  // 프로젝트를 상대경로로 넘겨도 pdfCmd가 깨진 file://.design/... 이 되면 안 됨
+  const out = JSON.parse(execFileSync('node',
+    [resolve(SCRIPT), basename(d), '--print'], { cwd: dirname(d) }).toString());
+  assert.ok(out.pdfCmd.includes('file:///'), 'file:// URL은 절대경로여야 함');
+  assert.ok(!out.pdfCmd.includes('file://.'), '상대 file:// URL 금지');
+});
+
+test('--variants: 같은 round 재실행 시 기존 라벨 유지', () => {
+  const d = proj();
+  execFileSync('node', [SCRIPT, d, '--variants', '--pick', '1-1', '--label', '커스텀 라벨']);
+  execFileSync('node', [SCRIPT, d, '--variants', '--pick', '1-1', '--compare']);
+  const st = JSON.parse(readFileSync(join(d, '.design/card.json'), 'utf8'));
+  assert.strictEqual(st.rounds[0].label, '커스텀 라벨');
 });

@@ -12,7 +12,7 @@ description: 브랜드 재료(토큰·로고·슬로건) 위에서 명함을 갤
 
 ## 시작 게이트 (순서 고정, 생략 금지)
 
-1. **`.design/tokens.json` 없으면 중단** → "명함도 색·타이포 기준 위에서 만든다. `/design-tokens`를 먼저 돌려 기준을 확보하라"고 안내하고 종료.
+1. **`.design/tokens.json` 없으면 중단** → "명함도 색·타이포 기준 위에서 만든다. `/design-tokens`를 먼저 돌려 기준을 확보하라"고 안내하고 종료. 사용자가 즉석 진행을 원하면 최소 스키마로 직접 만들어도 된다: `{"$schema":"design-studio/tokens-v1","meta":{"project":"이름","updated":"YYYY-MM-DD","source":"onboarding"},"color":{"primary":"#…","onPrimary":"#…","bg":"#FFFFFF","surface":"#…","text":"#…","muted":"#…"},"font":{"family":"Pretendard","headingWeight":800,"bodySize":"14px"},"radius":{"base":"10px","card":"14px","pill":"999px"}}` (onPrimary는 primary 위 대비 3:1 기준 흰/검 자동 선택).
 2. `.design/card.json` **있으면** 그 상태(`info`/`picks`/`rounds`/`final`/`exports`)로 중단 지점부터 **재개**. 없으면 미팅 0부터 시작(첫 기록 시 `loadCardState`가 `$schema: "brand-studio/card-v1"` 기본 골격을 만든다).
 3. 각 미팅은 **확정 게이트**를 통과해야 다음으로 넘어간다. 승인 없이 다음 단계 진행 금지.
 
@@ -20,8 +20,8 @@ description: 브랜드 재료(토큰·로고·슬로건) 위에서 명함을 갤
 
 /brand 철칙을 그대로 승계한다:
 ① **커밋 금지.** 끝에 변경 파일 목록만 제시하고 커밋은 사용자에게 위임한다.
-② **생성 파일은 손으로 고치지 않는다** — `gallery.html`·`variants-v*.html`·`print.html`·PDF는 전부 `card-board.mjs` 재실행으로만 바꾼다. 조정은 `card.json`의 `info`/`picks`/`printSpec`이나 템플릿 오버라이드 슬롯을 통해서만.
-③ **시안 색은 `tokens.json` 팔레트에서만.** 하드코딩 색 금지.
+② **생성 파일은 손으로 고치지 않는다** — `gallery.html`·`variants-v*.html`·`print.html`·PDF는 전부 `card-board.mjs` 재실행으로만 바꾼다. 조정은 `card.json`의 `info`/`picks`/`printSpec`이나 템플릿 오버라이드 슬롯을 통해서만. **`card.json`은 생성물이 아니라 미팅 상태 파일** — 프로젝트 루트 `.design/card.json`에 에이전트가 직접 기록한다(CLI 옵션 없음, 이 파일만은 손기록이 정상).
+③ **시안 색은 `tokens.json` 팔레트에서만.** 하드코딩 색 금지. 예외: 셸 정의부의 금속·시맨틱 리터럴(`--c-a-gold`·`--c-a-green`·`--c-a-red`)은 토큰과 무관한 고정색(박 근사·시맨틱) — 이 색을 쓰는 카드가 브랜드 색과 충돌하면 그 카드를 추천에서 제외하는 것으로 지킨다.
 ④ **`:28572` 프로세스는 kill하지 않는다** — 스튜디오 포트. 아래 로컬 캡처 서버도 이 포트를 쓰지 않는다.
 ⑤ **규격은 미리 묻지 않는다 — 시안이 규격이다.** 미팅 0에서 카드 크기(가로/정사각/세로/미니/신용카드)를 묻지 않는다. 규격은 미팅 1에서 고른 템플릿의 `format`이 그대로 결정한다.
 ⑥ **가짜 QR 금지.** QR이 필요한 템플릿에는 반드시 `npx -y qrcode`로 생성한 실제 스캔 가능한 SVG만 주입한다. 장식용 격자 패턴 등으로 대체하지 않는다.
@@ -29,7 +29,7 @@ description: 브랜드 재료(토큰·로고·슬로건) 위에서 명함을 갤
 ### 로컬 캡처 서버 절차 (요약 — playwright MCP는 `file://`를 차단한다)
 
 `.design/card/` 아래 산출물(`gallery.html`·`variants-v*.html`·`print.html`)을 열 때는 `file://`로 직접 열지 말고, 임시 로컬 HTTP 서버로 서빙한 뒤 `http://127.0.0.1:<포트>/...`로 연다.
-1. **서빙**: `cd <프로젝트>/.design/card && python3 -m http.server 28573 --bind 127.0.0.1` 을 백그라운드로 띄운다. python3이 없으면 `npx serve -l 28573 .` 등 대안으로 대체.
+1. **서빙**: `cd <프로젝트>/.design/card && python3 -m http.server 28573 --bind 127.0.0.1` 을 백그라운드로 띄운다. python3이 없으면 `npx serve -l 28573 .` 등 대안으로 대체. 연결은 되는데 **빈 응답**(Empty reply)이면 실행 환경 샌드박스가 소켓 응답을 막는 경우 — 서버만 샌드박스 밖 실행으로 재기동한다(사용자 승인 필요할 수 있음). 어떤 서빙도 안 되면 갤러리를 브라우저로 직접 열게 안내(`open <경로>`)해도 된다.
 2. **포트**: 반드시 `28573`(또는 다른 미사용 포트) — **`:28572`는 스튜디오 포트라 쓰지 않는다**(철칙 ④).
 3. **열기**: playwright MCP로 `http://127.0.0.1:28573/<파일명>?v=<임의값>`을 연다 — **캐시버스터 쿼리 필수**(재생성 후 브라우저가 이전 버전을 캐시로 보여주는 사고 방지).
 4. **스크롤 리빌 주의**: 갤러리는 카드 69장이 세로로 길다 — 화면 밖 카드가 지연 렌더/애니메이션되는 경우 **끝까지 스크롤한 뒤**(단계 스크롤 후 상단 복귀) 캡처·검토한다.
@@ -61,7 +61,7 @@ description: 브랜드 재료(토큰·로고·슬로건) 위에서 명함을 갤
 2. 갤러리 보드 생성:
    `node <brand-studio-root>/scripts/card-board.mjs <프로젝트> --gallery [--recommend id1,id2,…]`
    → `.design/card/gallery.html`(69종 전체를 프로젝트 토큰·미팅 0 정보로 재스킨).
-3. `--recommend`에 넣을 5종은 **에이전트가 먼저 고른다**: `manifest.json`의 `tags`를 brand.json의 `brief.keywords`(정확히 3개, 없으면 미팅 0 문답에서 나온 인상 키워드)와 대조해 가장 겹치는 5장을 고른다. 추천 카드는 갤러리에서 ✨ 배지, 등급(`grade`/`verdict`)은 ✅/🔧 배지로 항상 함께 보인다.
+3. `--recommend`에 넣을 5종은 **에이전트가 먼저 고른다**: `manifest.json`의 `tags`를 brand.json의 `brief.keywords`(정확히 3개, 없으면 미팅 0 문답에서 나온 인상 키워드)와 대조해 가장 겹치는 5장을 고른다. 추천 카드는 갤러리에서 ✨ 배지, 등급(`grade`/`verdict`)은 ✅/🔧 배지로 항상 함께 보인다. 추천이나 사용자 선택에 `verdict:"polish"`(🔧) 카드가 있으면 **manifest의 `notes`(잔존 결함 — 예: "뒷면 앵커 없음")를 한 줄로 요약해 알려주고** 그래도 좋은지 확인한다.
 4. 로컬 캡처 서버 절차(위)로 열어 보여준다.
 5. 사용자에게 1~3종을 선택받는다.
 
