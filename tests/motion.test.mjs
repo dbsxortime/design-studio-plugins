@@ -8,12 +8,17 @@ const html = readFileSync('design-studio/assets/studio.html', 'utf8');
 
 test('parseMotions: 카드 수·필드 무결성', () => {
   const m = parseMotions(html);
-  assert.ok(m.length >= 140, `expected >=140, got ${m.length}`);
+  assert.ok(m.length >= 150, `expected >=150, got ${m.length}`);
   const split = m.find(x => x.id === 'split-text');
   assert.equal(split.cat, 'text');
   assert.ok(split.code.includes('SplitText'));
   assert.ok(Array.isArray(split.links) && split.links[0].length === 2);
   for (const x of m) { assert.ok(x.id && x.cat && x.title && x.code, `broken: ${x.id}`); }
+  const reorder = m.find(x => x.id === 'reorder-list');
+  assert.equal(reorder.cat, 'comp');
+  assert.ok(reorder.code.includes('Reorder'));
+  const cursor = m.find(x => x.id === 'cursor-follower');
+  assert.ok(cursor.code.includes('useSpring'));
 });
 
 test('CLI: list/search/get/add-use', () => {
