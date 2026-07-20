@@ -1,5 +1,5 @@
 {
   "name": "design-studio",
-  "version": "1.1.0",
-  "description": "디자인 토큰 스튜디오 + 모션 갤러리. /studio로 로컬 스튜디오를 열어 프로젝트 토큰을 시각 편집하고, /motion으로 애니메이션 카드를 조회·기록한다."
+  "version": "1.2.0",
+  "description": "디자인 토큰 스튜디오 + 모션 갤러리. /studio로 로컬 스튜디오를 열어 프로젝트 토큰을 시각 편집하고, /motion으로 애니메이션 카드를 조회·기록한다(정적 HTML용 Motion(motion.dev) 채택 + 브랜드 이징 규율 포함)."
 }

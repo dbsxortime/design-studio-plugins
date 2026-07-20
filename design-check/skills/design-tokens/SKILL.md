@@ -60,6 +60,14 @@ meta{project,updated,source}, color{primary,onPrimary,bg,surface,text,muted,allo
 font{family,headingWeight,bodySize}, radius{base,card,pill},
 spacing{unit,gutter}, tolerance{colorDeltaE:5,radiusPx:2}
 
+**motion (선택 — 있으면 `--ease-*`/`--dur-*` 토큰으로 방출)**: 색·간격처럼 이징·지속시간도
+토큰화해 하드코딩을 없앤다. 없으면 방출 안 함(모션 없는 프로젝트는 출력 무변경).
+`motion{ easing{standard,exit}, duration{fast,base,slow} }` — 예:
+`easing.standard: "cubic-bezier(.22,1,.36,1)"`(ease-out 기본), `easing.exit: "cubic-bezier(.4,0,1,1)"`,
+`duration{fast:"150ms",base:"200ms",slow:"250ms"}`. → `/design-inject`가 `--ease-standard`·`--ease-exit`·
+`--dur-fast/base/slow`를 생성. 컴포넌트는 `transition: … var(--dur-base) var(--ease-standard)`처럼 참조.
+바운스·엘라스틱(overshoot)은 절제 톤을 깨므로 기본값에 넣지 않는다.
+
 ⚠️ **onPrimary(대비색) 자동 규칙**: primary 위에 올라가는 텍스트/아이콘 색.
 사용자가 지정하지 않으면 반드시 lib/tokens.mjs의 `contrastOn(primary)`로 계산해 채운다
 (WCAG 상대 휘도 — 어두운 primary→#FFFFFF, 밝은 primary→#111111).

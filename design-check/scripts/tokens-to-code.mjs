@@ -62,6 +62,14 @@ const vars = [
   ['--radius-pill', tokens.radius.pill || '999px'],
   ['--spacing-unit', tokens.spacing.unit],
   ['--spacing-gutter', tokens.spacing.gutter || '16px'],
+  /* motion — optional. tokens.motion 없으면 방출 안 함(모션 없는 프로젝트는 출력 무변경). */
+  ...(tokens.motion ? [
+    ['--ease-standard', tokens.motion.easing?.standard || 'cubic-bezier(.22,1,.36,1)'],
+    ['--ease-exit', tokens.motion.easing?.exit || 'cubic-bezier(.4,0,1,1)'],
+    ['--dur-fast', tokens.motion.duration?.fast || '150ms'],
+    ['--dur-base', tokens.motion.duration?.base || '200ms'],
+    ['--dur-slow', tokens.motion.duration?.slow || '250ms'],
+  ] : []),
 ];
 
 function render(wrapper) {
