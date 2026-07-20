@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>설계문서 — 브랜드 조건부 생성 (visual-studio)</title>
+<style>
+:root{
+  /* ── 프로젝트별 주입: 이 1줄만 교체 (출처 = 잡스랩 우산 브랜드) ── */
+  --doc-primary:#332D7B;
+  /* ── 아래는 전부 고정 (수정 금지) ── */
+  --doc-primary-soft:color-mix(in srgb, var(--doc-primary) 12%, #fff);
+  --doc-primary-ink:color-mix(in srgb, var(--doc-primary) 72%, #1f2530);
+  --bg:#ffffff; --surface:#f7f8fa; --surface-2:#eef1f5;
+  --ink:#1f2530; --muted:#5b6472; --faint:#8b94a3;
+  --border:#e5e8ec; --border-strong:#d3d8df;
+  --ok:#2e9e5b; --warn:#c97a16; --danger:#c5453a;
+  --radius:14px; --radius-sm:8px; --radius-pill:999px; --maxw:880px;
+  --font:'Pretendard','Apple SD Gothic Neo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);
+  font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:48px 24px 96px;}
+.hero{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:40px;}
+.hero .kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--doc-primary-ink);font-weight:600;margin-bottom:10px;}
+.hero h1{font-size:32px;line-height:1.25;font-weight:700;margin:0 0 16px;letter-spacing:-.01em;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{font-size:12.5px;color:var(--muted);background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius-pill);padding:4px 12px;}
+.chip b{color:var(--ink);font-weight:600;}
+section{margin:0 0 44px;}
+h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);
+  font-weight:700;margin:0 0 18px;}
+h2 .n{color:var(--doc-primary);margin-right:8px;}
+h3{font-size:19px;font-weight:650;margin:28px 0 12px;letter-spacing:-.01em;}
+p{margin:0 0 14px;}
+a{color:var(--doc-primary-ink);}
+ul,ol{margin:0 0 14px;padding-left:22px;} li{margin:4px 0;}
+table{width:100%;border-collapse:collapse;margin:0 0 18px;font-size:14.5px;}
+thead th{background:var(--ink);color:#fff;text-align:left;font-weight:600;
+  padding:10px 14px;font-size:13px;letter-spacing:.02em;}
+thead th:first-child{border-top-left-radius:var(--radius-sm);}
+thead th:last-child{border-top-right-radius:var(--radius-sm);}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+tbody tr:nth-child(even){background:var(--surface);}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 20px;}
+.flow .step{background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:var(--radius-sm);padding:10px 16px;font-size:14px;font-weight:550;}
+.flow .arrow{color:var(--faint);font-size:18px;}
+.badge{display:inline-block;font-size:12px;font-weight:600;border-radius:var(--radius-pill);
+  padding:3px 11px;border:1px solid transparent;}
+.badge.done{background:color-mix(in srgb,var(--ok) 13%,#fff);color:var(--ok);border-color:color-mix(in srgb,var(--ok) 32%,#fff);}
+.badge.progress{background:var(--doc-primary-soft);color:var(--doc-primary-ink);border-color:color-mix(in srgb,var(--doc-primary) 32%,#fff);}
+.badge.wait{background:var(--surface-2);color:var(--muted);border-color:var(--border-strong);}
+.badge.warn{background:color-mix(in srgb,var(--warn) 14%,#fff);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 32%,#fff);}
+.call{border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px 16px;margin:0 0 18px;background:var(--surface);font-size:14.5px;}
+.call .lbl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;}
+.call.info .lbl{color:var(--doc-primary-ink);}
+.call.warn{background:color-mix(in srgb,var(--warn) 6%,#fff);border-color:color-mix(in srgb,var(--warn) 22%,var(--border));} .call.warn .lbl{color:var(--warn);}
+.call.decision{background:color-mix(in srgb,var(--ok) 5%,#fff);border-color:color-mix(in srgb,var(--ok) 22%,var(--border));} .call.decision .lbl{color:var(--ok);}
+.call.out{border-style:dashed;background:transparent;} .call.out .lbl{color:var(--faint);}
+.call p:last-child{margin-bottom:0;}
+code.path{font-family:var(--mono);font-size:.88em;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:6px;padding:1px 7px;color:var(--doc-primary-ink);white-space:nowrap;}
+:not(pre)>code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border-radius:5px;padding:1px 6px;}
+footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;}
+footer .link{display:flex;gap:6px;align-items:center;}
+@media (max-width:640px){
+  .wrap{padding:32px 16px 72px;} .hero h1{font-size:26px;}
+  table{font-size:13.5px;} thead th,tbody td{padding:8px 10px;}
+}
+@media print{
+  body{font-size:12pt;} .wrap{max-width:none;padding:0;}
+  .badge,.chip,thead th{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">design-studio-plugins · 비주얼 생성</div>
+    <h1>브랜드 조건부 생성 — visual-studio / <code>generate</code></h1>
+    <div class="chips">
+      <span class="chip">작성일 <b>2026-07-20</b></span>
+      <span class="chip">대상 <b>클라이언트 작업 전용</b></span>
+      <span class="chip">상태 <b>검토 대기</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2><span class="n">1</span>배경 / 목표</h2>
+    <p>이미지·영상 생성툴(Flux·SDXL·Runway·Kling·Veo 등)을 <b>우리 디자인 소스에 붙여</b>, 클라이언트 브랜드에 맞는 결과가 나오게 한다. 단순 API 호출이 아니라 <b>클라이언트의 토큰·브랜드·스타일 가드레일을 프롬프트에 주입하고 결과를 팔레트로 후처리</b>하는 "브랜드 조건부 생성"이 차별점이다.</p>
+    <div class="call decision"><div class="lbl">확정 결정</div><p>사용처 = <b>클라이언트 전용</b> · Transport = <b>MCP 우선</b>(애그리게이터 권장) · 매체 = 이미지·영상(호출 시점 선택) · <b>팔레트 락 v1 포함</b>(이미지 전체).</p></div>
+    <div class="call out"><div class="lbl">범위 밖</div><p>잡스랩 자체 사이트 적용(브랜드 미니멀 유지) · 커스텀 모델 학습 · 대량 배치 · 생성물 갤러리 UI.</p></div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>현황</h2>
+    <table>
+      <thead><tr><th>항목</th><th>현 상태</th></tr></thead>
+      <tbody>
+        <tr><td>실사 이미지/영상 생성 MCP</td><td><span class="badge warn">미연결</span> 새로 붙여야 함</td></tr>
+        <tr><td>Figma MCP</td><td>디자인·벡터 생성 + Figma 내부 모션 export 위주(실사 생성 아님)</td></tr>
+        <tr><td>image-archive MCP</td><td>생성이 아닌 검색·보관용</td></tr>
+        <tr><td>브랜드 확보 경로</td><td><span class="badge done">있음</span> <code class="path">design-tokens</code> 스킬이 클라이언트 사이트에서 토큰 추출</td></tr>
+        <tr><td>스타일 지식</td><td><span class="badge done">있음</span> uipro <code class="path">style-guardrails</code>(스타일·무드 키워드)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>모듈별 설계</h2>
+
+    <h3>3.1 브랜드 조건부 코어 <span class="badge progress">핵심 자산</span></h3>
+    <p>매체·제공자 무관 순수 함수. 클라이언트 <code class="path">.design/tokens.json</code> + <code class="path">.design/brand.json</code> + uipro 가드레일 → <b>프롬프트 스캐폴드</b> 생성.</p>
+    <table>
+      <thead><tr><th>출력</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td>positive</td><td>의도 + 스타일·무드 키워드 + 팔레트 hex + 톤 서술</td></tr>
+        <tr><td>negative</td><td>브랜드 금지항목 파생 — 항상 text·watermark·logo, 금지 시 gradient·pattern·emoji</td></tr>
+        <tr><td>aspect</td><td>용도→종횡비(OG 1200×630 · hero 16:9 · square · story 9:16)</td></tr>
+        <tr><td>paletteLock</td><td>락 강도 힌트(배경·텍스처=강, 실사 히어로=약/off)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3.2 Transport (MCP, 제공자 무관)</h3>
+    <p>붙어 있는 생성 MCP 도구를 런타임 탐색해 호출. 애그리게이터면 모델 id로 이미지/영상 선택. 어댑터 시그니처 하나(<code>generate(prompt, negative, aspect, model, seed) → asset, meta</code>)로 MCP·훗날 직접 API를 동일 취급.</p>
+    <div class="call warn"><div class="lbl">주의</div><p>생성 MCP 미연결 시 <b>graceful</b> — "이 MCP를 추가하라" 안내로 처리, 실패로 죽지 않음.</p></div>
+
+    <h3>3.3 후처리 / 팔레트 락 <span class="badge progress">v1 포함</span></h3>
+    <p>생성 이미지를 클라이언트 팔레트로 양자화·듀오톤·그레이딩해 브랜드 톤에 수렴. 강도는 3.1 힌트로 결정. <b>원본·락본 둘 다 보존</b>해 사용자가 고른다. 영상 리컬러는 v2(품질 저하 리스크).</p>
+
+    <h3>3.4 배치 + 출처 기록</h3>
+    <p>결과를 <code class="path">assets/generated/</code>에 저장, <code class="path">assets/generated/_provenance.json</code>에 프롬프트·모델·seed·비용 기록 → 재현·반복·감사. <code>motion</code> 스킬 사용이력 철학과 동일.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>사용자 플로우</h2>
+    <div class="flow">
+      <span class="step">의도 수집</span><span class="arrow">→</span>
+      <span class="step">브랜드 확보</span><span class="arrow">→</span>
+      <span class="step">프롬프트 조립</span><span class="arrow">→</span>
+      <span class="step">비용 게이트</span><span class="arrow">→</span>
+      <span class="step">생성(MCP)</span><span class="arrow">→</span>
+      <span class="step">팔레트 락</span><span class="arrow">→</span>
+      <span class="step">미리보기·반복</span><span class="arrow">→</span>
+      <span class="step">배치 + 기록</span>
+    </div>
+    <div class="call info"><div class="lbl">가드레일</div><p>브랜드 NEVER 리스트 → 네거티브 자동 반영 · 호출당 비용 상한 + 생성 전 비용 고지 · seed 기록으로 재현 · 잡스랩 self 프로젝트 감지 시 경고 · 생성물 커밋 금지.</p></div>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>의사결정 로그</h2>
+    <table>
+      <thead><tr><th>결정</th><th>선택</th><th>근거</th></tr></thead>
+      <tbody>
+        <tr><td>사용처</td><td>클라이언트 전용</td><td>잡스랩 자체 브랜드는 장식 0·이미지 최소 — 생성물 부적합</td></tr>
+        <tr><td>매체 고정?</td><td>고정 안 함</td><td>작업 단계가 매번 달라 이미지/영상 고정은 경직 — 애그리게이터로 호출 시점 선택</td></tr>
+        <tr><td>Transport</td><td>MCP 우선</td><td>MCP 중심 환경 + 기존 플러그인/스킬 구조와 결이 같음, 키 관리 없음</td></tr>
+        <tr><td>팔레트 락</td><td>v1 전체 포함</td><td>사용자 요청 — 브랜드 조건부의 핵심이므로 뒤로 미루지 않음</td></tr>
+        <tr><td>배치 위치</td><td>신규 플러그인 권장 <span class="badge wait">검토</span></td><td>외부 비용·의존 격리, 선택 설치 — design-studio 내 스킬도 대안</td></tr>
+      </tbody>
+    </table>
+    <div class="call out"><div class="lbl">열린 결정(검토 시 확정)</div><p>① 배치: 신규 플러그인 <code>visual-studio</code> vs design-studio 내 <code>generate</code> · ② 기본 애그리게이터: Replicate vs Fal · ③ 영상 v1 포함 여부.</p></div>
+  </section>
+
+  <footer>
+    <span class="link">원문 <code class="path">docs/superpowers/specs/2026-07-20-brand-conditioned-generation-design.md</code></span>
+    <span class="link">구현계획 <code class="path">docs/superpowers/plans/2026-07-20-brand-conditioned-generation.md</code> (예정)</span>
+  </footer>
+</div>
+</body>
+</html>
