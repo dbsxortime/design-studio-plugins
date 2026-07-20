@@ -21,7 +21,7 @@ Transport(생성)는 **에이전트가 MCP 도구를 직접 호출**한다 — n
    - 영상: 영상 모델(Runway/Kling 등) 지정, 후처리는 v1 미적용.
    - 결과 파일을 `<project>/assets/generated/`에 저장(원본).
 7. **팔레트 락 (이미지, paletteLock != off)**: `node <plugin-root>/scripts/palette-lock.mjs --in <원본> --out <락본> --palette "<palette 콤마>" --strength <paletteLock>` → 락본 저장. 원본·락본 둘 다 미리보기로 제시, 사용자가 채택.
-8. **출처 기록**: `node <plugin-root>/scripts/record.mjs <project> --prompt "<positive>" --model <모델> --seed <seed> --asset <채택 파일> --cost <usd>`.
+8. **출처 기록**: `node <plugin-root>/scripts/record.mjs <project> --prompt "<positive>" --negative "<negative>" --model <모델> --seed <seed> --aspect "<aspect>" --asset <채택 파일> --cost <usd>`.
 9. **마무리**: 생성/변경 파일 목록만 제시. **커밋하지 않는다**(사용자 위임).
 
 ## 원칙

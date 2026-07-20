@@ -9,5 +9,6 @@ const rec = recordGeneration(dir, {
   prompt: get('prompt', ''), negative: get('negative', ''),
   model: get('model', ''), seed: get('seed', ''),
   asset: get('asset', ''), cost: get('cost', ''),
+  aspect: get('aspect', ''),
 });
 console.log(JSON.stringify(rec, null, 2));
