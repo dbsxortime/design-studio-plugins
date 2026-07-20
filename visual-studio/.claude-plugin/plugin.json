@@ -1,0 +1,12 @@
+{
+  "name": "visual-studio",
+  "version": "0.1.0",
+  "description": "브랜드 조건부 이미지·영상 생성. 클라이언트 .design 토큰을 프롬프트에 주입하고 결과를 팔레트로 후처리(/generate). Transport는 MCP(Replicate 등).",
+  "dependencies": [
+    "design-check",
+    {
+      "name": "playwright",
+      "marketplace": "claude-plugins-official"
+    }
+  ]
+}

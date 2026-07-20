@@ -21,6 +21,11 @@
       "name": "brand-studio",
       "source": "./brand-studio",
       "description": "브랜드 미팅 딸깍 — 로고 시스템·아이콘·그래픽 언어·OG/소셜·브랜드북·컨셉 페이지를 미팅 UX로 생성·배선(/brand), 템플릿 69종 갤러리에서 고른 명함을 인쇄 입고 PDF까지(/card)"
+    },
+    {
+      "name": "visual-studio",
+      "source": "./visual-studio",
+      "description": "브랜드 조건부 이미지·영상 생성 — .design 토큰 주입 + 팔레트 후처리 (/generate)"
     }
   ]
 }
