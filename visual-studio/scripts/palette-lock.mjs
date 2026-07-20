@@ -18,12 +18,17 @@ try { ({ chromium } = await import('playwright')); }
 catch { console.error('playwright 없음 — 락 skip, 원본 복사'); copyFileSync(inPath, outPath); process.exit(0); }
 
 const b64 = readFileSync(inPath).toString('base64');
-const browser = await chromium.launch();
+let browser;
 try {
+  browser = await chromium.launch();
   const page = await browser.newPage();
   await page.setContent(`<img src="data:image/png;base64,${b64}">`);
   await page.waitForSelector('img');
   const dataUrl = await page.evaluate(`(${recolorScript()})(${JSON.stringify(palette)}, ${strength})`);
   writeFileSync(outPath, Buffer.from(dataUrl.split(',')[1], 'base64'));
   console.log(JSON.stringify({ out: outPath, strength, palette }));
-} finally { await browser.close(); }
+} catch (err) {
+  console.error('브라우저 실행 실패 — 락 skip, 원본 복사');
+  copyFileSync(inPath, outPath);
+  process.exit(0);
+} finally { if (browser) await browser.close(); }
