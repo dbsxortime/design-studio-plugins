@@ -14,9 +14,9 @@ description: 확정 기준(.design/tokens.json)을 코드로 생성해 프로젝
 
 1. `.design/tokens.json` 없으면 중단 → `/design-tokens`로 기준부터 확보하라고 안내.
 2. **포맷 감지**: 프로젝트가 Tailwind v4(`@import "tailwindcss"` 또는 package.json의
-   `tailwindcss` v4)면 `tailwind`, 아니면 `css`. 애매하면 한 줄 질문.
+   `tailwindcss` v4)면 `tailwind`, DaisyUI 쓰면 `daisyui`, 아니면 `css`. 애매하면 한 줄 질문.
 3. 생성: `node <design-check-root>/scripts/tokens-to-code.mjs <프로젝트> --format <포맷>`
-   → `.design/tokens.css`(`:root` 변수) 또는 `.design/tokens.tailwind.css`(`@theme`).
+   → `.design/tokens.css`(`:root` 변수), `.design/tokens.tailwind.css`(`@theme`), 또는 `.design/tokens.daisyui.css`(`@plugin theme`).
    생성 파일은 **한 글자도 수정하지 않는다**.
 4. **배선** (연결만):
    - Vite/Next 등: 전역 CSS 최상단에 `@import`로 연결 — 상대 경로는 **그 파일의 실제
