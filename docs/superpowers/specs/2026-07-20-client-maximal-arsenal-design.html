@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>설계문서 — 클라이언트 맥시멀 아스날 (arsenal)</title>
+<style>
+:root{
+  --doc-primary:#332D7B;
+  --doc-primary-soft:color-mix(in srgb, var(--doc-primary) 12%, #fff);
+  --doc-primary-ink:color-mix(in srgb, var(--doc-primary) 72%, #1f2530);
+  --bg:#ffffff; --surface:#f7f8fa; --surface-2:#eef1f5;
+  --ink:#1f2530; --muted:#5b6472; --faint:#8b94a3;
+  --border:#e5e8ec; --border-strong:#d3d8df;
+  --ok:#2e9e5b; --warn:#c97a16; --danger:#c5453a;
+  --radius:14px; --radius-sm:8px; --radius-pill:999px; --maxw:880px;
+  --font:'Pretendard','Apple SD Gothic Neo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);
+  font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:48px 24px 96px;}
+.hero{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:40px;}
+.hero .kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--doc-primary-ink);font-weight:600;margin-bottom:10px;}
+.hero h1{font-size:32px;line-height:1.25;font-weight:700;margin:0 0 16px;letter-spacing:-.01em;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{font-size:12.5px;color:var(--muted);background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius-pill);padding:4px 12px;}
+.chip b{color:var(--ink);font-weight:600;}
+section{margin:0 0 44px;}
+h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);
+  font-weight:700;margin:0 0 18px;}
+h2 .n{color:var(--doc-primary);margin-right:8px;}
+h3{font-size:19px;font-weight:650;margin:28px 0 12px;letter-spacing:-.01em;}
+p{margin:0 0 14px;}
+a{color:var(--doc-primary-ink);}
+ul,ol{margin:0 0 14px;padding-left:22px;} li{margin:4px 0;}
+table{width:100%;border-collapse:collapse;margin:0 0 18px;font-size:14.5px;}
+thead th{background:var(--ink);color:#fff;text-align:left;font-weight:600;
+  padding:10px 14px;font-size:13px;letter-spacing:.02em;}
+thead th:first-child{border-top-left-radius:var(--radius-sm);}
+thead th:last-child{border-top-right-radius:var(--radius-sm);}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+tbody tr:nth-child(even){background:var(--surface);}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 20px;}
+.flow .step{background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:var(--radius-sm);padding:10px 16px;font-size:14px;font-weight:550;}
+.flow .arrow{color:var(--faint);font-size:18px;}
+.badge{display:inline-block;font-size:12px;font-weight:600;border-radius:var(--radius-pill);
+  padding:3px 11px;border:1px solid transparent;}
+.badge.done{background:color-mix(in srgb,var(--ok) 13%,#fff);color:var(--ok);border-color:color-mix(in srgb,var(--ok) 32%,#fff);}
+.badge.progress{background:var(--doc-primary-soft);color:var(--doc-primary-ink);border-color:color-mix(in srgb,var(--doc-primary) 32%,#fff);}
+.badge.wait{background:var(--surface-2);color:var(--muted);border-color:var(--border-strong);}
+.badge.warn{background:color-mix(in srgb,var(--warn) 14%,#fff);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 32%,#fff);}
+.call{border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px 16px;margin:0 0 18px;background:var(--surface);font-size:14.5px;}
+.call .lbl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;}
+.call.info .lbl{color:var(--doc-primary-ink);}
+.call.warn{background:color-mix(in srgb,var(--warn) 6%,#fff);border-color:color-mix(in srgb,var(--warn) 22%,var(--border));} .call.warn .lbl{color:var(--warn);}
+.call.decision{background:color-mix(in srgb,var(--ok) 5%,#fff);border-color:color-mix(in srgb,var(--ok) 22%,var(--border));} .call.decision .lbl{color:var(--ok);}
+.call.out{border-style:dashed;background:transparent;} .call.out .lbl{color:var(--faint);}
+.call p:last-child{margin-bottom:0;}
+code.path{font-family:var(--mono);font-size:.88em;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:6px;padding:1px 7px;color:var(--doc-primary-ink);white-space:nowrap;}
+:not(pre)>code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border-radius:5px;padding:1px 6px;}
+footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;}
+footer .link{display:flex;gap:6px;align-items:center;}
+@media (max-width:640px){
+  .wrap{padding:32px 16px 72px;} .hero h1{font-size:26px;}
+  table{font-size:13.5px;} thead th,tbody td{padding:8px 10px;}
+}
+@media print{
+  body{font-size:12pt;} .wrap{max-width:none;padding:0;}
+  .badge,.chip,thead th{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">design-studio-plugins · 클라이언트 아스날</div>
+    <h1>클라이언트 맥시멀 아스날 — design-studio <code>arsenal</code></h1>
+    <div class="chips">
+      <span class="chip">작성일 <b>2026-07-20</b></span>
+      <span class="chip">대상 <b>클라이언트 작업 전용</b></span>
+      <span class="chip">상태 <b>검토 대기</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2><span class="n">1</span>배경 / 목표</h2>
+    <p>잡스랩 자체 브랜드는 미니멀이지만 <b>클라이언트는 맥시멀·화려함을 추구할 수 있다.</b> 클라이언트 작업에 쓸 검증된 외부 리소스를 우리 디자인 소스에 붙여 빠르게 활용하는 전역 역량을 만든다 — 남의 마켓 나열이 아니라 <b>"클라이언트가 X 원함 → 이 리소스를 이렇게"</b> 큐레이션 + <b>DaisyUI 토큰 변환기</b>로 클라이언트 브랜드색을 즉시 입힌 시안.</p>
+    <div class="call decision"><div class="lbl">확정 결정 · 라우팅 중복 0</div><p>시스템 정의/변경 = <code>studio</code>/<code>design-tokens</code>(tokens.json 유일 원천) · 포맷 출력(CSS/Tailwind/<b>DaisyUI</b>) = <code>design-inject</code> · 외부 맥시멀 리소스 = <code>arsenal</code>. <b>DaisyUI는 별도 시스템이 아니라 tokens.json 소비 포맷</b> — studio와 경합 안 함.</p></div>
+    <div class="call out"><div class="lbl">범위 밖</div><p>잡스랩 자체 사이트 적용 · <b>Origin UI</b>(중복+legacy, 사용자 제외 지시) · 외부 서비스 자동설치·전면 래핑 · 미리보기 UI·자동 fetch(v2).</p></div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>대상 리소스 (레지스트리 4종)</h2>
+    <table>
+      <thead><tr><th>리소스</th><th>무엇용</th><th>가져오는 법</th><th>스택</th></tr></thead>
+      <tbody>
+        <tr><td>casberry</td><td>3D 파티클 히어로 배경</td><td>웹 생성기 → 바닐라 JS 단일 HTML export</td><td>both</td></tr>
+        <tr><td>OriginKit</td><td>리치 모션 컴포넌트</td><td>MCP(fetch 캡) 또는 코드 복사</td><td>react(정적 어댑트)</td></tr>
+        <tr><td>DaisyUI</td><td>초고속 프로토타이핑</td><td>CDN(+Tailwind 런타임) 또는 빌드</td><td>both</td></tr>
+        <tr><td>21st Magic</td><td>React 컴포넌트 AI 생성</td><td>Magic MCP</td><td>react</td></tr>
+        <tr><td>Origin UI</td><td>—</td><td>제외 (중복+legacy)</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>모듈별 설계</h2>
+
+    <h3>3.1 DaisyUI 출력 포맷 <span class="badge progress">design-check 실코드</span></h3>
+    <p><b>arsenal이 아니라 토큰 파이프라인에.</b> <code class="path">tokens-to-code.mjs</code>에 <code>--format daisyui</code> 추가(기존 css/tailwind와 동일 패턴) → <code class="path">.design/tokens.daisyui.css</code>(@plugin daisyui/theme 블록). 순수·결정적. design-check 1.3.0→1.4.0.</p>
+    <table>
+      <thead><tr><th>tokens-v1</th><th>DaisyUI 변수</th></tr></thead>
+      <tbody>
+        <tr><td>color.primary</td><td>--color-primary</td></tr>
+        <tr><td>color.bg / surface</td><td>--color-base-100 / base-200</td></tr>
+        <tr><td>color.text / muted</td><td>--color-base-content / neutral</td></tr>
+        <tr><td>radius.base / card</td><td>--radius-field·selector / box</td></tr>
+        <tr><td>secondary·accent·semantic</td><td>DaisyUI 기본 상속(강제 매핑 안 함 — 오배치 방지)</td></tr>
+      </tbody>
+    </table>
+    <p>함수: <code>daisyTheme(tokens)</code>. 출력은 <code>@plugin "daisyui/theme"</code> 블록. <code>all</code> 포맷에 daisyui 포함.</p>
+
+    <h3>3.2 리소스 레지스트리 <span class="badge progress">design-studio 데이터</span></h3>
+    <p>큐레이션 JSON <code class="path">skills/arsenal/registry.json</code> — 각 리소스에 <code>forWhat / pull / stackFit / brandNote / maximalTier</code>. 대상: casberry·originkit·21st-magic·daisyui(<b>pull = design-inject --format daisyui 포인터</b>). Origin UI 제외.</p>
+
+    <h3>3.3 arsenal 스킬 <span class="badge progress">워크플로</span></h3>
+    <p>경로 <code class="path">skills/arsenal/SKILL.md</code>. 니즈 매칭 + 리소스 제시 + self 경고. <b>토큰 정의·변경 안 함</b>(studio/design-tokens 몫). DaisyUI는 "design-inject로 뽑으라"는 포인터만. 커밋 금지.</p>
+    <div class="call warn"><div class="lbl">self 정책</div><p><code>meta.project == jobslab</code> 감지 시 <b>경고</b>(차단 아님) — "맥시멀은 클라이언트용, 자체 사이트엔 말림". 참고 조회는 허용.</p></div>
+    <div class="call info"><div class="lbl">DaisyUI 주의</div><p>DaisyUI <code>.btn</code>은 잡스랩 자체 DS <code>.btn</code>과 충돌 — 클라이언트 시안에 <b>격리</b> 사용, 한 페이지에 두 시맨틱 레이어 혼용 금지.</p></div>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>사용자 플로우</h2>
+    <div class="flow">
+      <span class="step">니즈 수집</span><span class="arrow">→</span>
+      <span class="step">self 경고(해당 시)</span><span class="arrow">→</span>
+      <span class="step">레지스트리 매칭</span><span class="arrow">→</span>
+      <span class="step">리소스+사용법 제시</span><span class="arrow">→</span>
+      <span class="step">DaisyUI면 토큰→테마 변환</span><span class="arrow">→</span>
+      <span class="step">시안</span>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>의사결정 로그</h2>
+    <table>
+      <thead><tr><th>결정</th><th>선택</th><th>근거</th></tr></thead>
+      <tbody>
+        <tr><td>미니멀 필터 범위</td><td>잡스랩 self 한정</td><td>사용자 교정 — 미니멀은 자체 브랜드 철학, 클라이언트는 맥시멀 허용</td></tr>
+        <tr><td>배치</td><td>design-studio 새 스킬 <code>arsenal</code></td><td>외부 비용 deps 없음(레지스트리+변환기), motion의 형제로 전역 사용</td></tr>
+        <tr><td>Origin UI</td><td>제외</td><td>21st.dev·자체 DS와 중복 + legacy (사용자 지시)</td></tr>
+        <tr><td>실코드 우선</td><td>DaisyUI 변환기</td><td>클라이언트 브랜드색→시안 속도, 가장 구체적 가치</td></tr>
+        <tr><td>self 정책</td><td>경고 <span class="badge wait">검토</span></td><td>참고 조회는 허용, 적용만 말림 — 차단은 과함</td></tr>
+      </tbody>
+    </table>
+    <div class="call out"><div class="lbl">열린 결정(검토 시 확정)</div><p>① 스킬명 <code>arsenal</code> vs <code>client-assets</code> · ② 레지스트리 형식 JSON · ③ self는 경고 vs 차단.</p></div>
+  </section>
+
+  <footer>
+    <span class="link">원문 <code class="path">docs/superpowers/specs/2026-07-20-client-maximal-arsenal-design.md</code></span>
+    <span class="link">구현계획 <code class="path">docs/superpowers/plans/2026-07-20-client-maximal-arsenal.md</code> (예정)</span>
+  </footer>
+</div>
+</body>
+</html>
