@@ -6987,7 +6987,7 @@ function render(video, ctx, cols = 80) {
 /* JS: 클릭 시 page에 .flipped 토글, z-index를 페이지 순서대로 관리 */`},
 
 {id:'ripple-displacement-slider',cat:'comp',title:'리플 디스플레이스먼트 슬라이더',lib:'Vengeance UI',lic:'mit',
- stack:['react','webgl'],note:'디스플레이스먼트 맵으로 이미지 A→B 물결 전환. 스크럽/마스크 전환과 다른 셰이더 기반.',
+ stack:['react','vanilla','webgl'],note:'디스플레이스먼트 맵으로 이미지 A→B 물결 전환. 스크럽/마스크 전환과 다른 셰이더 기반.',
  links:[['Vengeance UI','https://www.vengenceui.com/']],
  deps:'Three.js/WebGL displacement map 셰이더',
  demo:`<div style="position:relative;width:220px;height:120px;border-radius:12px;overflow:hidden;border:1px solid #2c3342">
@@ -7008,10 +7008,69 @@ void main() {
   vec4 colorB = texture2D(texB, uvB);
   gl_FragColor = mix(colorA, colorB, progress);
 }
-// progress를 0→1로 tween하면 노이즈 맵 굴곡을 따라 이미지가 물결처럼 전환`},
+// progress를 0→1로 tween하면 노이즈 맵 굴곡을 따라 이미지가 물결처럼 전환
+
+// ── 바닐라 Three.js (정적 HTML용, three@0.128 CDN) ──
+// <script src="https://cdn.jsdelivr.net/npm/three@0.128/build/three.min.js"></script>
+function initRippleSlider(container, imgUrlA, imgUrlB, dispMapUrl) {
+  var w = container.clientWidth, h = container.clientHeight;
+  var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+  var loader = new THREE.TextureLoader();
+  var uniforms = {
+    texA: { value: loader.load(imgUrlA) },
+    texB: { value: loader.load(imgUrlB) },
+    dispTex: { value: loader.load(dispMapUrl) }, // grayscale noise/displacement map
+    progress: { value: 0 }
+  };
+
+  var material = new THREE.ShaderMaterial({
+    uniforms: uniforms,
+    vertexShader: [
+      'varying vec2 vUv;',
+      'void main() {',
+      '  vUv = uv;',
+      '  gl_Position = vec4(position, 1.0);',
+      '}'
+    ].join('\\n'),
+    fragmentShader: [
+      'uniform sampler2D texA, texB, dispTex;',
+      'uniform float progress;',
+      'varying vec2 vUv;',
+      'void main() {',
+      '  vec4 disp = texture2D(dispTex, vUv);',
+      '  vec2 dispVec = vec2(disp.r, disp.g) * 2.0 - 1.0;',
+      '  vec2 uvA = vUv + dispVec * progress * 0.3;',
+      '  vec2 uvB = vUv + dispVec * (1.0 - progress) * -0.3;',
+      '  vec4 colorA = texture2D(texA, uvA);',
+      '  vec4 colorB = texture2D(texB, uvB);',
+      '  gl_FragColor = mix(colorA, colorB, progress);',
+      '}'
+    ].join('\\n')
+  });
+
+  var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(2, 2), material);
+  scene.add(mesh);
+
+  function render() { renderer.render(scene, camera); }
+  render();
+
+  // call setProgress(0..1) to drive the transition (e.g. on scroll/hover/click)
+  return {
+    setProgress: function (p) { uniforms.progress.value = p; render(); },
+    dispose: function () { renderer.dispose(); }
+  };
+}
+// initRippleSlider(document.getElementById('slider'), '/a.jpg', '/b.jpg', '/disp-noise.png');`},
 
 {id:'circular-gallery-3d',cat:'comp',title:'서클러 갤러리 (3D 드래그 링)',lib:'Vengeance UI',lic:'mit',
- stack:['react','webgl'],note:'이미지 3D 원형 고리 드래그 회전+중앙 프리뷰. 카드/실린더 캐러셀과 다른 조합.',
+ stack:['react','vanilla','webgl'],note:'이미지 3D 원형 고리 드래그 회전+중앙 프리뷰. 카드/실린더 캐러셀과 다른 조합.',
  links:[['Vengeance UI','https://www.vengenceui.com/']],
  deps:'Three.js — 이미지 원형 링 배치+드래그 스핀',
  demo:`<div style="position:relative;width:220px;height:130px;display:flex;align-items:center;justify-content:center;background:#0a0d14;border-radius:12px;border:1px solid #2c3342">
@@ -7037,10 +7096,65 @@ function Ring({ images }) {
       })}
     </group>
   );
-}`},
+}
+
+// ── 바닐라 Three.js (정적 HTML용, three@0.128 CDN) ──
+// <script src="https://cdn.jsdelivr.net/npm/three@0.128/build/three.min.js"></script>
+function initCircularGallery(container, imageUrls) {
+  var w = container.clientWidth, h = container.clientHeight;
+  var renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
+  camera.position.set(0, 1.5, 8);
+  camera.lookAt(0, 0, 0);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+  var dl = new THREE.DirectionalLight(0xffffff, 0.6);
+  dl.position.set(3, 5, 4);
+  scene.add(dl);
+
+  var group = new THREE.Group();
+  scene.add(group);
+
+  var loader = new THREE.TextureLoader();
+  var radius = 4;
+  imageUrls.forEach(function (url, i) {
+    var angle = (i / imageUrls.length) * Math.PI * 2;
+    var geo = new THREE.PlaneBufferGeometry(1.2, 1.6);
+    var mat = new THREE.MeshStandardMaterial({ map: loader.load(url), side: THREE.DoubleSide });
+    var plane = new THREE.Mesh(geo, mat);
+    plane.position.set(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
+    plane.rotation.y = angle;
+    group.add(plane);
+  });
+
+  // drag-to-spin
+  var rotation = 0, dragging = false, lastX = 0;
+  container.addEventListener('pointerdown', function (e) { dragging = true; lastX = e.clientX; });
+  window.addEventListener('pointerup', function () { dragging = false; });
+  container.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    rotation += (e.clientX - lastX) * 0.01;
+    lastX = e.clientX;
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    group.rotation.y = rotation;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  return { group: group, renderer: renderer, camera: camera, scene: scene };
+}
+// initCircularGallery(document.getElementById('ring'), ['/1.jpg','/2.jpg','/3.jpg']);`},
 
 {id:'solar-system',cat:'bg',title:'솔라 시스템 (궤도 시각화)',lib:'Vengeance UI',lic:'mit',
- stack:['react','webgl'],note:'오브젝트가 서로 다른 궤도를 도는 인터랙티브 3D. 궤도/천체 모티프 신규.',
+ stack:['react','vanilla','webgl'],note:'오브젝트가 서로 다른 궤도를 도는 인터랙티브 3D. 궤도/천체 모티프 신규.',
  links:[['Vengeance UI','https://www.vengenceui.com/']],
  deps:'React Three Fiber — 궤도 회전',
  demo:`<div style="position:relative;width:220px;height:130px;background:#0a0d14;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid #2c3342">
@@ -7066,10 +7180,71 @@ function Orbit({ radius, speed, color }) {
     </mesh>
   );
 }
-// <Canvas><ambientLight /><Orbit radius={4} speed={0.6} color="#5d7bff" />…</Canvas>`},
+// <Canvas><ambientLight /><Orbit radius={4} speed={0.6} color="#5d7bff" />…</Canvas>
+
+// ── 바닐라 Three.js (정적 HTML용, three@0.128 CDN) ──
+// <script src="https://cdn.jsdelivr.net/npm/three@0.128/build/three.min.js"></script>
+function initSolarSystem(container) {
+  var w = container.clientWidth, h = container.clientHeight;
+  var renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
+  camera.position.set(0, 6, 9);
+  camera.lookAt(0, 0, 0);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+  scene.add(new THREE.PointLight(0xffffff, 1.2, 50));
+
+  // sun at center
+  var sunMat = new THREE.MeshStandardMaterial({ color: 0xffcc55, emissive: 0xffaa00, emissiveIntensity: 1 });
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(0.6, 24, 24), sunMat));
+
+  function makeOrbit(radius, speed, color) {
+    var mesh = new THREE.Mesh(
+      new THREE.SphereGeometry(0.3, 16, 16),
+      new THREE.MeshStandardMaterial({ color: color, emissive: color, emissiveIntensity: 0.6 })
+    );
+    scene.add(mesh);
+
+    // faint orbit ring for visual reference
+    var ring = new THREE.Mesh(
+      new THREE.RingGeometry(radius - 0.01, radius + 0.01, 64),
+      new THREE.MeshBasicMaterial({ color: 0x333355, side: THREE.DoubleSide, transparent: true, opacity: 0.5 })
+    );
+    ring.rotation.x = Math.PI / 2;
+    scene.add(ring);
+
+    return { mesh: mesh, radius: radius, speed: speed };
+  }
+
+  var orbits = [
+    makeOrbit(2, 0.8, 0x5d7bff),
+    makeOrbit(3.2, 0.5, 0xff5d9e),
+    makeOrbit(4.4, 0.3, 0x43e0a0)
+  ];
+
+  var t0 = performance.now();
+  function animate() {
+    requestAnimationFrame(animate);
+    var elapsed = (performance.now() - t0) / 1000;
+    orbits.forEach(function (o) {
+      var t = elapsed * o.speed;
+      o.mesh.position.set(Math.cos(t) * o.radius, 0, Math.sin(t) * o.radius);
+    });
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  return { scene: scene, camera: camera, renderer: renderer, orbits: orbits };
+}
+// initSolarSystem(document.getElementById('solar'));`},
 
 {id:'wave-grid-bg',cat:'bg',title:'웨이브 그리드 배경',lib:'Vengeance UI',lic:'mit',
- stack:['react','webgl'],note:'큐브 격자가 커서 따라 물결 출렁. 파티클/왜곡셰이더와 다른 지오메트리 기반.',
+ stack:['react','vanilla','webgl'],note:'큐브 격자가 커서 따라 물결 출렁. 파티클/왜곡셰이더와 다른 지오메트리 기반.',
  links:[['Vengeance UI','https://www.vengenceui.com/']],
  deps:'R3F/three — 큐브 격자 지오메트리 웨이브',
  demo:`<div style="position:absolute;inset:0;background:#0a0d14;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:16px">
@@ -7098,7 +7273,60 @@ function WaveGrid({ cols = 20, rows = 12, spacing = 0.6 }) {
     </group>
   );
 }
-// 커서 근접 시 dist 계산에 마우스 좌표를 추가하면 커서를 따라 출렁임`},
+// 커서 근접 시 dist 계산에 마우스 좌표를 추가하면 커서를 따라 출렁임
+
+// ── 바닐라 Three.js (정적 HTML용, three@0.128 CDN) ──
+// <script src="https://cdn.jsdelivr.net/npm/three@0.128/build/three.min.js"></script>
+function initWaveGrid(container, cols, rows, spacing) {
+  cols = cols || 20; rows = rows || 12; spacing = spacing || 0.4;
+  var w = container.clientWidth, h = container.clientHeight;
+  var renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
+  camera.position.set(0, 4, 7);
+  camera.lookAt(2, 0, 2);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+  var dl = new THREE.DirectionalLight(0xffffff, 0.8);
+  dl.position.set(3, 6, 4);
+  scene.add(dl);
+
+  var boxGeo = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+  var boxMat = new THREE.MeshStandardMaterial({ color: 0x5d7bff });
+  var group = new THREE.Group();
+  // center the grid
+  group.position.set(-(cols * spacing) / 2, 0, -(rows * spacing) / 2);
+  scene.add(group);
+
+  var meshes = [];
+  for (var i = 0; i < cols * rows; i++) {
+    var mesh = new THREE.Mesh(boxGeo, boxMat);
+    mesh.position.set((i % cols) * spacing, 0, Math.floor(i / cols) * spacing);
+    group.add(mesh);
+    meshes.push(mesh);
+  }
+
+  var t0 = performance.now();
+  function animate() {
+    requestAnimationFrame(animate);
+    var t = (performance.now() - t0) / 1000;
+    meshes.forEach(function (m, i) {
+      var x = i % cols, z = Math.floor(i / cols);
+      var dist = Math.hypot(x - cols / 2, z - rows / 2);
+      m.position.y = Math.sin(dist * 0.5 - t * 2) * 0.4;
+    });
+    renderer.render(scene, camera);
+  }
+  animate();
+  // to follow the cursor, add mouse-plane coords into the dist calc above
+
+  return { scene: scene, camera: camera, renderer: renderer, meshes: meshes };
+}
+// initWaveGrid(document.getElementById('wave-bg'));`},
 
 ];
 
