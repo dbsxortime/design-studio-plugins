@@ -6808,6 +6808,298 @@ const rightWidth = hovered === "right" ? "60%" : hovered === "left"  ? "40%" : "
 // duration만 맥락별로 다르게. 순수 CSS 대체는 grid-rows 0fr→1fr 트릭
 // (이 갤러리 'Smooth Accordion' 카드 참고)`},
 
+/* ---------- 신규 11종 (Skiper UI · Vengeance UI 대조 선별) ---------- */
+{id:'progressive-blur',cat:'eng',title:'프로그레시브 블러 (방향성 가장자리)',lib:'Skiper UI (Rauno)',lic:'cc',
+ stack:['vanilla','css'],note:'스크롤 영역 끝이 점점 흐려지는 방향성 블러 마스크. 기존 노이즈/마스크와이프와 별개. 가장 가벼워 정적 HTML 즉시 도입.',
+ links:[['Skiper UI','https://skiper-ui.com/components']],
+ deps:'순수 CSS mask-image 그라디언트 + backdrop-filter blur',
+ demo:`<div style="position:relative;width:230px;height:130px;background:#0a0d14;border-radius:12px;overflow:hidden;border:1px solid #2c3342">
+   <div style="position:absolute;inset:0;-webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 100%);mask-image:linear-gradient(to bottom,#000 55%,transparent 100%)">
+     <div style="padding:14px;display:flex;flex-direction:column;gap:7px;animation:mParaBack 4s ease-in-out infinite alternate">
+       ${['헤드라인 텍스트','두 번째 줄 설명','세 번째 줄 내용','네 번째 줄 흐려짐'].map(t=>`<div style="color:#c6cede;font-size:11px">${t}</div>`).join('')}
+     </div>
+   </div>
+   <div style="position:absolute;inset:0;backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to bottom,transparent 55%,#000 100%);mask-image:linear-gradient(to bottom,transparent 55%,#000 100%)"></div>
+ </div>`,
+ code:`/* ProgressiveBlur.css */
+.scroll-area { position: relative; overflow: auto; }
+.blur-edge {
+  position: absolute; inset: 0; pointer-events: none;
+  backdrop-filter: blur(8px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 60%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 60%, #000 100%);
+}
+/* <div className="scroll-area">{content}<div className="blur-edge" /></div> */
+/* 위/아래 동시 적용 시 mask-image를 두 그라디언트 합성으로 확장 */`},
+
+{id:'gooey-merge',cat:'eng',title:'구이 / 메타볼 합체',lib:'Skiper · Vengeance UI',lic:'cc',
+ stack:['vanilla','svg'],note:'원형 요소가 가까워지면 액체처럼 합체. 3개 서비스 반복 등장. blob-morph와 다른 합체 메커니즘.',
+ links:[['Skiper UI','https://skiper-ui.com/components'],['Vengeance UI','https://www.vengenceui.com/']],
+ deps:'SVG 필터(feGaussianBlur+feColorMatrix) 또는 CSS filter',
+ demo:`<div style="position:relative;width:220px;height:120px;background:#0a0d14;border-radius:12px;overflow:hidden;border:1px solid #2c3342;display:flex;align-items:center;justify-content:center">
+   <div style="filter:blur(9px) contrast(22);width:100%;height:100%;position:relative">
+     <div style="position:absolute;left:30%;top:38%;width:52px;height:52px;border-radius:50%;background:#5d7bff;animation:mDrift 3.4s ease-in-out infinite"></div>
+     <div style="position:absolute;left:52%;top:42%;width:46px;height:46px;border-radius:50%;background:#8b5cf6;animation:mDrift 3.4s ease-in-out infinite reverse"></div>
+   </div>
+ </div>`,
+ code:`<!-- index.html — SVG goo 필터 -->
+<svg style="position:absolute;width:0;height:0">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur" />
+    <feColorMatrix in="blur" mode="matrix"
+      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="goo" />
+    <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+  </filter>
+</svg>
+<div style="filter:url(#goo)">
+  <div class="blob" style="left: var(--x1)"></div>
+  <div class="blob" style="left: var(--x2)"></div>
+</div>
+<!-- 두 원이 가까워지면(JS로 left 갱신) 블러+매트릭스가 경계를 하나로 합침 -->`},
+
+{id:'cursor-image-trail',cat:'eng',title:'커서 이미지 트레일',lib:'Skiper · Vengeance UI',lic:'mit',
+ stack:['react','vanilla'],note:'마우스 경로에 이미지가 순간 나타났다 사라짐. 커스텀커서/자석과 다름.',
+ links:[['Skiper UI','https://skiper-ui.com/components'],['Vengeance UI','https://www.vengenceui.com/']],
+ deps:'React 라이브러리 또는 바닐라 pointermove+이미지 스폰/페이드',
+ demo:`<div style="position:relative;width:220px;height:120px;background:#0a0d14;border-radius:12px;overflow:hidden;border:1px solid #2c3342">
+   <div style="position:absolute;width:8px;height:8px;border-radius:50%;background:#f4d35e;animation:mChase 3.2s ease-in-out infinite"></div>
+   ${[0,.5,1,1.5,2].map((d,i)=>`<div style="position:absolute;width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,#5d7bff,#8b5cf6);left:${10+i*38}px;top:${20+((i%2)*40)}px;animation:mSparkle 3.2s ease-out ${d}s infinite"></div>`).join('')}
+ </div>`,
+ code:`let last = 0;
+window.addEventListener("pointermove", (e) => {
+  const now = Date.now();
+  if (now - last < 90) return;      // 스폰 간격 제한
+  last = now;
+  const img = document.createElement("img");
+  img.src = IMAGES[Math.floor(Math.random() * IMAGES.length)];
+  img.className = "trail-img";
+  img.style.left = \`\${e.clientX}px\`;
+  img.style.top = \`\${e.clientY}px\`;
+  document.body.appendChild(img);
+  requestAnimationFrame(() => img.classList.add("show"));
+  setTimeout(() => img.remove(), 700);
+});
+/* .trail-img { opacity:0; transform:scale(.4) rotate(-6deg); transition:.35s }
+   .trail-img.show { opacity:1; transform:scale(1) rotate(0) } */`},
+
+{id:'dynamic-island',cat:'comp',title:'다이나믹 아일랜드 (모핑 알약 알림)',lib:'Skiper UI',lic:'own',
+ stack:['react','vanilla'],note:'알림/상태가 캡슐로 커졌다 줄며 내용 모핑. 기존 모핑 캡슐 계열 없음.',
+ links:[['Skiper UI','https://skiper-ui.com/components']],
+ deps:'layout 트랜지션(React=framer-motion layout, 바닐라=shape+size transition)',
+ demo:`<div style="position:relative;width:220px;height:110px;background:#0a0d14;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid #2c3342">
+   <div style="width:64px;height:24px;border-radius:20px;background:#000;display:flex;align-items:center;justify-content:center;animation:mExpand 3.6s cubic-bezier(.22,1,.36,1) infinite;transform-origin:center">
+     <span style="color:#7ee787;font-size:9px;font-weight:800;white-space:nowrap;animation:mFadeStep 3.6s ease infinite">● LIVE 12:04</span>
+   </div>
+ </div>`,
+ code:`import { motion, AnimatePresence } from "motion/react";
+
+function DynamicIsland({ expanded, children }) {
+  return (
+    <motion.div layout
+      style={{ borderRadius: 20, background: "#000", overflow: "hidden" }}
+      transition={{ type: "spring", stiffness: 320, damping: 28 }}>
+      <AnimatePresence mode="popLayout">
+        {expanded ? (
+          <motion.div key="full" layout initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            {children}
+          </motion.div>
+        ) : (
+          <motion.div key="pill" layout style={{ width: 64, height: 24 }} />
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+// 바닐라: width/height/border-radius를 transition으로 직접 애니메이션`},
+
+{id:'infinite-canvas',cat:'eng',title:'무한 캔버스 (팬/줌 보드)',lib:'Skiper UI',lic:'own',
+ stack:['vanilla','react'],note:'드래그로 자유 이동+줌하는 피그마식 2D 공간. explore 3D월드와 별개(2D 팬/줌).',
+ links:[['Skiper UI','https://skiper-ui.com/components']],
+ deps:'transform translate+scale, pointer 드래그+휠 줌',
+ demo:`<div style="position:relative;width:230px;height:130px;background:#0a0d14;border-radius:12px;overflow:hidden;border:1px solid #2c3342">
+   <div style="position:absolute;inset:-20px;background-image:radial-gradient(#2c3342 1.5px,transparent 1.5px);background-size:18px 18px;animation:mDrift 6s ease-in-out infinite"></div>
+   <div style="position:absolute;left:24px;top:20px;width:56px;height:38px;border-radius:8px;background:#161c2a;border:1px solid #2c3342;animation:mDrift 6s ease-in-out infinite"></div>
+   <div style="position:absolute;right:26px;bottom:22px;width:64px;height:34px;border-radius:8px;background:#161c2a;border:1px solid #2c3342;animation:mDrift 7.5s ease-in-out infinite reverse"></div>
+ </div>`,
+ code:`// 바닐라 — transform으로 팬/줌
+let x = 0, y = 0, scale = 1;
+canvas.addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+  x += e.movementX; y += e.movementY;
+  board.style.transform = \`translate(\${x}px, \${y}px) scale(\${scale})\`;
+});
+canvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  scale = Math.min(3, Math.max(0.2, scale - e.deltaY * 0.001));
+  board.style.transform = \`translate(\${x}px, \${y}px) scale(\${scale})\`;
+}, { passive: false });
+// React: 동일 상태를 useState/useRef로, transform은 useLayoutEffect에서 직접 DOM에`},
+
+{id:'ascii-sim',cat:'bg',title:'ASCII 시뮬레이션 / 글리치',lib:'Skiper · Vengeance UI',lic:'cc',
+ stack:['vanilla','canvas'],note:'이미지/영상을 실시간 문자로 렌더 + hover 스크램블. decrypt-text(텍스트 스크램블)와 다름(이미지→문자).',
+ links:[['Skiper UI','https://skiper-ui.com/components'],['Vengeance UI','https://www.vengenceui.com/']],
+ deps:'canvas 픽셀 샘플링 → 문자 매트릭스 렌더',
+ demo:`<div style="position:absolute;inset:0;background:#0a0d14;overflow:hidden;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:2px;padding:14px">
+   ${Array.from({length:48}).map((_,i)=>`<span style="font-family:monospace;font-size:9px;color:#7ee787;animation:mScramble ${1.4+((i%5)*.15)}s ease-in-out ${((i%7)*.1)}s infinite">${'.:-=+*#%@'[i%9]}</span>`).join('')}
+ </div><div style="position:relative;color:#e8ebf2;font-weight:800;font-size:14px">ASCII</div>`,
+ code:`// canvas 픽셀 샘플링 → 문자 매트릭스
+const CHARS = " .:-=+*#%@";
+function render(video, ctx, cols = 80) {
+  const cellW = video.videoWidth / cols;
+  const cellH = cellW * 1.6; // 문자 비율 보정
+  const rows = Math.floor(video.videoHeight / cellH);
+  offCtx.drawImage(video, 0, 0, cols, rows);
+  const { data } = offCtx.getImageData(0, 0, cols, rows);
+  let out = "";
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const i = (y * cols + x) * 4;
+      const brightness = (data[i] + data[i+1] + data[i+2]) / 3 / 255;
+      out += CHARS[Math.floor(brightness * (CHARS.length - 1))];
+    }
+    out += "\\n";
+  }
+  pre.textContent = out; // hover 시 brightness에 랜덤 노이즈를 더해 스크램블
+}`},
+
+{id:'interactive-book',cat:'comp',title:'인터랙티브 북 (3D 페이지 넘김)',lib:'Vengeance UI',lic:'mit',
+ stack:['vanilla','css'],note:'책 페이지가 3D로 넘어감. 기존 페이지 전환류에 물리적 책 메타포 없음.',
+ links:[['Vengeance UI','https://www.vengenceui.com/']],
+ deps:'CSS 3D transform(rotateY)+perspective',
+ demo:`<div style="position:relative;width:220px;height:120px;perspective:700px;background:#0a0d14;border-radius:12px;border:1px solid #2c3342;display:flex;align-items:center;justify-content:center">
+   <div style="position:relative;width:140px;height:92px;display:flex">
+     <div style="width:70px;height:92px;background:#161c2a;border:1px solid #2c3342;border-radius:6px 0 0 6px"></div>
+     <div style="width:70px;height:92px;background:#161c2a;border:1px solid #2c3342;border-radius:0 6px 6px 0"></div>
+     <div style="position:absolute;left:70px;width:70px;height:92px;background:linear-gradient(120deg,#2a3555,#1d2740);border:1px solid #3a4570;border-radius:0 6px 6px 0;transform-style:preserve-3d;transform-origin:left center;animation:mCardFlip 3.6s cubic-bezier(.4,.1,.3,1) infinite"></div>
+   </div>
+ </div>`,
+ code:`/* Book.css — 3D 페이지 넘김 */
+.book { perspective: 1600px; }
+.page {
+  position: absolute; inset: 0; transform-origin: left center;
+  transform-style: preserve-3d; backface-visibility: hidden;
+  transition: transform .7s cubic-bezier(.4,.1,.3,1);
+}
+.page.flipped { transform: rotateY(-180deg); }
+.page .front, .page .back { position: absolute; inset: 0; backface-visibility: hidden; }
+.page .back { transform: rotateY(180deg); }
+/* JS: 클릭 시 page에 .flipped 토글, z-index를 페이지 순서대로 관리 */`},
+
+{id:'ripple-displacement-slider',cat:'comp',title:'리플 디스플레이스먼트 슬라이더',lib:'Vengeance UI',lic:'mit',
+ stack:['react','webgl'],note:'디스플레이스먼트 맵으로 이미지 A→B 물결 전환. 스크럽/마스크 전환과 다른 셰이더 기반.',
+ links:[['Vengeance UI','https://www.vengenceui.com/']],
+ deps:'Three.js/WebGL displacement map 셰이더',
+ demo:`<div style="position:relative;width:220px;height:120px;border-radius:12px;overflow:hidden;border:1px solid #2c3342">
+   <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0f2a5e,#123a7e);animation:mMorphA 4s ease-in-out infinite"></div>
+   <div style="position:absolute;inset:0;background:linear-gradient(135deg,#5e230f,#7e3a12);animation:mMorphB 4s ease-in-out infinite"></div>
+   <div style="position:absolute;left:50%;top:50%;width:20px;height:20px;border:2px solid #fff8;border-radius:50%;transform:translate(-50%,-50%);animation:mRipple 4s ease-out infinite"></div>
+ </div>`,
+ code:`// Three.js — displacement map fragment shader (발췌)
+uniform sampler2D texA, texB, dispTex;
+uniform float progress;
+varying vec2 vUv;
+void main() {
+  vec4 disp = texture2D(dispTex, vUv);
+  vec2 dispVec = vec2(disp.r, disp.g) * 2.0 - 1.0;
+  vec2 uvA = vUv + dispVec * progress * 0.3;
+  vec2 uvB = vUv + dispVec * (1.0 - progress) * -0.3;
+  vec4 colorA = texture2D(texA, uvA);
+  vec4 colorB = texture2D(texB, uvB);
+  gl_FragColor = mix(colorA, colorB, progress);
+}
+// progress를 0→1로 tween하면 노이즈 맵 굴곡을 따라 이미지가 물결처럼 전환`},
+
+{id:'circular-gallery-3d',cat:'comp',title:'서클러 갤러리 (3D 드래그 링)',lib:'Vengeance UI',lic:'mit',
+ stack:['react','webgl'],note:'이미지 3D 원형 고리 드래그 회전+중앙 프리뷰. 카드/실린더 캐러셀과 다른 조합.',
+ links:[['Vengeance UI','https://www.vengenceui.com/']],
+ deps:'Three.js — 이미지 원형 링 배치+드래그 스핀',
+ demo:`<div style="position:relative;width:220px;height:130px;display:flex;align-items:center;justify-content:center;background:#0a0d14;border-radius:12px;border:1px solid #2c3342">
+   <div style="position:relative;width:110px;height:110px;animation:spin 9s linear infinite">
+     ${[0,1,2,3,4,5].map(i=>`<div style="position:absolute;left:50%;top:50%;width:24px;height:32px;border-radius:5px;background:linear-gradient(135deg,#5d7bff,#8b5cf6);transform:translate(-50%,-50%) rotate(${i*60}deg) translateY(-52px)"></div>`).join('')}
+   </div>
+ </div>`,
+ code:`// React Three Fiber — 원형 배치 + 드래그 스핀
+function Ring({ images }) {
+  const group = useRef();
+  const rotation = useRef(0);
+  useFrame(() => { group.current.rotation.y = rotation.current; });
+  const bind = useDrag(({ delta: [dx] }) => { rotation.current += dx * 0.01; });
+  return (
+    <group ref={group} {...bind()}>
+      {images.map((src, i) => {
+        const angle = (i / images.length) * Math.PI * 2;
+        return (
+          <Image key={src} url={src}
+            position={[Math.sin(angle) * 4, 0, Math.cos(angle) * 4]}
+            rotation={[0, angle, 0]} />
+        );
+      })}
+    </group>
+  );
+}`},
+
+{id:'solar-system',cat:'bg',title:'솔라 시스템 (궤도 시각화)',lib:'Vengeance UI',lic:'mit',
+ stack:['react','webgl'],note:'오브젝트가 서로 다른 궤도를 도는 인터랙티브 3D. 궤도/천체 모티프 신규.',
+ links:[['Vengeance UI','https://www.vengenceui.com/']],
+ deps:'React Three Fiber — 궤도 회전',
+ demo:`<div style="position:relative;width:220px;height:130px;background:#0a0d14;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid #2c3342">
+   <div style="width:8px;height:8px;border-radius:50%;background:#f4d35e;box-shadow:0 0 10px #f4d35e"></div>
+   <div style="position:absolute;width:60px;height:60px;border:1px solid #2c3342;border-radius:50%;animation:spin 4s linear infinite">
+     <span style="position:absolute;left:50%;top:-3px;width:6px;height:6px;border-radius:50%;background:#5d7bff;transform:translateX(-50%)"></span>
+   </div>
+   <div style="position:absolute;width:100px;height:100px;border:1px solid #2c3342;border-radius:50%;animation:spin 7s linear infinite reverse">
+     <span style="position:absolute;left:50%;top:-3px;width:7px;height:7px;border-radius:50%;background:#7ee787;transform:translateX(-50%)"></span>
+   </div>
+ </div>`,
+ code:`// React Three Fiber — 궤도 회전
+function Orbit({ radius, speed, color }) {
+  const ref = useRef();
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime() * speed;
+    ref.current.position.set(Math.cos(t) * radius, 0, Math.sin(t) * radius);
+  });
+  return (
+    <mesh ref={ref}>
+      <sphereGeometry args={[0.3, 16, 16]} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.6} />
+    </mesh>
+  );
+}
+// <Canvas><ambientLight /><Orbit radius={4} speed={0.6} color="#5d7bff" />…</Canvas>`},
+
+{id:'wave-grid-bg',cat:'bg',title:'웨이브 그리드 배경',lib:'Vengeance UI',lic:'mit',
+ stack:['react','webgl'],note:'큐브 격자가 커서 따라 물결 출렁. 파티클/왜곡셰이더와 다른 지오메트리 기반.',
+ links:[['Vengeance UI','https://www.vengenceui.com/']],
+ deps:'R3F/three — 큐브 격자 지오메트리 웨이브',
+ demo:`<div style="position:absolute;inset:0;background:#0a0d14;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:16px">
+   ${Array.from({length:40}).map((_,i)=>`<div style="width:100%;aspect-ratio:1;border-radius:2px;background:linear-gradient(135deg,#2a3555,#3d5afe66);animation:mWave 2.4s ease-in-out ${((i%10)*.08)}s infinite"></div>`).join('')}
+ </div><div style="position:relative;color:#e8ebf2;font-weight:800;font-size:14px">WAVE GRID</div>`,
+ code:`// React Three Fiber — 큐브 격자 웨이브
+function WaveGrid({ cols = 20, rows = 12, spacing = 0.6 }) {
+  const meshes = useRef([]);
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    meshes.current.forEach((m, i) => {
+      const x = i % cols, z = Math.floor(i / cols);
+      const dist = Math.hypot(x - cols / 2, z - rows / 2);
+      m.position.y = Math.sin(dist * 0.5 - t * 2) * 0.4;
+    });
+  });
+  return (
+    <group>
+      {Array.from({ length: cols * rows }).map((_, i) => (
+        <mesh key={i} ref={el => (meshes.current[i] = el)}
+          position={[(i % cols) * spacing, 0, Math.floor(i / cols) * spacing]}>
+          <boxGeometry args={[0.4, 0.4, 0.4]} />
+          <meshStandardMaterial color="#5d7bff" />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+// 커서 근접 시 dist 계산에 마우스 좌표를 추가하면 커서를 따라 출렁임`},
+
 ];
 
 /* ---------- MOTION LAB 렌더링 ---------- */
