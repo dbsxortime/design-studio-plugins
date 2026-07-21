@@ -63,3 +63,21 @@ export function allowedColors(t) {
     t.color.text, t.color.muted,
     ...(t.color.allowed || [])].filter(Boolean).map(expandHex);
 }
+
+/* tokens-v1 → DaisyUI 테마. 신뢰 가능한 필드만 매핑, 나머지는 DaisyUI 기본 상속. 결정적. */
+export function daisyTheme(tokens) {
+  const c = tokens.color || {}, r = tokens.radius || {};
+  const pairs = [
+    ['--color-primary', expandHex(c.primary)],
+    ['--color-base-100', expandHex(c.bg)],
+    ['--color-base-200', expandHex(c.surface)],
+    ['--color-base-content', expandHex(c.text)],
+    ['--color-neutral', expandHex(c.muted)],
+    ['--radius-selector', r.base],
+    ['--radius-field', r.base],
+    ['--radius-box', r.card || r.base],
+  ].filter(([, v]) => v);
+  const body = pairs.map(([k, v]) => `  ${k}: ${v};`).join('\n');
+  const name = (tokens.meta && tokens.meta.project) || 'custom';
+  return `@plugin "daisyui/theme" {\n  name: "${name}";\n  default: true;\n  color-scheme: light;\n${body}\n}\n`;
+}

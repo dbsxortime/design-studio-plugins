@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /* tokens.json → 코드 결정적 변환기 — 확정 기준을 손으로 옮겨 적다 생기는 값 손실 방지.
-   사용: node tokens-to-code.mjs <프로젝트> [--format css|tailwind|all]
-   출력: <프로젝트>/.design/tokens.css (css) · tokens.tailwind.css (tailwind, v4 @theme)
+   사용: node tokens-to-code.mjs <프로젝트> [--format css|tailwind|daisyui|all]
+   출력: <프로젝트>/.design/tokens.css (css) · tokens.tailwind.css (tailwind, v4 @theme) · tokens.daisyui.css (daisyui, @plugin theme)
    출력물은 타임스탬프 없이 결정적 — 재실행 diff 무변경으로 무손실 검증 가능. */
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { validateTokens, expandHex, contrastOn } from './lib/tokens.mjs';
+import { validateTokens, expandHex, contrastOn, daisyTheme } from './lib/tokens.mjs';
 
 const args = process.argv.slice(2);
 const dir = args.find(a => !a.startsWith('--')) || '.';
 const fi = args.indexOf('--format');
 const format = fi >= 0 ? args[fi + 1] : 'css';
-if (!['css', 'tailwind', 'all'].includes(format)) {
-  console.error('--format은 css | tailwind | all 중 하나'); process.exit(1);
+if (!['css', 'tailwind', 'all', 'daisyui'].includes(format)) {
+  console.error('--format은 css | tailwind | daisyui | all 중 하나'); process.exit(1);
 }
 
 let tokens;
@@ -89,6 +89,11 @@ if (format === 'css' || format === 'all') {
 if (format === 'tailwind' || format === 'all') {
   const p = join(dir, '.design', 'tokens.tailwind.css');
   writeFileSync(p, render('@theme')); written.push(p);
+}
+if (format === 'daisyui' || format === 'all') {
+  const head = `/* AUTO-GENERATED — .design/tokens.json에서 생성. 손으로 수정 금지.\n   재생성: node <design-check-root>/scripts/tokens-to-code.mjs <프로젝트> --format daisyui\n   project: ${tokens.meta?.project || '-'} */\n`;
+  const p = join(dir, '.design', 'tokens.daisyui.css');
+  writeFileSync(p, head + daisyTheme(tokens)); written.push(p);
 }
 console.log(JSON.stringify({
   written, vars: vars.length,
