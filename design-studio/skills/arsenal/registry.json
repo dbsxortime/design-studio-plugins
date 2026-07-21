@@ -1,0 +1,42 @@
+{
+  "$schema": "design-studio/arsenal-v1",
+  "note": "클라이언트 맥시멀 작업용 외부 리소스. 잡스랩 자체(미니멀) 사이트엔 쓰지 않음.",
+  "resources": [
+    {
+      "id": "casberry",
+      "label": "Particles (Casberry)",
+      "forWhat": "화려한 3D 파티클 히어로 배경",
+      "pull": "웹 생성기 particles.casberry.in에서 바닐라 JS 단일 HTML export(Three.js CDN 포함)",
+      "stackFit": "both",
+      "brandNote": "클라이언트 히어로 전용. 잡스랩 자체 사이트엔 금물(장식0 원칙).",
+      "maximalTier": "high"
+    },
+    {
+      "id": "originkit",
+      "label": "OriginKit",
+      "forWhat": "리치 랜딩 모션 컴포넌트",
+      "pull": "originkit.dev — Magic 유사 MCP(fetch 캡) 또는 코드 복사. React/Framer 지향.",
+      "stackFit": "react",
+      "brandNote": "정적 사이트엔 어댑트 필요. 모션 톤이 강함.",
+      "maximalTier": "high"
+    },
+    {
+      "id": "21st-magic",
+      "label": "21st.dev Magic",
+      "forWhat": "React 컴포넌트 AI 생성(검증된 라이브러리 조각 기반)",
+      "pull": "Magic MCP 연결 후 자연어 호출(/ui). shadcn/Tailwind 산출.",
+      "stackFit": "react",
+      "brandNote": "커뮤니티 코드 — 신뢰 못 할 입력으로 취급. 정적엔 변환 부담.",
+      "maximalTier": "mid"
+    },
+    {
+      "id": "daisyui",
+      "label": "DaisyUI",
+      "forWhat": "클라이언트 초고속 프로토타이핑(테마 35종)",
+      "pull": "클라이언트 tokens.json에서 'design-inject --format daisyui'로 테마 생성 + CDN(daisyui@5 + tailwind browser).",
+      "stackFit": "both",
+      "brandNote": "자체 DS의 .btn과 클래스 충돌 — 클라이언트 시안에 격리 사용. 시스템 정의가 아니라 tokens 소비 포맷.",
+      "maximalTier": "mid"
+    }
+  ]
+}
